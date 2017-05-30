@@ -60,7 +60,30 @@ interface CopyLoadOptions {
     /**
      * The record type.
      */
-    type: Type | string;
+    type: Type;
+    /**
+     * The internal ID of the existing record instance in NetSuite.
+     */
+    id: number | string;
+    /**
+     * Determines whether the new record is dynamic. If set to true, the record is created in dynamic mode. If set to false, the record is created in standard mode. By default, this value is false.
+     * - When a SuiteScript 2.0 script creates, copies, loads, or transforms a record in standard mode, the record’s body fields and sublist line items are not sourced, calculated, and validated until the record is saved (submitted) with Record.save(options).
+     * - When you work with a record in standard mode, you do not need to set values in any particular order. After submitting the record, NetSuite processes the record’s body fields and sublist line items in the correct order, regardless of the organization of your script.
+     * - When a SuiteScript 2.0 script creates, copies, loads, or transforms a record in dynamic mode, the record’s body fields and sublist line items are sourced, calculated, and validated in real-time. A record in dynamic mode emulates the behavior of a record in the UI.
+     * - When you work with a record in dynamic mode, it is important that you set values in the same order you would within the UI. If you fail to do this, your results may not be accurate.
+     */
+    isDynamic?: boolean;
+    /**
+     * Name-value pairs containing default values of fields in the new record.
+     */
+    defaultValue?: any;
+}
+
+interface CopyLoadOptions_SO {
+    /**
+     * The record type.
+     */
+    type: Type.SALES_ORDER;
     /**
      * The internal ID of the existing record instance in NetSuite.
      */
@@ -106,6 +129,7 @@ interface GetCurrentSublistValueOptions {
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
+    //fieldId: string;
     fieldId: string;
 }
 
@@ -293,6 +317,85 @@ interface GetSelectOptionsOpts {
     operator: "contains" | "is" | "startswith";
 }
 
+/** Sales Order Specific Types */
+interface GetSublistValueOptions_SO_ab {
+    /** The internal ID of the sublist. */
+    sublistId: 'accountingbookdetail';
+    /** The internal ID of a standard or custom sublist field. */
+    fieldId: string | 'accountingbook' | 'exchangerate' | 'revreconrevcommitment' | 'tranisvsoebundle';
+    /** The line number for the field. */
+    line: number;
+}
+
+interface GetSublistValueOptions_SO_item {
+    /** The internal ID of the sublist. */
+    sublistId: 'item';
+    /** The internal ID of a standard or custom sublist field. */
+    fieldId: string | 'altsalesamt' | 'amortizationperiod' | 'amortizationtype' | 'amount' | 'billvariancestatus' | 'catchupperiod' | 'chargetype' | 'commitinventory' | 'costestimate' | 'costestimaterate' | 'costestimatetype' | 'createdpo' | 'createpo' | 'createwo' | 'daysbeforeexpiration' | 'deferrevrec' | 'description' | 'excludefromraterequest' | 'expectedshipdate' | 'fromjob' | 'giftcertfrom' | 'giftcertmessage' | 'giftcertrecipientemail' | 'giftcertrecipientname' | 'id' | 'inventorydetail' | 'isclosed' | 'isestimate' | 'istaxable' | 'isvsoebundle' | 'item' | 'itemfulfillmentchoice' | 'itemsubtype' | 'itemtype' | 'licensecode' | 'line' | 'linenumber' | 'locationautoassigned' | 'matrixtype' | 'noautoassignlocation' | 'options' | 'orderpriority' | 'porate' | 'povendor' | 'price' | 'printitems' | 'quantity' | 'quantityavailable' | 'quantitybackordered' | 'quantitybilled' | 'quantitycommitted' | 'quantityfulfilled' | 'quantityrevcommitted' | 'rate' | 'rateschedule' | 'revrecenddate' | 'revrecschedule' | 'revrecstartdate' | 'shipaddress' | 'shipcarrier' | 'shipmethod' | 'subscription' | 'taxcode' | 'taxrate1' | 'units' | 'vsoeallocation' | 'vsoeamount' | 'vsoedeferral' | 'vsoedelivered' | 'vsoeisestimate' | 'vsoepermitdiscount' | 'vsoeprice' | 'vsoesopgroup';
+    /** The line number for the field. */
+    line: number;
+}
+
+interface GetSublistValueOptions_SO_partners {
+    /** The internal ID of the sublist. */
+    sublistId: 'partners';
+    /** The internal ID of a standard or custom sublist field. */
+    fieldId: string | 'contribution' | 'id' | 'isprimary' | 'partner' | 'partnerrole' | 'transaction';
+    /** The line number for the field. */
+    line: number;
+}
+
+interface GetSublistValueOptions_SO_promotions {
+    /** The internal ID of the sublist. */
+    sublistId: 'promotions';
+    /** The internal ID of a standard or custom sublist field. */
+    fieldId: string | 'cannotbecombined' | 'couponcode' | 'discount' | 'discountrate' | 'muccpromocodeinstance' | 'promocode' | 'purchasediscount' | 'shippingdiscount';
+    /** The line number for the field. */
+    line: number;
+}
+
+interface GetSublistValueOptions_SO_sales {
+    /** The internal ID of the sublist. */
+    sublistId: 'salesteam';
+    /** The internal ID of a standard or custom sublist field. */
+    fieldId: string | 'contribution' | 'employee' | 'id' | 'isprimary' | 'issalesrep' | 'salesrole' | 'transaction';
+    /** The line number for the field. */
+    line: number;
+}
+
+interface GetSublistValueOptions_SO_ship {
+    /** The internal ID of the sublist. */
+    sublistId: 'shipgroup';
+    /** The internal ID of a standard or custom sublist field. */
+    fieldId: string | 'destinationaddress' | 'handlingrate' | 'id' | 'shippingcarrier' | 'shippingmethod' | 'shippingrate' | 'sourceaddress' | 'weight';
+    /** The line number for the field. */
+    line: number;
+}
+
+interface GetFieldOptions_SO {
+    /** The internal ID of a standard or custom body field. */
+    fieldId: string | "allowemptycards" | "althandlingcost" | "altsalestotal" | "altshippingcost" | "authcode" | "balance" | "billaddr1" | "billaddr2" | "billaddr3" | "billaddress" | "billaddressee" | "billaddresslist" | "billattention" | "billcity" | "billcountry" | "billingaddress" | "billingschedule" | "billisresidential" | "billphone" | "billstate" | "billzip" | "ccapproved" | "ccavsstreetmatch" | "ccavszipmatch" | "ccexpiredate" | "cchold" | "ccholdetails" | "cciavsmatch" | "ccname" | "ccnumber" | "ccprocessoraccount" | "ccsecuritycode" | "ccsecuritycodematch" | "ccstreet" | "cczipcode" | "class" | "consolidatebalance" | "couponcode" | "createddate" | "createdfrom" | "creditcard" | "creditcardprocessor" | "currency" | "currencyname" | "currencysymbol" | "customercode" | "customform" | "debitcardissueno" | "deferredrevenue" | "department" | "discountitem" | "discountrate" | "discounttotal" | "draccount" | "email" | "enddate" | "entity" | "entitynexus" | "estgrossprofit" | "estgrossprofitpercent" | "exchangerate" | "excludecommission" | "externalid" | "fob" | "fxaccount" | "getauth" | "giftcertapplied" | "handlingcost" | "handlingtax1rate" | "handlingtaxcode" | "ignoreavs" | "ignorecsc" | "inputpnrefnum" | "intercostatus" | "intercotransaction" | "isbasecurrency" | "isdefaultshippingrequest" | "ismultishipto" | "ispurchasecard" | "isrecurringpayment" | "istaxable" | "lastmodifieddate" | "leadsource" | "linkedtrackingnumbers" | "location" | "memo" | "message" | "messagesel" | "muccpromocodeinstance" | "nexus" | "onetime" | "opportunity" | "orderstatus" | "otherrefnum" | "overridehold" | "overrideholdchecked" | "overrideshippingcost" | "partner" | "paymenteventdate" | "paymenteventholdreason" | "paymenteventpurchasedatasent" | "paymenteventresult" | "paymenteventtype" | "paymenteventupdatedby" | "paymentmethod" | "paypalauthid" | "paypalprocess" | "paypalstatus" | "paypaltranid" | "pnrefnum" | "promocode" | "promocodepluginimpl" | "recognizedrevenue" | "recurannually" | "recurmonthly" | "recurquarterly" | "recurweekly" | "returntrackingnumbers" | "revcommitstatus" | "revenuestatus" | "revreconrevcommitment" | "saleseffectivedate" | "salesgroup" | "salesrep" | "shipaddr1" | "shipaddr2" | "shipaddr3" | "shipaddress" | "shipaddressee" | "shipaddresslist" | "shipattention" | "shipcity" | "shipcomplete" | "shipcountry" | "shipdate" | "shipisresidential" | "shipmethod" | "shipoverride" | "shipphone" | "shippingaddress" | "shippingcost" | "shippingcostoverridden" | "shippingtax1rate" | "shippingtaxcode" | "shipstate" | "shipzip" | "softdescriptor" | "source" | "startdate" | "status" | "statusRef" | "subsidiary" | "subtotal" | "syncpartnerteams" | "syncsalesteams" | "taxitem" | "taxrate" | "taxtotal" | "terms" | "threedstatuscode" | "tobeemailed" | "tobefaxed" | "tobeprinted" | "total" | "totalcostestimate" | "trandate" | "tranid" | "tranisvsoebundle" | "unbilledorders" | "validfrom" | "vsoeautocalc";
+}
+
+// interface GetCurrentSublistValueOptions {
+//     /** The internal ID of the sublist. */
+//     sublistId: string;
+//     /** The internal ID of a standard or custom sublist field. */
+//     fieldId: string;
+// }
+//
+// interface GetFieldOptions {
+//     /** The internal ID of a standard or custom body field. */
+//     fieldId: string;
+// }
+//
+// interface RecordGetLineCountOptions {
+//     /** The internal ID of the sublist. */
+//     sublistId: string;
+// }
+
+/** End of Sales Order Types */
+
 export interface Field {
     /** Adds the select options that appears in the dropdown of a field. */
     insertSelectOption(options: AddSelectOptionOptions): void;
@@ -373,15 +476,15 @@ export interface ClientCurrentRecord {
     getSublistText(options: GetSublistValueOptions): string;
     /** Returns the value of a sublist field. */
     getSublistValue(options: GetSublistValueOptions): FieldValue;
-    getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue;
+    //getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue;
     /** Gets the subrecord for the associated field. */
     getSubrecord(options: GetFieldOptions): Record;
     /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string | string[];
-    getText(fieldId: string): string | string[];
+    //getText(fieldId: string): string | string[];
     /** Returns the value of a field. */
     getValue(options: GetFieldOptions): FieldValue;
-    getValue(fieldId: string): FieldValue;
+    //getValue(fieldId: string): FieldValue;
     /** Returns a value indicating whether the associated sublist field has a subrecord on the current line. This method can only be used on dynamic records. */
     hasCurrentSublistSubrecord(options: GetCurrentSublistValueOptions): boolean;
     /** Returns a value indicating whether the associated sublist field contains a subrecord. */
@@ -453,6 +556,25 @@ export interface Record extends ClientCurrentRecord {
     /** Sets the value of a sublist field. (standard mode only). */
     setSublistValue(options: SetSublistValueOptions): Record;
     toString(): string;
+}
+
+export interface SalesOrder extends Record {
+    /** Returns the value of a sublist field. */
+    getSublistValue(options: GetSublistValueOptions_SO_ab | GetSublistValueOptions_SO_item | GetSublistValueOptions_SO_partners | GetSublistValueOptions_SO_promotions | GetSublistValueOptions_SO_sales | GetSublistValueOptions_SO_ship): FieldValue;
+    //getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue;
+    /** Returns a field object from a sublist. */
+    getSublistField(options: GetSublistValueOptions_SO_ab | GetSublistValueOptions_SO_item | GetSublistValueOptions_SO_partners | GetSublistValueOptions_SO_promotions | GetSublistValueOptions_SO_sales | GetSublistValueOptions_SO_ship): Field;
+    /** Returns the value of a sublist field in a text representation. */
+    getSublistText(options: GetSublistValueOptions_SO_ab | GetSublistValueOptions_SO_item | GetSublistValueOptions_SO_partners | GetSublistValueOptions_SO_promotions | GetSublistValueOptions_SO_sales | GetSublistValueOptions_SO_ship): string;
+    /** Returns a value indicating whether the associated sublist field contains a subrecord. */
+    hasSublistSubrecord(options: GetSublistValueOptions_SO_ab | GetSublistValueOptions_SO_item | GetSublistValueOptions_SO_partners | GetSublistValueOptions_SO_promotions | GetSublistValueOptions_SO_sales | GetSublistValueOptions_SO_ship): boolean;
+    /** Returns the text representation of a field value. */
+    getText(options: GetFieldOptions_SO): string | string[];
+    getText(fieldId: string): string | string[];
+    /** Returns the value of a field. */
+    getValue(options: GetFieldOptions_SO): FieldValue;
+    //getValue(fieldId: string): FieldValue;
+    testFunc(options: 'bingo') : FieldValue;
 }
 
 interface SubmitConfig {
@@ -533,9 +655,16 @@ interface RecordDetachFunction {
 }
 
 interface RecordLoadFunction {
+    (options: CopyLoadOptions_SO): SalesOrder;
+    //promise(options: CopyLoadOptions_SO): Promise<SalesOrder>;
     (options: CopyLoadOptions): Record;
-    promise(options: CopyLoadOptions): Promise<Record>;
+    //promise(options: CopyLoadOptions): Promise<Record>;
 }
+
+// interface RecordLoadFunction_SO {
+//     (options: CopyLoadOptions_SO): SalesOrder;
+//     promise(options: CopyLoadOptions_SO): Promise<SalesOrder>;
+// }
 
 interface RecordDeleteFunction {
     (options: RecordDeleteOptions): void;
@@ -565,7 +694,7 @@ export var attach: RecordAttachFunction;
 /** Creates a new record by copying an existing record in NetSuite. */
 export var copy: RecordCopyFunction;
 /** Creates a new record. */
-export var create: RecordCreateFunction
+export var create: RecordCreateFunction;
 /** Deletes a record. */
 declare var deleteFunc: RecordDeleteFunction;
 export { deleteFunc as delete };
@@ -592,7 +721,7 @@ export var transform: RecordTransformFunction;
  * N/record.Type enum
  *
  */
-export declare enum Type {
+export const enum Type {
     ACCOUNT,
     ACCOUNTING_BOOK,
     ACCOUNTING_PERIOD,
@@ -773,3 +902,189 @@ export declare enum Type {
     WORK_ORDER_COMPLETION,
     WORK_ORDER_ISSUE
 }
+
+// /**
+//  * N/record.Type enum
+//  *
+//  */
+// export const enum Type {
+//     ACCOUNT = 0,
+//     ACCOUNTING_BOOK = 1,
+//     ACCOUNTING_PERIOD = 2,
+//     AMORTIZATION_SCHEDULE = 3,
+//     AMORTIZATION_TEMPLATE = 4,
+//     ASSEMBLY_BUILD = 5,
+//     ASSEMBLY_ITEM = 6,
+//     ASSEMBLY_UNBUILD = 7,
+//     BILLING_ACCOUNT = 8,
+//     BILLING_CLASS = 9,
+//     BILLING_SCHEDULE = 10,
+//     BIN = 11,
+//     BIN_TRANSFER = 12,
+//     BIN_WORKSHEET = 13,
+//     BLANKET_PURCHASE_ORDER = 14,
+//     BUNDLE_INSTALLATION_SCRIPT = 15,
+//     CALENDAR_EVENT = 16,
+//     CAMPAIGN = 17,
+//     CAMPAIGN_TEMPLATE = 18,
+//     CASH_REFUND = 19,
+//     CASH_SALE = 20,
+//     CHARGE = 21,
+//     CHECK = 22,
+//     CLASSIFICATION = 23,
+//     CLIENT_SCRIPT = 24,
+//     COMPETITOR = 25,
+//     CONTACT = 26,
+//     COUPON_CODE = 27,
+//     CREDIT_CARD_CHARGE = 28,
+//     CREDIT_CARD_REFUND = 29,
+//     CREDIT_MEMO = 30,
+//     CURRENCY = 31,
+//     CUSTOMER = 32,
+//     CUSTOMER_CATEGORY = 33,
+//     CUSTOMER_DEPOSIT = 34,
+//     CUSTOMER_PAYMENT = 35,
+//     CUSTOMER_REFUND = 36,
+//     CUSTOM_TRANSACTION = 37,
+//     DEPARTMENT = 38,
+//     DEPOSIT = 39,
+//     DEPOSIT_APPLICATION = 40,
+//     DESCRIPTION_ITEM = 41,
+//     DISCOUNT_ITEM = 42,
+//     DOWNLOAD_ITEM = 43,
+//     DRIVERS_LICENSE = 44,
+//     EMAIL_TEMPLATE = 45,
+//     EMPLOYEE = 46,
+//     ENTITY_ACCOUNT_MAPPING = 47,
+//     ESTIMATE = 48,
+//     EXPENSE_CATEGORY = 49,
+//     EXPENSE_REPORT = 50,
+//     FAIR_VALUE_PRICE = 51,
+//     // FOLDER,
+//     // GENERIC_RESOURCE,
+//     // GIFT_CERTIFICATE,
+//     // GIFT_CERTIFICATE_ITEM,
+//     // GLOBAL_ACCOUNT_MAPPING,
+//     // GOVERNMENT_ISSUED_ID_TYPE,
+//     // HCM_JOB,
+//     // INTER_COMPANY_JOURNAL_ENTRY,
+//     // INTER_COMPANY_TRANSFER_ORDER,
+//     // INVENTORY_ADJUSTMENT,
+//     // INVENTORY_COST_REVALUATION,
+//     // INVENTORY_COUNT,
+//     // INVENTORY_DETAIL,
+//     // INVENTORY_ITEM,
+//     // INVENTORY_NUMBER,
+//     // INVENTORY_TRANSFER,
+//     // INVOICE,
+//     // ISSUE,
+//     // ITEM_ACCOUNT_MAPPING,
+//     // ITEM_DEMAND_PLAN,
+//     // ITEM_FULFILLMENT,
+//     // ITEM_GROUP,
+//     // ITEM_RECEIPT,
+//     // ITEM_REVISION,
+//     // ITEM_SUPPLY_PLAN,
+//     // JOB,
+//     // JOB_REQUISITION,
+//     // JOURNAL_ENTRY,
+//     // KIT_ITEM,
+//     // KUDOS,
+//     // LEAD,
+//     // LOCATION,
+//     // LOT_NUMBERED_ASSEMBLY_ITEM,
+//     // LOT_NUMBERED_INVENTORY_ITEM,
+//     // MANUFACTURING_COST_TEMPLATE,
+//     // MANUFACTURING_OPERATION_TASK,
+//     // MANUFACTURING_ROUTING,
+//     // MAP_REDUCE_SCRIPT,
+//     // MARKUP_ITEM,
+//     // MASSUPDATE_SCRIPT,
+//     // MESSAGE,
+//     // MFG_PLANNED_TIME,
+//     // NEXUS,
+//     // NON_INVENTORY_ITEM,
+//     // NOTE,
+//     // OPPORTUNITY,
+//     // ORDER_SCHEDULE,
+//     // ORGANIZATION_VALUE,
+//     // OTHER_CHARGE_ITEM,
+//     // OTHER_GOVERNMENT_ISSUED_ID,
+//     // OTHER_NAME,
+//     // PARTNER,
+//     // PASSPORT,
+//     // PAYCHECK_JOURNAL,
+//     // PAYMENT_ITEM,
+//     // PAYROLL_ITEM,
+//     // PHONE_CALL,
+//     // PORTLET,
+//     // POSITION,
+//     // PRICE_LEVEL,
+//     // PROJECT_EXPENSE_TYPE,
+//     // PROJECT_TASK,
+//     // PROJECT_TEMPLATE,
+//     // PROMOTION_CODE,
+//     // PROSPECT,
+//     // PURCHASE_CONTRACT,
+//     // PURCHASE_ORDER,
+//     // PURCHASE_REQUISITION,
+//     // RATE_PLAN,
+//     // REALLOCATE_ITEM,
+//     // RESOURCE_ALLOCATION,
+//     // RESTLET,
+//     // RETURN_AUTHORIZATION,
+//     // REVENUE_ARRANGEMENT,
+//     // REVENUE_COMMITMENT,
+//     // REVENUE_COMMITMENT_REVERSAL,
+//     // REVENUE_PLAN,
+//     // REV_REC_SCHEDULE,
+//     // REV_REC_TEMPLATE,
+//     SALES_ORDER = 52
+//     // SALES_TAX_ITEM,
+//     // SCHEDULED_SCRIPT,
+//     // SCHEDULED_SCRIPT_INSTANCE,
+//     // SCRIPT_DEPLOYMENT,
+//     // SERIALIZED_ASSEMBLY_ITEM,
+//     // SERIALIZED_INVENTORY_ITEM,
+//     // SERVICE_ITEM,
+//     // SHIP_ITEM,
+//     // SOLUTION,
+//     // STATISTICAL_JOURNAL_ENTRY,
+//     // SUBSCRIPTION,
+//     // SUBSCRIPTION_CHANGE_ORDER,
+//     // SUBSCRIPTION_LINE,
+//     // SUBSCRIPTION_PLAN,
+//     // SUBSIDIARY,
+//     // SUBTOTAL_ITEM,
+//     // SUITELET,
+//     // SUPPORT_CASE,
+//     // TASK,
+//     // TAX_ACCT,
+//     // TAX_GROUP,
+//     // TAX_PERIOD,
+//     // TAX_TYPE,
+//     // TERM,
+//     // TERMINATION_REASON,
+//     // TIME_BILL,
+//     // TIME_OFF_CHANGE,
+//     // TIME_OFF_PLAN,
+//     // TIME_OFF_REQUEST,
+//     // TIME_OFF_RULE,
+//     // TIME_OFF_TYPE,
+//     // TOPIC,
+//     // TRANSFER_ORDER,
+//     // UNITS_TYPE,
+//     // USEREVENT_SCRIPT,
+//     // VENDOR,
+//     // VENDOR_BILL,
+//     // VENDOR_CATEGORY,
+//     // VENDOR_CREDIT,
+//     // VENDOR_PAYMENT,
+//     // VENDOR_RETURN_AUTHORIZATION,
+//     // WEBSITE,
+//     // WORKFLOW_ACTION_SCRIPT,
+//     // WORK_ORDER,
+//     // WORK_ORDER_CLOSE,
+//     // WORK_ORDER_COMPLETION,
+//     // WORK_ORDER_ISSUE
+// }

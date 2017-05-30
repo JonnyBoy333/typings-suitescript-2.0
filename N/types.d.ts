@@ -177,6 +177,15 @@ export namespace EntryPoints {
             UserEventType: UserEventTypes;
         }
         type afterSubmit = (scriptContext?: afterSubmitContext) => void;
+
+        namespace afterSubmitContext {
+            interface SalesOrder {
+                newRecord: N_record.SalesOrder;
+                oldRecord: N_record.SalesOrder;
+                type: UserEventType;
+                UserEventType: UserEventTypes;
+            }
+        }
     }
 
     namespace Scheduled {

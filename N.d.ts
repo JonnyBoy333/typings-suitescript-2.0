@@ -30,6 +30,7 @@ import * as N_xml from './N/xml';
 import * as N_ui_dialog from './N/ui/dialog';
 import * as N_ui_message from './N/ui/message';
 import * as N_ui_serverWidget from './N/ui/serverWidget';
+import * as N_test from './N/test';
 
 export {N_auth as auth};
 export {N_cache as cache};
@@ -60,6 +61,7 @@ export {N_url as url};
 export {N_util as util};
 export {N_workflow as workflow};
 export {N_xml as xml};
+export {N_test as test};
 
 declare interface N_UI_Module {
     dialog: typeof N_ui_dialog,
