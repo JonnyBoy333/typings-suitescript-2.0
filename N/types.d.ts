@@ -3,6 +3,24 @@ import * as N_portlet from './portlet';
 import * as N_record from './record';
 import * as N_search from './search';
 import * as N_ui_serverWidget from './ui/serverWidget';
+import * as recordTypes from './recordTypes';
+import * as testing from './testing';
+import { 
+    fieldChangedContext as fieldChangedContextAlias,
+    lineInitContext as lineInitContextAlias,
+    pageInitContext as pageInitContextAlias,
+    postSourcingContext as postSourcingContextAlias,
+    saveRecordContext as saveRecordContextAlias,
+    sublistChangedContext as sublistChangedContextAlias,
+    validateDeleteContext as validateDeleteContextAlias,
+    validateFieldContext as validateFieldContextAlias,
+    validateInsertContext as validateInsertContextAlias,
+    validateLineContext as validateLineContextAlias,
+    beforeLoadContext as beforeLoadContextAlias,
+    beforeSubmitContext as beforeSubmitContextAlias,
+    afterSubmitContext as afterSubmitContextAlias,
+    onActionContext as onActionContextAlias
+} from './recordTypes/_context_exports';
 
 /*Don't export these into the Namespace as we don't
 want to accidentally use a comparison like this:
@@ -89,18 +107,21 @@ export namespace EntryPoints {
             column: number;
         }
         type fieldChanged = (scriptContext?: fieldChangedContext) => void;
+        export import fieldChangedContext = fieldChangedContextAlias;
 
         interface lineInitContext {
             currentRecord: N_record.ClientCurrentRecord;
             sublistId: string;
         }
         type lineInit = (scriptContext?: lineInitContext) => void;
+        export import lineInitContext = lineInitContextAlias;
 
         interface pageInitContext {
             currentRecord: N_record.ClientCurrentRecord;
             mode: string;
         }
         type pageInit = (scriptContext?: pageInitContext) => void;
+        export import pageInitContext = pageInitContextAlias;
 
         interface postSourcingContext {
             currentRecord: N_record.ClientCurrentRecord;
@@ -108,11 +129,13 @@ export namespace EntryPoints {
             fieldId: string;
         }
         type postSourcing = (scriptContext?: postSourcingContext) => void;
+        export import postSourcingContext = postSourcingContextAlias;
 
         interface saveRecordContext {
             currentRecord: N_record.ClientCurrentRecord;
         }
         type saveRecord = (scriptContext?: saveRecordContext) => boolean;
+        export import saveRecordContext = saveRecordContextAlias;
 
         interface sublistChangedContext {
             currentRecord: N_record.ClientCurrentRecord;
@@ -123,12 +146,14 @@ export namespace EntryPoints {
             operation: string;
         }
         type sublistChanged = (scriptContext?: sublistChangedContext) => void;
+        export import sublistChangedContext = sublistChangedContextAlias;
 
         interface validateDeleteContext {
             currentRecord: N_record.ClientCurrentRecord;
             sublistId: string;
         }
         type validateDelete = (scriptContext?: validateDeleteContext) => boolean;
+        export import validateDeleteContext = validateDeleteContextAlias;
 
         interface validateFieldContext {
             currentRecord: N_record.ClientCurrentRecord;
@@ -138,18 +163,21 @@ export namespace EntryPoints {
             column?: number;
         }
         type validateField = (scriptContext?: validateFieldContext) => boolean;
+        export import validateFieldContext = validateDeleteContextAlias;
 
         interface validateInsertContext {
             currentRecord: N_record.ClientCurrentRecord;
             sublistId: string;
         }
         type validateInsert = (scriptContext?: validateInsertContext) => boolean;
+        export import validateInsertContext = validateInsertContextAlias;
 
         interface validateLineContext {
             currentRecord: N_record.ClientCurrentRecord;
             sublistId: string;
         }
         type validateLine = (scriptContext?: validateLineContext) => boolean;
+        export import validateLineContext = validateDeleteContextAlias;
     }
 
     namespace UserEvent {
@@ -161,6 +189,7 @@ export namespace EntryPoints {
             request: N_http.ServerRequest;
         }
         type beforeLoad = (scriptContext?: beforeLoadContext) => void;
+        export import beforeLoadContext = beforeLoadContextAlias;
 
         interface beforeSubmitContext {
             newRecord: N_record.Record;
@@ -169,6 +198,7 @@ export namespace EntryPoints {
             UserEventType: UserEventTypes;
         }
         type beforeSubmit = (scriptContext?: beforeSubmitContext) => void;
+        export import beforeSubmitContext = beforeSubmitContextAlias;
 
         interface afterSubmitContext {
             newRecord: N_record.Record;
@@ -177,15 +207,7 @@ export namespace EntryPoints {
             UserEventType: UserEventTypes;
         }
         type afterSubmit = (scriptContext?: afterSubmitContext) => void;
-
-        namespace afterSubmitContext {
-            interface SalesOrder {
-                newRecord: N_record.SalesOrder;
-                oldRecord: N_record.SalesOrder;
-                type: UserEventType;
-                UserEventType: UserEventTypes;
-            }
-        }
+        export import afterSubmitContext = afterSubmitContextAlias;
     }
 
     namespace Scheduled {
@@ -292,6 +314,7 @@ export namespace EntryPoints {
             oldRecord: N_record.Record;
         }
         type onAction = (scriptContext?: onActionContext) => void;
+        export import onActionContext = onActionContextAlias;
     }
 
     namespace RESTlet {
