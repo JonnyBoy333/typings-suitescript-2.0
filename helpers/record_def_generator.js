@@ -1,7 +1,6 @@
 const jsdom = require('node-jsdom');
 const Type = require('./types');
 const fs = require('fs');
-//const jQuery = require('jquery');
 
 //Get all the NetSuite record URLs
 let urls = [];
@@ -9,16 +8,6 @@ let completed = {};
 for (let record in Type) {
     urls.push(`https://system.netsuite.com/help/helpcenter/en_US/srbrowser/Browser2016_2/script/record/${record}.html`)
 }
-//console.log('URLs', urls);
-//urls = ['https://system.netsuite.com/help/helpcenter/en_US/srbrowser/Browser2016_2/script/record/salesorder.html'];
-//Loop through each URL and generate the definition file
-
-// let itemsProcessed = 0;
-// let requests = [1, 2, 3].reduce((promiseChain, item) => {
-//     return promiseChain.then(() => new Promise((resolve) => {
-//       asyncFunction(item, resolve);
-//     }));
-// }, Promise.resolve());
 
 function createDefinitionFile (url, cb) {
     jsdom.env(
@@ -51,7 +40,6 @@ function createDefinitionFile (url, cb) {
                     return obj;
                 }, {});
 
-                //return Object.entries(group_to_values).map(([field_type, id]) => ({ field_type, id }));
                 //console.log('Group to values', group_to_values);
                 return Object.keys(group_to_values).map(function (key) {
                     return { field_type: key, id: group_to_values[key] };
@@ -66,22 +54,15 @@ function createDefinitionFile (url, cb) {
                 for (let i = 0; i < rows.length; i++) {
                     let id = rows.eq(i).attr('id');
                     //console.log('ID', id);
-                    //if (id.indexOf('_') !== id.lastIndexOf('_')) listName = id.substring(id.indexOf('_') + 1, id.lastIndexOf('_'));
-                    //if (id.substr(id.lastIndexOf('_') > - 0)) {
-                        //let name = "'" + id.substr(id.lastIndexOf('_') + 1) + "'";
-                        let name = rows.eq(i).children().eq(0).text();
-                        let fieldType = rows.eq(i).children().eq(1).text();
-                        //if (i === rows.length - 1) names += name;
-                        //else names += name + ' | ';
-                        names.push({
-                            fieldId: name,
-                            fieldType: fieldType
-                        })
-                    //}
+                    let name = rows.eq(i).children().eq(0).text();
+                    let fieldType = rows.eq(i).children().eq(1).text();
+                    names.push({
+                        fieldId: name,
+                        fieldType: fieldType
+                    })
                 }
                 if (names.length > 0) {
                     if (listName === 'main') {
-                        // mainFields = names.sort((a,b) => a.fieldType - b.fieldType);
                         mainFields = groupArray(names);
                         //console.log(mainFields);
                     }
@@ -93,8 +74,8 @@ function createDefinitionFile (url, cb) {
                         //console.log('sublists', sublists);
                         sublists += sublists ? ` | '${listName}'` : `'${listName}'`;
                     }
-                    // 		console.log(listName);
-                    // 		console.log(names);
+                    // console.log(listName);
+                    // console.log(names);
                 }
             }
             //console.log('Main Fields', mainFields);
@@ -118,7 +99,7 @@ function createDefinitionFile (url, cb) {
                 });
             //console.log('Main Field Text', mainFieldsTxt);
 
-            function concatFields(fieldArr, sublist) {
+            function concatTopFields(fieldArr, sublist) {
                 let txt = '';
                 for (let i = 0; i < fieldArr.length; i++) {
                     txt += `type ${sublist}_${fieldArr[i].field_type} = '${fieldArr[i].id.join("' | '")}';\n`;
@@ -127,7 +108,7 @@ function createDefinitionFile (url, cb) {
                 return txt;
             }
 
-            function concatFields2(fieldArr, sublist) {
+            function concatSublistTypes(fieldArr, sublist) {
                 let txt = '';
                 for (let i = 0; i < fieldArr.length; i++) {
                     txt += i === fieldArr.length - 1 ? `${sublist}_${fieldArr[i].field_type}` : `${sublist}_${fieldArr[i].field_type} | `;
@@ -136,7 +117,7 @@ function createDefinitionFile (url, cb) {
                 return txt;
             }
 
-            function concatFields3(mainTxt) {
+            function concatSublists(sublistFields, mainTxt) {
                 let txt = '';
                 for (let i = 0; i < sublistFields.length; i++) {
                     txt += i === sublistFields.length - 1 ? `${mainTxt}_${sublistFields[i].sublist}` : `${mainTxt}_${sublistFields[i].sublist} | `;
@@ -155,13 +136,13 @@ import { UserEventType, UserEventTypes } from './_EventTypes'
 
             //Add main field types to the top of the file
             fileTxt += `// main field types\n`
-            fileTxt += concatFields(mainFields, 'main');
+            fileTxt += concatTopFields(mainFields, 'main');
             fileTxt += `\n`;
 
             //Add sublist field types to the top of the file
             for (let i = 0; i < sublistFields.length; i++) {
                 fileTxt += `// ${sublistFields[i].sublist} field types\n`;
-                fileTxt += concatFields(sublistFields[i].fields, sublistFields[i].sublist);
+                fileTxt += concatTopFields(sublistFields[i].fields, sublistFields[i].sublist);
                 fileTxt += `\n`;
             }
 
@@ -243,7 +224,7 @@ interface FindSublistLineWithValueOptions_${sublistFields[i].sublist} {
     /** The internal ID of the sublist. */
     sublistId: '${sublistFields[i].sublist}';
     /** The internal ID of a standard or custom sublist field. */
-    fieldId: ${concatFields2(sublistFields[i].fields, sublistFields[i].sublist)};
+    fieldId: ${concatSublistTypes(sublistFields[i].fields, sublistFields[i].sublist)};
     /** The value to search for. */
     value: FieldValue;
 }
@@ -252,21 +233,21 @@ interface GetCurrentSublistValueOptions_${sublistFields[i].sublist} {
     /** The internal ID of the sublist. */
     sublistId: '${sublistFields[i].sublist}';
     /** The internal ID of a standard or custom sublist field. */
-    fieldId: ${concatFields2(sublistFields[i].fields, sublistFields[i].sublist)};
+    fieldId: ${concatSublistTypes(sublistFields[i].fields, sublistFields[i].sublist)};
 }
 
 interface GetMatrixHeaderCountOptions_${sublistFields[i].sublist} {
     /** The internal ID of the sublist that contains the matrix. */
     sublistId: '${sublistFields[i].sublist}';
     /** The intenral ID of the matrix field. */
-    fieldId: ${concatFields2(sublistFields[i].fields, sublistFields[i].sublist)};
+    fieldId: ${concatSublistTypes(sublistFields[i].fields, sublistFields[i].sublist)};
 }
 
 interface GetMatrixHeaderFieldOptions_${sublistFields[i].sublist} {
     /** The internal ID of the sublist that contains the matrix. */
     sublistId: '${sublistFields[i].sublist}';
     /** The internal ID of the matrix field. */
-    fieldId: ${concatFields2(sublistFields[i].fields, sublistFields[i].sublist)};
+    fieldId: ${concatSublistTypes(sublistFields[i].fields, sublistFields[i].sublist)};
     /** The column number for the field. */
     column: number;
 }
@@ -275,7 +256,7 @@ interface GetMatrixSublistFieldOptions_${sublistFields[i].sublist} {
     /** The internal ID of the sublist that contains the matrix. */
     sublistId: '${sublistFields[i].sublist}';
     /** The intenral ID of the matrix field. */
-    fieldId: ${concatFields2(sublistFields[i].fields, sublistFields[i].sublist)};
+    fieldId: ${concatSublistTypes(sublistFields[i].fields, sublistFields[i].sublist)};
     /** The column number for the field. */
     column: number;
     /** The line number for the field. */
@@ -286,7 +267,7 @@ interface GetSublistValueOptions_${sublistFields[i].sublist} {
     /** The internal ID of the sublist. */
     sublistId: '${sublistFields[i].sublist}';
     /** The internal ID of a standard or custom sublist field. */
-    fieldId: ${concatFields2(sublistFields[i].fields, sublistFields[i].sublist)};
+    fieldId: ${concatSublistTypes(sublistFields[i].fields, sublistFields[i].sublist)};
     /** The line number for the field. */
     line: number;
 }
@@ -295,7 +276,7 @@ interface SetCurrentMatrixSublistValueOptions_${sublistFields[i].sublist} {
     /** The internal ID of the sublist. */
     sublistId: '${sublistFields[i].sublist}';
     /** The internal ID of a standard or custom sublist field. */
-    fieldId: ${concatFields2(sublistFields[i].fields, sublistFields[i].sublist)};
+    fieldId: ${concatSublistTypes(sublistFields[i].fields, sublistFields[i].sublist)};
     /** The column number for the field. */
     column: number
     /**
@@ -317,7 +298,7 @@ interface SetCurrentSublistValueOptions_${sublistFields[i].sublist} {
     /** The internal ID of the sublist. */
     sublistId: '${sublistFields[i].sublist}';
     /** The internal ID of a standard or custom sublist field. */
-    fieldId: ${concatFields2(sublistFields[i].fields, sublistFields[i].sublist)};
+    fieldId: ${concatSublistTypes(sublistFields[i].fields, sublistFields[i].sublist)};
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -337,7 +318,7 @@ interface SetCurrentSublistTextOptions_${sublistFields[i].sublist} {
     /** The internal ID of the sublist. */
     sublistId: '${sublistFields[i].sublist}';
     /** The internal ID of a standard or custom sublist field. */
-    fieldId: ${concatFields2(sublistFields[i].fields, sublistFields[i].sublist)};
+    fieldId: ${concatSublistTypes(sublistFields[i].fields, sublistFields[i].sublist)};
     /** The text to set the value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -348,7 +329,7 @@ interface SetSublistTextOptions_${sublistFields[i].sublist} {
     /** The internal ID of the sublist. */
     sublistId: '${sublistFields[i].sublist}';
     /** The internal ID of a standard or custom sublist field. */
-    fieldId: ${concatFields2(sublistFields[i].fields, sublistFields[i].sublist)};
+    fieldId: ${concatSublistTypes(sublistFields[i].fields, sublistFields[i].sublist)};
     /** The line number for the field. */
     line: number;
     /** The text to set the value to. */
@@ -361,7 +342,7 @@ interface SetSublistValueOptions_${sublistFields[i].sublist} {
     /** The internal ID of the sublist. */
     sublistId: '${sublistFields[i].sublist}';
     /** The internal ID of a standard or custom sublist field. */
-    fieldId: ${concatFields2(sublistFields[i].fields, sublistFields[i].sublist)};
+    fieldId: ${concatSublistTypes(sublistFields[i].fields, sublistFields[i].sublist)};
     /** The internal ID of a standard or custom sublist field. */
     line: number;
     /**
@@ -537,20 +518,20 @@ if (sublists) {
     fileTxt += 
 `
     /** Returns the value of a sublist field. */
-    getSublistValue(options: ${concatFields3('GetSublistValueOptions')}): FieldValue;
+    getSublistValue(options: ${concatSublists(sublistFields, 'GetSublistValueOptions')}): FieldValue;
     //getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue;
     /** Returns a field object from a sublist. */
-    getSublistField(options: ${concatFields3('GetSublistValueOptions')}): Field;
+    getSublistField(options: ${concatSublists(sublistFields, 'GetSublistValueOptions')}): Field;
     /** Returns the value of a sublist field in a text representation. */
-    getSublistText(options: ${concatFields3('GetSublistValueOptions')}): string;
+    getSublistText(options: ${concatSublists(sublistFields, 'GetSublistValueOptions')}): string;
     /** Returns a value indicating whether the associated sublist field contains a subrecord. */
-    hasSublistSubrecord(options: ${concatFields3('GetSublistValueOptions')}): boolean;
+    hasSublistSubrecord(options: ${concatSublists(sublistFields, 'GetSublistValueOptions')}): boolean;
     /** Gets the subrecord associated with a sublist field. */
-    getSublistSubrecord(options: ${concatFields3('GetSublistValueOptions')}): Record;
+    getSublistSubrecord(options: ${concatSublists(sublistFields, 'GetSublistValueOptions')}): Record;
     /** Removes the subrecord for the associated sublist field. */
-    removeSublistSubrecord(options: ${concatFields3('GetSublistValueOptions')}): Record;
+    removeSublistSubrecord(options: ${concatSublists(sublistFields, 'GetSublistValueOptions')}): Record;
     /** Returns the line number of the currently selected line. */
-    getCurrentSublistIndex(options: ${concatFields3('GetSublistValueOptions')}): number;
+    getCurrentSublistIndex(options: ${concatSublists(sublistFields, 'GetSublistValueOptions')}): number;
     /** Returns the number of lines in a sublist. */
     getLineCount(options: RecordGetLineCountOptions): number;
     getLineCount(sublistId: string): number;
@@ -854,5 +835,6 @@ import { UserEventType, UserEventTypes } from './_EventTypes';
     fs.writeFile(`./N/recordTypes/_context_exports.d.ts`, contextExportsTxt, (err) => {
         if (err) throw err;
         console.log('Finished creating Context Exports file.');
+        console.log('PROCESS FINISHED SUCCESSFULLY');
     })
 })
