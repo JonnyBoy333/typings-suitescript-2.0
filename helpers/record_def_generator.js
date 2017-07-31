@@ -610,7 +610,7 @@ let requests = urls.map((url) => {
 }, Promise.resolve());
 
 Promise.all(requests).then(() => {
-    //console.log('Finished these records', JSON.stringify(completed));
+    // console.log('Finished these records', JSON.stringify(completed));
 
     // Generate the index file for exporting when all the record types are finished.
     // let indexText = '';
@@ -622,12 +622,12 @@ Promise.all(requests).then(() => {
     //     indexText += `export { ${completed[recordType]} as ${completed[recordType]} };\n`
     // }
 
-    let recordExprtsTxt = `import { CopyLoadOptions, RecordCreateOptions, Record } from '../record';\n`;
+    let recordExportsTxt = `import { CopyLoadOptions, RecordCreateOptions, Record } from '../record';\n`;
     for (let recordType in completed) {
-        recordExprtsTxt += `import { CopyLoadOptions_${completed[recordType]}, RecordCreateOptions_${completed[recordType]}, ${completed[recordType]} } from './${completed[recordType]}';\n`
+        recordExportsTxt += `import { CopyLoadOptions_${completed[recordType]}, RecordCreateOptions_${completed[recordType]}, ${completed[recordType]} } from './${completed[recordType]}';\n`
     }
 
-    recordExprtsTxt += `
+    recordExportsTxt += `
 // Export Record Load Function
 interface RecordLoadFunction {
     (options: CopyLoadOptions): Record;
@@ -637,12 +637,12 @@ interface RecordLoadFunction {
 interface RecordLoadFunction {`;
 
     for (let recordType in completed) {
-        recordExprtsTxt += `
+        recordExportsTxt += `
     (options: CopyLoadOptions_${completed[recordType]}): ${completed[recordType]};
     promise(options: CopyLoadOptions_${completed[recordType]}): Promise<${completed[recordType]}>;`;
     }
 
-    recordExprtsTxt += `
+    recordExportsTxt += `
 }
 
 // Export Record Load Function
@@ -654,12 +654,12 @@ interface RecordCopyFunction {
 interface RecordCopyFunction {`;
 
     for (let recordType in completed) {
-        recordExprtsTxt += `
+        recordExportsTxt += `
     (options: CopyLoadOptions_${completed[recordType]}): ${completed[recordType]};
     promise(options: CopyLoadOptions_${completed[recordType]}): Promise<${completed[recordType]}>;`;
     }
 
-    recordExprtsTxt += `
+    recordExportsTxt += `
 }
 
 // Export Record Create Function
@@ -671,18 +671,188 @@ interface RecordCreateFunction {
 interface RecordCreateFunction {`;
 
     for (let recordType in completed) {
-        recordExprtsTxt += `
+        recordExportsTxt += `
     (options: RecordCreateOptions_${completed[recordType]}): ${completed[recordType]};
     promise(options: RecordCreateOptions_${completed[recordType]}): Promise<${completed[recordType]}>;`;
     }
 
-    recordExprtsTxt += `
+    recordExportsTxt += `
 }
 
 export { RecordLoadFunction, RecordCopyFunction, RecordCreateFunction }`;
 
-    // fs.writeFile(`./N/recordTypes/_record_exports.d.ts`, recordExprtsTxt, (err) => {
-    //     if (err) throw err;
-    //     console.log('Finished creating Record Exports file.');
-    // })
+    fs.writeFile(`./N/recordTypes/_record_exports.d.ts`, recordExportsTxt, (err) => {
+        if (err) throw err;
+        console.log('Finished creating Record Exports file.');
+    })
+
+    let contextExportsTxt = `
+import * as N_ui_serverWidget from '../ui/serverWidget';
+import * as N_http from '../http';
+import { UserEventType, UserEventTypes } from './_EventTypes';
+`
+    for (let recordType in completed) {
+        contextExportsTxt += `import { ${completed[recordType]} as ${completed[recordType]}_REC } from './${completed[recordType]}';\n`
+    }
+
+    contextExportsTxt += `\nexport namespace fieldChangedContext {`;
+    for (let recordType in completed) {
+        contextExportsTxt += `
+    interface ${completed[recordType]} {
+        currentRecord: ${completed[recordType]}_REC;
+        sublistId: string;
+        fieldId: string;
+        line: number;
+        column: number;
+    }`
+    }
+
+    contextExportsTxt += `\n}\nexport namespace lineInitContext {`
+    for (let recordType in completed) {
+        contextExportsTxt += `
+    interface ${completed[recordType]} {
+        currentRecord: ${completed[recordType]}_REC;
+        sublistId: string;
+    }`
+    }
+
+    contextExportsTxt += `\n}\nexport namespace pageInitContext {`;
+
+    for (let recordType in completed) {
+        contextExportsTxt += `
+    interface ${completed[recordType]} {
+        currentRecord: ${completed[recordType]}_REC;
+        mode: string;
+    }`
+    }
+
+    contextExportsTxt += `\n}\nexport namespace postSourcingContext {`;
+
+    for (let recordType in completed) {
+        contextExportsTxt += `
+    interface ${completed[recordType]} {
+        currentRecord: ${completed[recordType]}_REC;
+        sublistId: string;
+        fieldId: string;
+    }`
+    }
+
+    contextExportsTxt += `\n}\nexport namespace saveRecordContext {`;
+
+    for (let recordType in completed) {
+        contextExportsTxt += `
+    interface ${completed[recordType]} {
+        currentRecord: ${completed[recordType]}_REC;
+    }`
+    }
+
+
+    contextExportsTxt += `\n}\nexport namespace sublistChangedContext {`
+
+    for (let recordType in completed) {
+        contextExportsTxt += `
+    interface ${completed[recordType]} {
+        currentRecord: ${completed[recordType]}_REC;
+        sublistId: string;
+        /**
+         * Commit, etc.
+         */
+        operation: string;
+    }`
+    }
+
+    contextExportsTxt += `\n}\nexport namespace validateDeleteContext {`;
+
+    for (let recordType in completed) {
+        contextExportsTxt += `
+    interface ${completed[recordType]} {
+        currentRecord: ${completed[recordType]}_REC;
+        sublistId: string;
+    }`
+    }
+
+    contextExportsTxt += `\n}\nexport namespace validateFieldContext {`;
+
+    for (let recordType in completed) {
+        contextExportsTxt += `
+    interface ${completed[recordType]} {
+        currentRecord: ${completed[recordType]}_REC;
+        sublistId: string;
+        fieldId: string;
+        line?: number;
+        column?: number;
+    }`
+    }
+
+    contextExportsTxt += `\n}\nexport namespace validateInsertContext {`
+
+    for (let recordType in completed) {
+        contextExportsTxt += `
+    interface ${completed[recordType]} {
+        currentRecord: ${completed[recordType]}_REC;
+        sublistId: string;
+    }`
+    }
+
+    contextExportsTxt += `\n}\nexport namespace validateLineContext {`;
+
+    for (let recordType in completed) {
+        contextExportsTxt += `
+    interface ${completed[recordType]} {
+        currentRecord: ${completed[recordType]}_REC;
+        sublistId: string;
+    }`
+    }
+
+    contextExportsTxt += `\n}\nexport namespace beforeLoadContext {`;
+
+    for (let recordType in completed) {
+        contextExportsTxt += `
+    interface ${completed[recordType]} {
+        newRecord: ${completed[recordType]}_REC;
+        form: N_ui_serverWidget.Form;
+        type: UserEventType;
+        UserEventType: UserEventTypes;
+        request: N_http.ServerRequest;
+    }`
+    }
+
+    contextExportsTxt += `\n}\nexport namespace beforeSubmitContext {`;
+
+    for (let recordType in completed) {
+        contextExportsTxt += `
+    interface ${completed[recordType]} {
+        newRecord: ${completed[recordType]}_REC;
+        oldRecord: ${completed[recordType]}_REC;
+        type: UserEventType;
+        UserEventType: UserEventTypes;
+    }`
+    }
+
+    contextExportsTxt += `\n}\nexport namespace afterSubmitContext {`
+
+    for (let recordType in completed) {
+        contextExportsTxt += `
+    interface ${completed[recordType]} {
+        newRecord: ${completed[recordType]}_REC;
+        oldRecord: ${completed[recordType]}_REC;
+        type: UserEventType;
+        UserEventType: UserEventTypes;
+    }`
+    }
+
+    contextExportsTxt += `\n}\nexport namespace onActionContext {`;
+
+    for (let recordType in completed) {
+        contextExportsTxt += `
+    interface ${completed[recordType]} {
+        newRecord: ${completed[recordType]}_REC;
+        oldRecord: ${completed[recordType]}_REC;
+    }`
+    }
+
+    fs.writeFile(`./N/recordTypes/_context_exports.d.ts`, contextExportsTxt, (err) => {
+        if (err) throw err;
+        console.log('Finished creating Context Exports file.');
+    })
 })
