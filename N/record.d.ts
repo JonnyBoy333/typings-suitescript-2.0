@@ -56,34 +56,11 @@ interface ClientSetValueOptions {
     fireSlavingSync?: boolean;
 }
 
-interface CopyLoadOptions {
+export interface CopyLoadOptions {
     /**
      * The record type.
      */
     type: Type;
-    /**
-     * The internal ID of the existing record instance in NetSuite.
-     */
-    id: number | string;
-    /**
-     * Determines whether the new record is dynamic. If set to true, the record is created in dynamic mode. If set to false, the record is created in standard mode. By default, this value is false.
-     * - When a SuiteScript 2.0 script creates, copies, loads, or transforms a record in standard mode, the record’s body fields and sublist line items are not sourced, calculated, and validated until the record is saved (submitted) with Record.save(options).
-     * - When you work with a record in standard mode, you do not need to set values in any particular order. After submitting the record, NetSuite processes the record’s body fields and sublist line items in the correct order, regardless of the organization of your script.
-     * - When a SuiteScript 2.0 script creates, copies, loads, or transforms a record in dynamic mode, the record’s body fields and sublist line items are sourced, calculated, and validated in real-time. A record in dynamic mode emulates the behavior of a record in the UI.
-     * - When you work with a record in dynamic mode, it is important that you set values in the same order you would within the UI. If you fail to do this, your results may not be accurate.
-     */
-    isDynamic?: boolean;
-    /**
-     * Name-value pairs containing default values of fields in the new record.
-     */
-    defaultValue?: any;
-}
-
-interface CopyLoadOptions_SO {
-    /**
-     * The record type.
-     */
-    type: Type.SALES_ORDER;
     /**
      * The internal ID of the existing record instance in NetSuite.
      */
@@ -297,7 +274,7 @@ interface SetSublistValueOptions {
     fieldId: string;
     /** The internal ID of a standard or custom sublist field. */
     line: number;
-    /** 
+    /**
      * The value to set the sublist field to.
      * The value type must correspond to the field type being set. For example:
      * - Text, Radio and Select fields accept string values.
@@ -316,85 +293,6 @@ interface GetSelectOptionsOpts {
     /** The following operators are supported: contains, is, startswith. Default is contains. */
     operator: "contains" | "is" | "startswith";
 }
-
-/** Sales Order Specific Types */
-interface GetSublistValueOptions_SO_ab {
-    /** The internal ID of the sublist. */
-    sublistId: 'accountingbookdetail';
-    /** The internal ID of a standard or custom sublist field. */
-    fieldId: string | 'accountingbook' | 'exchangerate' | 'revreconrevcommitment' | 'tranisvsoebundle';
-    /** The line number for the field. */
-    line: number;
-}
-
-interface GetSublistValueOptions_SO_item {
-    /** The internal ID of the sublist. */
-    sublistId: 'item';
-    /** The internal ID of a standard or custom sublist field. */
-    fieldId: string | 'altsalesamt' | 'amortizationperiod' | 'amortizationtype' | 'amount' | 'billvariancestatus' | 'catchupperiod' | 'chargetype' | 'commitinventory' | 'costestimate' | 'costestimaterate' | 'costestimatetype' | 'createdpo' | 'createpo' | 'createwo' | 'daysbeforeexpiration' | 'deferrevrec' | 'description' | 'excludefromraterequest' | 'expectedshipdate' | 'fromjob' | 'giftcertfrom' | 'giftcertmessage' | 'giftcertrecipientemail' | 'giftcertrecipientname' | 'id' | 'inventorydetail' | 'isclosed' | 'isestimate' | 'istaxable' | 'isvsoebundle' | 'item' | 'itemfulfillmentchoice' | 'itemsubtype' | 'itemtype' | 'licensecode' | 'line' | 'linenumber' | 'locationautoassigned' | 'matrixtype' | 'noautoassignlocation' | 'options' | 'orderpriority' | 'porate' | 'povendor' | 'price' | 'printitems' | 'quantity' | 'quantityavailable' | 'quantitybackordered' | 'quantitybilled' | 'quantitycommitted' | 'quantityfulfilled' | 'quantityrevcommitted' | 'rate' | 'rateschedule' | 'revrecenddate' | 'revrecschedule' | 'revrecstartdate' | 'shipaddress' | 'shipcarrier' | 'shipmethod' | 'subscription' | 'taxcode' | 'taxrate1' | 'units' | 'vsoeallocation' | 'vsoeamount' | 'vsoedeferral' | 'vsoedelivered' | 'vsoeisestimate' | 'vsoepermitdiscount' | 'vsoeprice' | 'vsoesopgroup';
-    /** The line number for the field. */
-    line: number;
-}
-
-interface GetSublistValueOptions_SO_partners {
-    /** The internal ID of the sublist. */
-    sublistId: 'partners';
-    /** The internal ID of a standard or custom sublist field. */
-    fieldId: string | 'contribution' | 'id' | 'isprimary' | 'partner' | 'partnerrole' | 'transaction';
-    /** The line number for the field. */
-    line: number;
-}
-
-interface GetSublistValueOptions_SO_promotions {
-    /** The internal ID of the sublist. */
-    sublistId: 'promotions';
-    /** The internal ID of a standard or custom sublist field. */
-    fieldId: string | 'cannotbecombined' | 'couponcode' | 'discount' | 'discountrate' | 'muccpromocodeinstance' | 'promocode' | 'purchasediscount' | 'shippingdiscount';
-    /** The line number for the field. */
-    line: number;
-}
-
-interface GetSublistValueOptions_SO_sales {
-    /** The internal ID of the sublist. */
-    sublistId: 'salesteam';
-    /** The internal ID of a standard or custom sublist field. */
-    fieldId: string | 'contribution' | 'employee' | 'id' | 'isprimary' | 'issalesrep' | 'salesrole' | 'transaction';
-    /** The line number for the field. */
-    line: number;
-}
-
-interface GetSublistValueOptions_SO_ship {
-    /** The internal ID of the sublist. */
-    sublistId: 'shipgroup';
-    /** The internal ID of a standard or custom sublist field. */
-    fieldId: string | 'destinationaddress' | 'handlingrate' | 'id' | 'shippingcarrier' | 'shippingmethod' | 'shippingrate' | 'sourceaddress' | 'weight';
-    /** The line number for the field. */
-    line: number;
-}
-
-interface GetFieldOptions_SO {
-    /** The internal ID of a standard or custom body field. */
-    fieldId: string | "allowemptycards" | "althandlingcost" | "altsalestotal" | "altshippingcost" | "authcode" | "balance" | "billaddr1" | "billaddr2" | "billaddr3" | "billaddress" | "billaddressee" | "billaddresslist" | "billattention" | "billcity" | "billcountry" | "billingaddress" | "billingschedule" | "billisresidential" | "billphone" | "billstate" | "billzip" | "ccapproved" | "ccavsstreetmatch" | "ccavszipmatch" | "ccexpiredate" | "cchold" | "ccholdetails" | "cciavsmatch" | "ccname" | "ccnumber" | "ccprocessoraccount" | "ccsecuritycode" | "ccsecuritycodematch" | "ccstreet" | "cczipcode" | "class" | "consolidatebalance" | "couponcode" | "createddate" | "createdfrom" | "creditcard" | "creditcardprocessor" | "currency" | "currencyname" | "currencysymbol" | "customercode" | "customform" | "debitcardissueno" | "deferredrevenue" | "department" | "discountitem" | "discountrate" | "discounttotal" | "draccount" | "email" | "enddate" | "entity" | "entitynexus" | "estgrossprofit" | "estgrossprofitpercent" | "exchangerate" | "excludecommission" | "externalid" | "fob" | "fxaccount" | "getauth" | "giftcertapplied" | "handlingcost" | "handlingtax1rate" | "handlingtaxcode" | "ignoreavs" | "ignorecsc" | "inputpnrefnum" | "intercostatus" | "intercotransaction" | "isbasecurrency" | "isdefaultshippingrequest" | "ismultishipto" | "ispurchasecard" | "isrecurringpayment" | "istaxable" | "lastmodifieddate" | "leadsource" | "linkedtrackingnumbers" | "location" | "memo" | "message" | "messagesel" | "muccpromocodeinstance" | "nexus" | "onetime" | "opportunity" | "orderstatus" | "otherrefnum" | "overridehold" | "overrideholdchecked" | "overrideshippingcost" | "partner" | "paymenteventdate" | "paymenteventholdreason" | "paymenteventpurchasedatasent" | "paymenteventresult" | "paymenteventtype" | "paymenteventupdatedby" | "paymentmethod" | "paypalauthid" | "paypalprocess" | "paypalstatus" | "paypaltranid" | "pnrefnum" | "promocode" | "promocodepluginimpl" | "recognizedrevenue" | "recurannually" | "recurmonthly" | "recurquarterly" | "recurweekly" | "returntrackingnumbers" | "revcommitstatus" | "revenuestatus" | "revreconrevcommitment" | "saleseffectivedate" | "salesgroup" | "salesrep" | "shipaddr1" | "shipaddr2" | "shipaddr3" | "shipaddress" | "shipaddressee" | "shipaddresslist" | "shipattention" | "shipcity" | "shipcomplete" | "shipcountry" | "shipdate" | "shipisresidential" | "shipmethod" | "shipoverride" | "shipphone" | "shippingaddress" | "shippingcost" | "shippingcostoverridden" | "shippingtax1rate" | "shippingtaxcode" | "shipstate" | "shipzip" | "softdescriptor" | "source" | "startdate" | "status" | "statusRef" | "subsidiary" | "subtotal" | "syncpartnerteams" | "syncsalesteams" | "taxitem" | "taxrate" | "taxtotal" | "terms" | "threedstatuscode" | "tobeemailed" | "tobefaxed" | "tobeprinted" | "total" | "totalcostestimate" | "trandate" | "tranid" | "tranisvsoebundle" | "unbilledorders" | "validfrom" | "vsoeautocalc";
-}
-
-// interface GetCurrentSublistValueOptions {
-//     /** The internal ID of the sublist. */
-//     sublistId: string;
-//     /** The internal ID of a standard or custom sublist field. */
-//     fieldId: string;
-// }
-//
-// interface GetFieldOptions {
-//     /** The internal ID of a standard or custom body field. */
-//     fieldId: string;
-// }
-//
-// interface RecordGetLineCountOptions {
-//     /** The internal ID of the sublist. */
-//     sublistId: string;
-// }
-
-/** End of Sales Order Types */
 
 export interface Field {
     /** Adds the select options that appears in the dropdown of a field. */
@@ -558,24 +456,11 @@ export interface Record extends ClientCurrentRecord {
     toString(): string;
 }
 
-export interface SalesOrder extends Record {
-    /** Returns the value of a sublist field. */
-    getSublistValue(options: GetSublistValueOptions_SO_ab | GetSublistValueOptions_SO_item | GetSublistValueOptions_SO_partners | GetSublistValueOptions_SO_promotions | GetSublistValueOptions_SO_sales | GetSublistValueOptions_SO_ship): FieldValue;
-    //getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue;
-    /** Returns a field object from a sublist. */
-    getSublistField(options: GetSublistValueOptions_SO_ab | GetSublistValueOptions_SO_item | GetSublistValueOptions_SO_partners | GetSublistValueOptions_SO_promotions | GetSublistValueOptions_SO_sales | GetSublistValueOptions_SO_ship): Field;
-    /** Returns the value of a sublist field in a text representation. */
-    getSublistText(options: GetSublistValueOptions_SO_ab | GetSublistValueOptions_SO_item | GetSublistValueOptions_SO_partners | GetSublistValueOptions_SO_promotions | GetSublistValueOptions_SO_sales | GetSublistValueOptions_SO_ship): string;
-    /** Returns a value indicating whether the associated sublist field contains a subrecord. */
-    hasSublistSubrecord(options: GetSublistValueOptions_SO_ab | GetSublistValueOptions_SO_item | GetSublistValueOptions_SO_partners | GetSublistValueOptions_SO_promotions | GetSublistValueOptions_SO_sales | GetSublistValueOptions_SO_ship): boolean;
-    /** Returns the text representation of a field value. */
-    getText(options: GetFieldOptions_SO): string | string[];
-    getText(fieldId: string): string | string[];
-    /** Returns the value of a field. */
-    getValue(options: GetFieldOptions_SO): FieldValue;
-    //getValue(fieldId: string): FieldValue;
-    testFunc(options: 'bingo') : FieldValue;
-}
+// export { SalesOrder as SalesOrder }
+
+// export { PurchaseOrder as PurchaseOrder }
+
+// export { INVENTORY_COUNT as INVENTORY_COUNT }
 
 interface SubmitConfig {
     /** Indicates whether to enable sourcing during the record update. Defaults to true. */
@@ -595,26 +480,7 @@ interface SubmitFieldsOptions {
     options?: SubmitConfig;
 }
 
-/**
- * The 'value' parameter in this function is an object with matching properties and values.
- * ex.: value: {'name': 'Bob', 'department': '12'}
- */
-interface SubmitFieldsFunction {
-    (options: SubmitFieldsOptions): number;
-    promise(options: SubmitFieldsOptions): Promise<number>;
-}
-
-interface RecordAttachFunction {
-    (options: AttachOptions): void;
-    promise(options: AttachOptions): Promise<void>;
-}
-
-interface RecordCopyFunction {
-    (options: CopyLoadOptions): Record;
-    promise(options: CopyLoadOptions): Promise<Record>;
-}
-
-interface RecordCreateOptions {
+export interface RecordCreateOptions {
     /**
      * The record type.
      */
@@ -633,11 +499,6 @@ interface RecordCreateOptions {
     defaultValues?: any;
 }
 
-interface RecordCreateFunction {
-    (options: RecordCreateOptions): Record;
-    promise(options: RecordCreateOptions): Promise<Record>;
-}
-
 interface RecordDeleteOptions {
     /**
      * The record type.
@@ -647,33 +508,6 @@ interface RecordDeleteOptions {
      * The internal ID of the record instance to be deleted.
      */
     id: (string | number);
-}
-
-interface RecordDetachFunction {
-    (options: DetachOptions): void;
-    promise(options: DetachOptions): Promise<void>;
-}
-
-interface RecordLoadFunction {
-    (options: CopyLoadOptions_SO): SalesOrder;
-    //promise(options: CopyLoadOptions_SO): Promise<SalesOrder>;
-    (options: CopyLoadOptions): Record;
-    //promise(options: CopyLoadOptions): Promise<Record>;
-}
-
-// interface RecordLoadFunction_SO {
-//     (options: CopyLoadOptions_SO): SalesOrder;
-//     promise(options: CopyLoadOptions_SO): Promise<SalesOrder>;
-// }
-
-interface RecordDeleteFunction {
-    (options: RecordDeleteOptions): void;
-    promise(options: RecordDeleteOptions): Promise<void>;
-}
-
-interface RecordTransformFunction {
-    (options: RecordTransformOptions): Record;
-    promise(options: RecordTransformOptions): Promise<Record>;
 }
 
 interface RecordTransformOptions {
@@ -688,6 +522,39 @@ interface RecordTransformOptions {
     /** Name-value pairs containing default values of fields in the new record. */
     defaultValues?: any;
 }
+
+/**
+ * The 'value' parameter in this function is an object with matching properties and values.
+ * ex.: value: {'name': 'Bob', 'department': '12'}
+ */
+interface SubmitFieldsFunction {
+    (options: SubmitFieldsOptions): number;
+    promise(options: SubmitFieldsOptions): Promise<number>;
+}
+
+interface RecordAttachFunction {
+    (options: AttachOptions): void;
+    promise(options: AttachOptions): Promise<void>;
+}
+
+import { RecordLoadFunction, RecordCreateFunction, RecordCopyFunction } from './recordTypes/_record_exports';
+
+interface RecordDetachFunction {
+    (options: DetachOptions): void;
+    promise(options: DetachOptions): Promise<void>;
+}
+
+
+interface RecordDeleteFunction {
+    (options: RecordDeleteOptions): void;
+    promise(options: RecordDeleteOptions): Promise<void>;
+}
+
+interface RecordTransformFunction {
+    (options: RecordTransformOptions): Record;
+    promise(options: RecordTransformOptions): Promise<Record>;
+}
+
 
 /** Attaches a record to another record. */
 export var attach: RecordAttachFunction;
@@ -717,374 +584,403 @@ export var submitFields: SubmitFieldsFunction;
 /** Transforms a record from one type into another, using data from an existing record. */
 export var transform: RecordTransformFunction;
 
-/**
- * N/record.Type enum
- *
- */
-export const enum Type {
-    ACCOUNT,
-    ACCOUNTING_BOOK,
-    ACCOUNTING_PERIOD,
-    AMORTIZATION_SCHEDULE,
-    AMORTIZATION_TEMPLATE,
-    ASSEMBLY_BUILD,
-    ASSEMBLY_ITEM,
-    ASSEMBLY_UNBUILD,
-    BILLING_ACCOUNT,
-    BILLING_CLASS,
-    BILLING_SCHEDULE,
-    BIN,
-    BIN_TRANSFER,
-    BIN_WORKSHEET,
-    BLANKET_PURCHASE_ORDER,
-    BUNDLE_INSTALLATION_SCRIPT,
-    CALENDAR_EVENT,
-    CAMPAIGN,
-    CAMPAIGN_TEMPLATE,
-    CASH_REFUND,
-    CASH_SALE,
-    CHARGE,
-    CHECK,
-    CLASSIFICATION,
-    CLIENT_SCRIPT,
-    COMPETITOR,
-    CONTACT,
-    COUPON_CODE,
-    CREDIT_CARD_CHARGE,
-    CREDIT_CARD_REFUND,
-    CREDIT_MEMO,
-    CURRENCY,
-    CUSTOMER,
-    CUSTOMER_CATEGORY,
-    CUSTOMER_DEPOSIT,
-    CUSTOMER_PAYMENT,
-    CUSTOMER_REFUND,
-    CUSTOM_TRANSACTION,
-    DEPARTMENT,
-    DEPOSIT,
-    DEPOSIT_APPLICATION,
-    DESCRIPTION_ITEM,
-    DISCOUNT_ITEM,
-    DOWNLOAD_ITEM,
-    DRIVERS_LICENSE,
-    EMAIL_TEMPLATE,
-    EMPLOYEE,
-    ENTITY_ACCOUNT_MAPPING,
-    ESTIMATE,
-    EXPENSE_CATEGORY,
-    EXPENSE_REPORT,
-    FAIR_VALUE_PRICE,
-    FOLDER,
-    GENERIC_RESOURCE,
-    GIFT_CERTIFICATE,
-    GIFT_CERTIFICATE_ITEM,
-    GLOBAL_ACCOUNT_MAPPING,
-    GOVERNMENT_ISSUED_ID_TYPE,
-    HCM_JOB,
-    INTER_COMPANY_JOURNAL_ENTRY,
-    INTER_COMPANY_TRANSFER_ORDER,
-    INVENTORY_ADJUSTMENT,
-    INVENTORY_COST_REVALUATION,
-    INVENTORY_COUNT,
-    INVENTORY_DETAIL,
-    INVENTORY_ITEM,
-    INVENTORY_NUMBER,
-    INVENTORY_TRANSFER,
-    INVOICE,
-    ISSUE,
-    ITEM_ACCOUNT_MAPPING,
-    ITEM_DEMAND_PLAN,
-    ITEM_FULFILLMENT,
-    ITEM_GROUP,
-    ITEM_RECEIPT,
-    ITEM_REVISION,
-    ITEM_SUPPLY_PLAN,
-    JOB,
-    JOB_REQUISITION,
-    JOURNAL_ENTRY,
-    KIT_ITEM,
-    KUDOS,
-    LEAD,
-    LOCATION,
-    LOT_NUMBERED_ASSEMBLY_ITEM,
-    LOT_NUMBERED_INVENTORY_ITEM,
-    MANUFACTURING_COST_TEMPLATE,
-    MANUFACTURING_OPERATION_TASK,
-    MANUFACTURING_ROUTING,
-    MAP_REDUCE_SCRIPT,
-    MARKUP_ITEM,
-    MASSUPDATE_SCRIPT,
-    MESSAGE,
-    MFG_PLANNED_TIME,
-    NEXUS,
-    NON_INVENTORY_ITEM,
-    NOTE,
-    OPPORTUNITY,
-    ORDER_SCHEDULE,
-    ORGANIZATION_VALUE,
-    OTHER_CHARGE_ITEM,
-    OTHER_GOVERNMENT_ISSUED_ID,
-    OTHER_NAME,
-    PARTNER,
-    PASSPORT,
-    PAYCHECK_JOURNAL,
-    PAYMENT_ITEM,
-    PAYROLL_ITEM,
-    PHONE_CALL,
-    PORTLET,
-    POSITION,
-    PRICE_LEVEL,
-    PROJECT_EXPENSE_TYPE,
-    PROJECT_TASK,
-    PROJECT_TEMPLATE,
-    PROMOTION_CODE,
-    PROSPECT,
-    PURCHASE_CONTRACT,
-    PURCHASE_ORDER,
-    PURCHASE_REQUISITION,
-    RATE_PLAN,
-    REALLOCATE_ITEM,
-    RESOURCE_ALLOCATION,
-    RESTLET,
-    RETURN_AUTHORIZATION,
-    REVENUE_ARRANGEMENT,
-    REVENUE_COMMITMENT,
-    REVENUE_COMMITMENT_REVERSAL,
-    REVENUE_PLAN,
-    REV_REC_SCHEDULE,
-    REV_REC_TEMPLATE,
-    SALES_ORDER,
-    SALES_TAX_ITEM,
-    SCHEDULED_SCRIPT,
-    SCHEDULED_SCRIPT_INSTANCE,
-    SCRIPT_DEPLOYMENT,
-    SERIALIZED_ASSEMBLY_ITEM,
-    SERIALIZED_INVENTORY_ITEM,
-    SERVICE_ITEM,
-    SHIP_ITEM,
-    SOLUTION,
-    STATISTICAL_JOURNAL_ENTRY,
-    SUBSCRIPTION,
-    SUBSCRIPTION_CHANGE_ORDER,
-    SUBSCRIPTION_LINE,
-    SUBSCRIPTION_PLAN,
-    SUBSIDIARY,
-    SUBTOTAL_ITEM,
-    SUITELET,
-    SUPPORT_CASE,
-    TASK,
-    TAX_ACCT,
-    TAX_GROUP,
-    TAX_PERIOD,
-    TAX_TYPE,
-    TERM,
-    TERMINATION_REASON,
-    TIME_BILL,
-    TIME_OFF_CHANGE,
-    TIME_OFF_PLAN,
-    TIME_OFF_REQUEST,
-    TIME_OFF_RULE,
-    TIME_OFF_TYPE,
-    TOPIC,
-    TRANSFER_ORDER,
-    UNITS_TYPE,
-    USEREVENT_SCRIPT,
-    VENDOR,
-    VENDOR_BILL,
-    VENDOR_CATEGORY,
-    VENDOR_CREDIT,
-    VENDOR_PAYMENT,
-    VENDOR_RETURN_AUTHORIZATION,
-    WEBSITE,
-    WORKFLOW_ACTION_SCRIPT,
-    WORK_ORDER,
-    WORK_ORDER_CLOSE,
-    WORK_ORDER_COMPLETION,
-    WORK_ORDER_ISSUE
-}
-
 // /**
 //  * N/record.Type enum
 //  *
 //  */
 // export const enum Type {
-//     ACCOUNT = 0,
-//     ACCOUNTING_BOOK = 1,
-//     ACCOUNTING_PERIOD = 2,
-//     AMORTIZATION_SCHEDULE = 3,
-//     AMORTIZATION_TEMPLATE = 4,
-//     ASSEMBLY_BUILD = 5,
-//     ASSEMBLY_ITEM = 6,
-//     ASSEMBLY_UNBUILD = 7,
-//     BILLING_ACCOUNT = 8,
-//     BILLING_CLASS = 9,
-//     BILLING_SCHEDULE = 10,
-//     BIN = 11,
-//     BIN_TRANSFER = 12,
-//     BIN_WORKSHEET = 13,
-//     BLANKET_PURCHASE_ORDER = 14,
-//     BUNDLE_INSTALLATION_SCRIPT = 15,
-//     CALENDAR_EVENT = 16,
-//     CAMPAIGN = 17,
-//     CAMPAIGN_TEMPLATE = 18,
-//     CASH_REFUND = 19,
-//     CASH_SALE = 20,
-//     CHARGE = 21,
-//     CHECK = 22,
-//     CLASSIFICATION = 23,
-//     CLIENT_SCRIPT = 24,
-//     COMPETITOR = 25,
-//     CONTACT = 26,
-//     COUPON_CODE = 27,
-//     CREDIT_CARD_CHARGE = 28,
-//     CREDIT_CARD_REFUND = 29,
-//     CREDIT_MEMO = 30,
-//     CURRENCY = 31,
-//     CUSTOMER = 32,
-//     CUSTOMER_CATEGORY = 33,
-//     CUSTOMER_DEPOSIT = 34,
-//     CUSTOMER_PAYMENT = 35,
-//     CUSTOMER_REFUND = 36,
-//     CUSTOM_TRANSACTION = 37,
-//     DEPARTMENT = 38,
-//     DEPOSIT = 39,
-//     DEPOSIT_APPLICATION = 40,
-//     DESCRIPTION_ITEM = 41,
-//     DISCOUNT_ITEM = 42,
-//     DOWNLOAD_ITEM = 43,
-//     DRIVERS_LICENSE = 44,
-//     EMAIL_TEMPLATE = 45,
-//     EMPLOYEE = 46,
-//     ENTITY_ACCOUNT_MAPPING = 47,
-//     ESTIMATE = 48,
-//     EXPENSE_CATEGORY = 49,
-//     EXPENSE_REPORT = 50,
-//     FAIR_VALUE_PRICE = 51,
-//     // FOLDER,
-//     // GENERIC_RESOURCE,
-//     // GIFT_CERTIFICATE,
-//     // GIFT_CERTIFICATE_ITEM,
-//     // GLOBAL_ACCOUNT_MAPPING,
-//     // GOVERNMENT_ISSUED_ID_TYPE,
-//     // HCM_JOB,
-//     // INTER_COMPANY_JOURNAL_ENTRY,
-//     // INTER_COMPANY_TRANSFER_ORDER,
-//     // INVENTORY_ADJUSTMENT,
-//     // INVENTORY_COST_REVALUATION,
-//     // INVENTORY_COUNT,
-//     // INVENTORY_DETAIL,
-//     // INVENTORY_ITEM,
-//     // INVENTORY_NUMBER,
-//     // INVENTORY_TRANSFER,
-//     // INVOICE,
-//     // ISSUE,
-//     // ITEM_ACCOUNT_MAPPING,
-//     // ITEM_DEMAND_PLAN,
-//     // ITEM_FULFILLMENT,
-//     // ITEM_GROUP,
-//     // ITEM_RECEIPT,
-//     // ITEM_REVISION,
-//     // ITEM_SUPPLY_PLAN,
-//     // JOB,
-//     // JOB_REQUISITION,
-//     // JOURNAL_ENTRY,
-//     // KIT_ITEM,
-//     // KUDOS,
-//     // LEAD,
-//     // LOCATION,
-//     // LOT_NUMBERED_ASSEMBLY_ITEM,
-//     // LOT_NUMBERED_INVENTORY_ITEM,
-//     // MANUFACTURING_COST_TEMPLATE,
-//     // MANUFACTURING_OPERATION_TASK,
-//     // MANUFACTURING_ROUTING,
-//     // MAP_REDUCE_SCRIPT,
-//     // MARKUP_ITEM,
-//     // MASSUPDATE_SCRIPT,
-//     // MESSAGE,
-//     // MFG_PLANNED_TIME,
-//     // NEXUS,
-//     // NON_INVENTORY_ITEM,
-//     // NOTE,
-//     // OPPORTUNITY,
-//     // ORDER_SCHEDULE,
-//     // ORGANIZATION_VALUE,
-//     // OTHER_CHARGE_ITEM,
-//     // OTHER_GOVERNMENT_ISSUED_ID,
-//     // OTHER_NAME,
-//     // PARTNER,
-//     // PASSPORT,
-//     // PAYCHECK_JOURNAL,
-//     // PAYMENT_ITEM,
-//     // PAYROLL_ITEM,
-//     // PHONE_CALL,
-//     // PORTLET,
-//     // POSITION,
-//     // PRICE_LEVEL,
-//     // PROJECT_EXPENSE_TYPE,
-//     // PROJECT_TASK,
-//     // PROJECT_TEMPLATE,
-//     // PROMOTION_CODE,
-//     // PROSPECT,
-//     // PURCHASE_CONTRACT,
-//     // PURCHASE_ORDER,
-//     // PURCHASE_REQUISITION,
-//     // RATE_PLAN,
-//     // REALLOCATE_ITEM,
-//     // RESOURCE_ALLOCATION,
-//     // RESTLET,
-//     // RETURN_AUTHORIZATION,
-//     // REVENUE_ARRANGEMENT,
-//     // REVENUE_COMMITMENT,
-//     // REVENUE_COMMITMENT_REVERSAL,
-//     // REVENUE_PLAN,
-//     // REV_REC_SCHEDULE,
-//     // REV_REC_TEMPLATE,
-//     SALES_ORDER = 52
-//     // SALES_TAX_ITEM,
-//     // SCHEDULED_SCRIPT,
-//     // SCHEDULED_SCRIPT_INSTANCE,
-//     // SCRIPT_DEPLOYMENT,
-//     // SERIALIZED_ASSEMBLY_ITEM,
-//     // SERIALIZED_INVENTORY_ITEM,
-//     // SERVICE_ITEM,
-//     // SHIP_ITEM,
-//     // SOLUTION,
-//     // STATISTICAL_JOURNAL_ENTRY,
-//     // SUBSCRIPTION,
-//     // SUBSCRIPTION_CHANGE_ORDER,
-//     // SUBSCRIPTION_LINE,
-//     // SUBSCRIPTION_PLAN,
-//     // SUBSIDIARY,
-//     // SUBTOTAL_ITEM,
-//     // SUITELET,
-//     // SUPPORT_CASE,
-//     // TASK,
-//     // TAX_ACCT,
-//     // TAX_GROUP,
-//     // TAX_PERIOD,
-//     // TAX_TYPE,
-//     // TERM,
-//     // TERMINATION_REASON,
-//     // TIME_BILL,
-//     // TIME_OFF_CHANGE,
-//     // TIME_OFF_PLAN,
-//     // TIME_OFF_REQUEST,
-//     // TIME_OFF_RULE,
-//     // TIME_OFF_TYPE,
-//     // TOPIC,
-//     // TRANSFER_ORDER,
-//     // UNITS_TYPE,
-//     // USEREVENT_SCRIPT,
-//     // VENDOR,
-//     // VENDOR_BILL,
-//     // VENDOR_CATEGORY,
-//     // VENDOR_CREDIT,
-//     // VENDOR_PAYMENT,
-//     // VENDOR_RETURN_AUTHORIZATION,
-//     // WEBSITE,
-//     // WORKFLOW_ACTION_SCRIPT,
-//     // WORK_ORDER,
-//     // WORK_ORDER_CLOSE,
-//     // WORK_ORDER_COMPLETION,
-//     // WORK_ORDER_ISSUE
+//     ACCOUNT,
+//     ACCOUNTING_BOOK,
+//     ACCOUNTING_PERIOD,
+//     AMORTIZATION_SCHEDULE,
+//     AMORTIZATION_TEMPLATE,
+//     ASSEMBLY_BUILD,
+//     ASSEMBLY_ITEM,
+//     ASSEMBLY_UNBUILD,
+//     BILLING_ACCOUNT,
+//     BILLING_CLASS,
+//     BILLING_SCHEDULE,
+//     BIN,
+//     BIN_TRANSFER,
+//     BIN_WORKSHEET,
+//     BLANKET_PURCHASE_ORDER,
+//     BUNDLE_INSTALLATION_SCRIPT,
+//     CALENDAR_EVENT,
+//     CAMPAIGN,
+//     CAMPAIGN_TEMPLATE,
+//     CASH_REFUND,
+//     CASH_SALE,
+//     CHARGE,
+//     CHECK,
+//     CLASSIFICATION,
+//     CLIENT_SCRIPT,
+//     COMPETITOR,
+//     CONTACT,
+//     COUPON_CODE,
+//     CREDIT_CARD_CHARGE,
+//     CREDIT_CARD_REFUND,
+//     CREDIT_MEMO,
+//     CURRENCY,
+//     CUSTOMER,
+//     CUSTOMER_CATEGORY,
+//     CUSTOMER_DEPOSIT,
+//     CUSTOMER_PAYMENT,
+//     CUSTOMER_REFUND,
+//     CUSTOM_TRANSACTION,
+//     DEPARTMENT,
+//     DEPOSIT,
+//     DEPOSIT_APPLICATION,
+//     DESCRIPTION_ITEM,
+//     DISCOUNT_ITEM,
+//     DOWNLOAD_ITEM,
+//     DRIVERS_LICENSE,
+//     EMAIL_TEMPLATE,
+//     EMPLOYEE,
+//     ENTITY_ACCOUNT_MAPPING,
+//     ESTIMATE,
+//     EXPENSE_CATEGORY,
+//     EXPENSE_REPORT,
+//     FAIR_VALUE_PRICE,
+//     FOLDER,
+//     GENERIC_RESOURCE,
+//     GIFT_CERTIFICATE,
+//     GIFT_CERTIFICATE_ITEM,
+//     GLOBAL_ACCOUNT_MAPPING,
+//     GOVERNMENT_ISSUED_ID_TYPE,
+//     HCM_JOB,
+//     INTER_COMPANY_JOURNAL_ENTRY,
+//     INTER_COMPANY_TRANSFER_ORDER,
+//     INVENTORY_ADJUSTMENT,
+//     INVENTORY_COST_REVALUATION,
+//     INVENTORY_COUNT,
+//     INVENTORY_DETAIL,
+//     INVENTORY_ITEM,
+//     INVENTORY_NUMBER,
+//     INVENTORY_TRANSFER,
+//     INVOICE,
+//     ISSUE,
+//     ITEM_ACCOUNT_MAPPING,
+//     ITEM_DEMAND_PLAN,
+//     ITEM_FULFILLMENT,
+//     ITEM_GROUP,
+//     ITEM_RECEIPT,
+//     ITEM_REVISION,
+//     ITEM_SUPPLY_PLAN,
+//     JOB,
+//     JOB_REQUISITION,
+//     JOURNAL_ENTRY,
+//     KIT_ITEM,
+//     KUDOS,
+//     LEAD,
+//     LOCATION,
+//     LOT_NUMBERED_ASSEMBLY_ITEM,
+//     LOT_NUMBERED_INVENTORY_ITEM,
+//     MANUFACTURING_COST_TEMPLATE,
+//     MANUFACTURING_OPERATION_TASK,
+//     MANUFACTURING_ROUTING,
+//     MAP_REDUCE_SCRIPT,
+//     MARKUP_ITEM,
+//     MASSUPDATE_SCRIPT,
+//     MESSAGE,
+//     MFG_PLANNED_TIME,
+//     NEXUS,
+//     NON_INVENTORY_ITEM,
+//     NOTE,
+//     OPPORTUNITY,
+//     ORDER_SCHEDULE,
+//     ORGANIZATION_VALUE,
+//     OTHER_CHARGE_ITEM,
+//     OTHER_GOVERNMENT_ISSUED_ID,
+//     OTHER_NAME,
+//     PARTNER,
+//     PASSPORT,
+//     PAYCHECK_JOURNAL,
+//     PAYMENT_ITEM,
+//     PAYROLL_ITEM,
+//     PHONE_CALL,
+//     PORTLET,
+//     POSITION,
+//     PRICE_LEVEL,
+//     PROJECT_EXPENSE_TYPE,
+//     PROJECT_TASK,
+//     PROJECT_TEMPLATE,
+//     PROMOTION_CODE,
+//     PROSPECT,
+//     PURCHASE_CONTRACT,
+//     PURCHASE_ORDER,
+//     PURCHASE_REQUISITION,
+//     RATE_PLAN,
+//     REALLOCATE_ITEM,
+//     RESOURCE_ALLOCATION,
+//     RESTLET,
+//     RETURN_AUTHORIZATION,
+//     REVENUE_ARRANGEMENT,
+//     REVENUE_COMMITMENT,
+//     REVENUE_COMMITMENT_REVERSAL,
+//     REVENUE_PLAN,
+//     REV_REC_SCHEDULE,
+//     REV_REC_TEMPLATE,
+//     SALES_ORDER,
+//     SALES_TAX_ITEM,
+//     SCHEDULED_SCRIPT,
+//     SCHEDULED_SCRIPT_INSTANCE,
+//     SCRIPT_DEPLOYMENT,
+//     SERIALIZED_ASSEMBLY_ITEM,
+//     SERIALIZED_INVENTORY_ITEM,
+//     SERVICE_ITEM,
+//     SHIP_ITEM,
+//     SOLUTION,
+//     STATISTICAL_JOURNAL_ENTRY,
+//     SUBSCRIPTION,
+//     SUBSCRIPTION_CHANGE_ORDER,
+//     SUBSCRIPTION_LINE,
+//     SUBSCRIPTION_PLAN,
+//     SUBSIDIARY,
+//     SUBTOTAL_ITEM,
+//     SUITELET,
+//     SUPPORT_CASE,
+//     TASK,
+//     TAX_ACCT,
+//     TAX_GROUP,
+//     TAX_PERIOD,
+//     TAX_TYPE,
+//     TERM,
+//     TERMINATION_REASON,
+//     TIME_BILL,
+//     TIME_OFF_CHANGE,
+//     TIME_OFF_PLAN,
+//     TIME_OFF_REQUEST,
+//     TIME_OFF_RULE,
+//     TIME_OFF_TYPE,
+//     TOPIC,
+//     TRANSFER_ORDER,
+//     UNITS_TYPE,
+//     USEREVENT_SCRIPT,
+//     VENDOR,
+//     VENDOR_BILL,
+//     VENDOR_CATEGORY,
+//     VENDOR_CREDIT,
+//     VENDOR_PAYMENT,
+//     VENDOR_RETURN_AUTHORIZATION,
+//     WEBSITE,
+//     WORKFLOW_ACTION_SCRIPT,
+//     WORK_ORDER,
+//     WORK_ORDER_CLOSE,
+//     WORK_ORDER_COMPLETION,
+//     WORK_ORDER_ISSUE
 // }
+
+/**
+ * N/record.Type enum
+ *
+ */
+export const enum Type {
+	ACCOUNT = 'account',
+	ACCOUNTING_BOOK = 'accountingbook',
+	ACCOUNTING_PERIOD = 'accountingperiod',
+	AMORTIZATION_SCHEDULE = 'amortizationschedule',
+	AMORTIZATION_TEMPLATE = 'amortizationtemplate',
+	ASSEMBLY_BUILD = 'assemblybuild',
+	ASSEMBLY_ITEM = 'assemblyitem',
+	ASSEMBLY_UNBUILD = 'assemblyunbuild',
+	BILLING_ACCOUNT = 'billingaccount',
+	BILLING_CLASS = 'billingclass',
+	BILLING_SCHEDULE = 'billingschedule',
+	BIN = 'bin',
+	BIN_TRANSFER = 'bintransfer',
+	BIN_WORKSHEET = 'binworksheet',
+	BUNDLE_INSTALLATION_SCRIPT = 'bundleinstallationscript',
+	CALENDAR_EVENT = 'calendarevent',
+	CAMPAIGN = 'campaign',
+	CAMPAIGN_TEMPLATE = 'campaigntemplate',
+	CASH_REFUND = 'cashrefund',
+	CASH_SALE = 'cashsale',
+	CHARGE = 'charge',
+	CHECK = 'check',
+	CLASSIFICATION = 'classification',
+	CLIENT_SCRIPT = 'clientscript',
+	COMPETITOR = 'competitor',
+	CONTACT = 'contact',
+	CREDIT_CARD_CHARGE = 'creditcardcharge',
+	CREDIT_CARD_REFUND = 'creditcardrefund',
+	CREDIT_MEMO = 'creditmemo',
+	CURRENCY = 'currency',
+	CUSTOMER = 'customer',
+	CUSTOMER_CATEGORY = 'customercategory',
+	CUSTOMER_DEPOSIT = 'customerdeposit',
+	CUSTOMER_PAYMENT = 'customerpayment',
+	CUSTOMER_REFUND = 'customerrefund',
+	CUSTOM_TRANSACTION = 'customtransaction',
+	DEPARTMENT = 'department',
+	DEPOSIT = 'deposit',
+	DEPOSIT_APPLICATION = 'depositapplication',
+	DESCRIPTION_ITEM = 'descriptionitem',
+	DISCOUNT_ITEM = 'discountitem',
+	DOWNLOAD_ITEM = 'downloaditem',
+	EMAIL_TEMPLATE = 'emailtemplate',
+	EMPLOYEE = 'employee',
+	ENTITY_ACCOUNT_MAPPING = 'entityaccountmapping',
+	ESTIMATE = 'estimate',
+	EXPENSE_CATEGORY = 'expensecategory',
+	EXPENSE_REPORT = 'expensereport',
+	FAIR_VALUE_PRICE = 'fairvalueprice',
+	FOLDER = 'folder',
+	GENERIC_RESOURCE = 'genericresource',
+	GIFT_CERTIFICATE = 'giftcertificate',
+	GIFT_CERTIFICATE_ITEM = 'giftcertificateitem',
+	GLOBAL_ACCOUNT_MAPPING = 'globalaccountmapping',
+	INTER_COMPANY_JOURNAL_ENTRY = 'intercompanyjournalentry',
+	INTER_COMPANY_TRANSFER_ORDER = 'intercompanytransferorder',
+	INVENTORY_ADJUSTMENT = 'inventoryadjustment',
+	INVENTORY_COST_REVALUATION = 'inventorycostrevaluation',
+	INVENTORY_COUNT = 'inventorycount',
+	INVENTORY_DETAIL = 'inventorydetail',
+	INVENTORY_ITEM = 'inventoryitem',
+	INVENTORY_NUMBER = 'inventorynumber',
+	INVENTORY_TRANSFER = 'inventorytransfer',
+	INVOICE = 'invoice',
+	ISSUE = 'issue',
+	ITEM_ACCOUNT_MAPPING = 'itemaccountmapping',
+	ITEM_DEMAND_PLAN = 'itemdemandplan',
+	ITEM_FULFILLMENT = 'itemfulfillment',
+	ITEM_GROUP = 'itemgroup',
+	ITEM_RECEIPT = 'itemreceipt',
+	ITEM_REVISION = 'itemrevision',
+	ITEM_SUPPLY_PLAN = 'itemsupplyplan',
+	JOURNAL_ENTRY = 'journalentry',
+	KIT_ITEM = 'kititem',
+	LEAD = 'lead',
+	LOCATION = 'location',
+	LOT_NUMBERED_ASSEMBLY_ITEM = 'lotnumberedassemblyitem',
+	LOT_NUMBERED_INVENTORY_ITEM = 'lotnumberedinventoryitem',
+	MANUFACTURING_COST_TEMPLATE = 'manufacturingcosttemplate',
+	MANUFACTURING_OPERATION_TASK = 'manufacturingoperationtask',
+	MANUFACTURING_ROUTING = 'manufacturingrouting',
+	MAP_REDUCE_SCRIPT = 'mapreducescript',
+	MARKUP_ITEM = 'markupitem',
+	MASSUPDATE_SCRIPT = 'massupdatescript',
+	MESSAGE = 'message',
+	MFG_PLANNED_TIME = 'mfgplannedtime',
+	NEXUS = 'nexus',
+	NON_INVENTORY_ITEM = 'noninventoryitem',
+	NOTE = 'note',
+	OPPORTUNITY = 'opportunity',
+	ORDER_SCHEDULE = 'orderschedule',
+	OTHER_CHARGE_ITEM = 'otherchargeitem',
+	OTHER_NAME = 'othername',
+	PARTNER = 'partner',
+	PAYCHECK_JOURNAL = 'paycheckjournal',
+	PAYMENT_ITEM = 'paymentitem',
+	PAYROLL_ITEM = 'payrollitem',
+	PHONE_CALL = 'phonecall',
+	PORTLET = 'portlet',
+	PRICE_LEVEL = 'pricelevel',
+	PROJECT_EXPENSE_TYPE = 'projectexpensetype',
+	PROJECT_TASK = 'projecttask',
+	PROJECT_TEMPLATE = 'projecttemplate',
+	PROMOTION_CODE = 'promotioncode',
+	PROSPECT = 'prospect',
+	PURCHASE_CONTRACT = 'purchasecontract',
+	PURCHASE_ORDER = 'purchaseorder',
+	PURCHASE_REQUISITION = 'purchaserequisition',
+	REALLOCATE_ITEM = 'reallocateitem',
+	RESOURCE_ALLOCATION = 'resourceallocation',
+	RESTLET = 'restlet',
+	RETURN_AUTHORIZATION = 'returnauthorization',
+	REVENUE_ARRANGEMENT = 'revenuearrangement',
+	REVENUE_COMMITMENT = 'revenuecommitment',
+	REVENUE_COMMITMENT_REVERSAL = 'revenuecommitmentreversal',
+	REVENUE_PLAN = 'revenueplan',
+	REV_REC_SCHEDULE = 'revrecschedule',
+	REV_REC_TEMPLATE = 'revrectemplate',
+	SALES_ORDER = 'salesorder',
+	SALES_TAX_ITEM = 'salestaxitem',
+	SCHEDULED_SCRIPT = 'scheduledscript',
+	SCHEDULED_SCRIPT_INSTANCE = 'scheduledscriptinstance',
+	SCRIPT_DEPLOYMENT = 'scriptdeployment',
+	SERIALIZED_ASSEMBLY_ITEM = 'serializedassemblyitem',
+	SERIALIZED_INVENTORY_ITEM = 'serializedinventoryitem',
+	SERVICE_ITEM = 'serviceitem',
+	SHIP_ITEM = 'shipitem',
+	SOLUTION = 'solution',
+	STATISTICAL_JOURNAL_ENTRY = 'statisticaljournalentry',
+	SUBSCRIPTION = 'subscription',
+	SUBSCRIPTION_CHANGE_ORDER = 'subscriptionchangeorder',
+	SUBSCRIPTION_LINE = 'subscriptionline',
+	SUBSCRIPTION_PLAN = 'subscriptionplan',
+	SUBSIDIARY = 'subsidiary',
+	SUBTOTAL_ITEM = 'subtotalitem',
+	SUITELET = 'suitelet',
+	SUPPORT_CASE = 'supportcase',
+	TASK = 'task',
+	TAX_ACCT = 'taxacct',
+	TAX_GROUP = 'taxgroup',
+	TAX_PERIOD = 'taxperiod',
+	TAX_TYPE = 'taxtype',
+	TERM = 'term',
+	TIME_BILL = 'timebill',
+	TIME_OFF_CHANGE = 'timeoffchange',
+	TIME_OFF_PLAN = 'timeoffplan',
+	TIME_OFF_REQUEST = 'timeoffrequest',
+	TIME_OFF_RULE = 'timeoffrule',
+	TIME_OFF_TYPE = 'timeofftype',
+	TOPIC = 'topic',
+	TRANSFER_ORDER = 'transferorder',
+	UNITS_TYPE = 'unitstype',
+	USEREVENT_SCRIPT = 'usereventscript',
+	VENDOR = 'vendor',
+	VENDOR_BILL = 'vendorbill',
+	VENDOR_CATEGORY = 'vendorcategory',
+	VENDOR_CREDIT = 'vendorcredit',
+	VENDOR_PAYMENT = 'vendorpayment',
+	VENDOR_RETURN_AUTHORIZATION = 'vendorreturnauthorization',
+	WEBSITE = 'website',
+	WORKFLOW_ACTION_SCRIPT = 'workflowactionscript',
+	WORK_ORDER = 'workorder',
+	WORK_ORDER_CLOSE = 'workorderclose',
+	WORK_ORDER_COMPLETION = 'workordercompletion',
+	WORK_ORDER_ISSUE = 'workorderissue',
+	TIME_ENTRY = 'timeentry',
+	PARTNER_CATEGORY = 'partnercategory',
+	PAYMENT_METHOD = 'paymentmethod',
+	INBOUND_SHIPMENT = 'inboundshipment',
+	INVENTORY_STATUS = 'inventorystatus',
+	CUSTOMER_PAYMENT_AUTHORIZATION = 'customerpaymentauthorization',
+	COST_CATEGORY = 'costcategory',
+	PCT_COMPLETE_PROJECT_REVENUE_RULE = 'pctcompleteprojectrevenuerule',
+	BILLING_RATE_CARD = 'billingratecard',
+	WORKPLACE = 'workplace',
+	TIME_SHEET = 'timesheet',
+	FIXED_AMOUNT_PROJECT_REVENUE_RULE = 'fixedamountprojectrevenuerule',
+	JOB_TYPE = 'jobtype',
+	CONSOLIDATED_EXCHANGE_RATE = 'consolidatedexchangerate',
+	ADV_INTER_COMPANY_JOURNAL_ENTRY = 'advintercompanyjournalentry',
+	ALLOCATION_SCHEDULE = 'allocationschedule',
+	PRICING_GROUP = 'pricinggroup',
+	SALES_ROLE = 'salesrole',
+	LABOR_BASED_PROJECT_REVENUE_RULE = 'laborbasedprojectrevenuerule',
+	CUSTOMER_MESSAGE = 'customermessage',
+	ACCOUNTING_CONTEXT = 'accountingcontext',
+	PRICE_PLAN = 'priceplan',
+	INTERCOMP_ALLOCATION_SCHEDULE = 'intercompallocationschedule',
+	BILLING_REVENUE_EVENT = 'billingrevenueevent',
+	PRICE_BOOK = 'pricebook',
+	USAGE = 'usage',
+	CONTACT_ROLE = 'contactrole',
+	CHARGE_RULE = 'chargerule',
+	NOTE_TYPE = 'notetype',
+	BOM_REVISION = 'bomrevision',
+	CUSTOM_RECORD = 'customrecord',
+	COUPON_CODE = 'couponcode',
+	CUSTOMER_STATUS = 'customerstatus',
+	JOB = 'job',
+	BOM = 'bom',
+	BLANKET_PURCHASE_ORDER = 'blanketpurchaseorder',
+	CONTACT_CATEGORY = 'contactcategory',
+	FULFILLMENT_REQUEST = 'fulfillmentrequest',
+	CAMPAIGN_RESPONSE = 'campaignresponse',
+	STORE_PICKUP_FULFILLMENT = 'storepickupfulfillment',
+	PAYCHECK = 'paycheck',
+	OTHER_NAME_CATEGORY = 'othernamecategory',
+    COMMERCE_CATEGORY = 'commercecategory'
+}
