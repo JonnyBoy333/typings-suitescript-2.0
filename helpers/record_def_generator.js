@@ -10,6 +10,7 @@ for (let record in Type) {
 }
 
 function createDefinitionFile (url, cb) {
+    //Load the dom for the url
     jsdom.env(
         url,
         [],
@@ -18,6 +19,8 @@ function createDefinitionFile (url, cb) {
                 console.error('[ERROR] loading page', errors);
                 return;
             }
+
+            // Load jQuery and all the table nodes
             let jQuery = require('jquery')(window);
             let allTables = jQuery('tbody');
             if (allTables.length === 0) {
@@ -25,6 +28,8 @@ function createDefinitionFile (url, cb) {
                 cb();
                 return;
             }
+
+            // Initialize variables
             let mainFields = '';
             let sublistFields = [];
             let sublists = '';
@@ -33,6 +38,7 @@ function createDefinitionFile (url, cb) {
             //console.log('Internal ID', internalId);
             //console.log('All tables', allTables);
 
+            // Function to sort the fields object by type
             function groupArray(fields) {
                 var group_to_values = fields.reduce(function (obj, item) {
                     obj[item.fieldType] = obj[item.fieldType] || [];
@@ -46,11 +52,14 @@ function createDefinitionFile (url, cb) {
                 });
             }
 
+            // Loop through each table and extract ids
             for (let j = 0; j < allTables.length; j++) {
                 let names = [];
                 let listHeader = allTables.eq(j).parent().prev('h4').text().trim();
                 let listName = listHeader ? listHeader.substring(0, listHeader.indexOf(' ')): 'main';
                 let rows = allTables.eq(j).children('[id*="field"]');
+
+                // Loop through each row in the table and get the field ID and type
                 for (let i = 0; i < rows.length; i++) {
                     let id = rows.eq(i).attr('id');
                     //console.log('ID', id);
@@ -63,10 +72,12 @@ function createDefinitionFile (url, cb) {
                 }
                 if (names.length > 0) {
                     if (listName === 'main') {
+                        // Group all the main fields and sort them
                         mainFields = groupArray(names);
                         //console.log(mainFields);
                     }
                     else {
+                        // Group the sublist fields as well
                         sublistFields.push({
                             sublist: listName,
                             fields: groupArray(names)
@@ -84,21 +95,19 @@ function createDefinitionFile (url, cb) {
                 cb();
                 return;
             }
-            //console.log('Sublists', sublists)
+            //console.log('Sublists', sublists)eeeef
             //console.log('Sublist Fields', sublistFields);
 
+            // Function to group all the main field text together
             let mainFieldsTxt = mainFields.length === 1 ? 
                 `main_${mainFields[0].field_type}` : 
                 mainFields.reduce((txt, val, i, arr) => {
-                    if (i === arr.length - 1) {
-                        return `${txt}main_${val.field_type}`;
-                    }
-                    else {
-                        return i === 1 ? `main_${txt.field_type} | main_${val.field_type} | ` : `${txt}main_${val.field_type} | `;
-                    }
+                    if (i === arr.length - 1) return `${txt}main_${val.field_type}`;
+                    else return i === 1 ? `main_${txt.field_type} | main_${val.field_type} | ` : `${txt}main_${val.field_type} | `;
                 });
             //console.log('Main Field Text', mainFieldsTxt);
-
+            
+            // Concatenates fields into one string
             function concatTopFields(fieldArr, sublist) {
                 let txt = '';
                 for (let i = 0; i < fieldArr.length; i++) {
@@ -108,6 +117,7 @@ function createDefinitionFile (url, cb) {
                 return txt;
             }
 
+            // Concatenates fields into one string
             function concatSublistTypes(fieldArr, sublist) {
                 let txt = '';
                 for (let i = 0; i < fieldArr.length; i++) {
@@ -117,6 +127,7 @@ function createDefinitionFile (url, cb) {
                 return txt;
             }
 
+            // Concatenates fields into one string
             function concatSublists(sublistFields, mainTxt) {
                 let txt = '';
                 for (let i = 0; i < sublistFields.length; i++) {
@@ -126,6 +137,7 @@ function createDefinitionFile (url, cb) {
                 return txt;
             }
 
+            // Write the text for the record file
             let fileTxt =
 `
 import { Field, Record, Type } from '../record'
@@ -184,8 +196,8 @@ interface DetachOptions {
 }
 
 `
-if (sublists) {
-    fileTxt += 
+        if (sublists) {
+            fileTxt += 
 `
 interface CancelCommitLineOptions {
     /** The internal ID of the sublist. */
@@ -214,7 +226,7 @@ interface SelectLineOptions {
 }
 
 `
-}
+        }
 
         for (let i = 0; i < sublistFields.length; i++) {
             fileTxt +=
@@ -517,6 +529,16 @@ export interface ${recordType} extends Record {
 if (sublists) {
     fileTxt += 
 `
+    /** Returns the line number of the first instance where a specified value is found in a specified column of the matrix. */
+    findMatrixSublistLineWIthValue(options: ${concatSublists(sublistFields, 'FindSublistLineWithValueOptions')}): number;
+    /** Returns the line number for the first occurrence of a field value in a sublist. */
+    findSublistLineWithValue(options: ${concatSublists(sublistFields, 'FindSublistLineWithValueOptions')}): number;
+    /** Gets the subrecord for the associated sublist field on the current line. */
+    getCurrentSublistSubrecord(options: ${concatSublists(sublistFields, 'GetCurrentSublistValueOptions')}): Record;
+    /** Returns a text representation of the field value in the currently selected line. */
+    getCurrentSublistText(options: ${concatSublists(sublistFields, 'GetCurrentSublistValueOptions')}): string;
+    /** Returns the value of a sublist field on the currently selected sublist line. */
+    getCurrentSublistValue(options: ${concatSublists(sublistFields, 'GetCurrentSublistValueOptions')}): FieldValue;
     /** Returns the value of a sublist field. */
     getSublistValue(options: ${concatSublists(sublistFields, 'GetSublistValueOptions')}): FieldValue;
     //getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue;
@@ -544,8 +566,8 @@ if (sublists) {
     /** Returns all the field names in a sublist. */
     getSublistFields(options: RecordGetLineCountOptions): string[];
 `
-}
-fileTxt +=
+        }
+        fileTxt +=
 `    /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string | string[];
     //getText(fieldId: string): string | string[];
@@ -573,16 +595,16 @@ export interface RecordLoadFunction {
     promise(options: CopyLoadOptions_${recordType}): Promise<${recordType}>;
 }
 `
-            fs.writeFile(`./N/recordTypes/${Type[internalId]}.d.ts`, fileTxt, (err) => {
-                if (err) throw err;
-                console.log(`${Type[internalId]} file has been saved!`);
-                completed[internalId] = Type[internalId];
-                cb();
-            });
-        }
-    );
+        fs.writeFile(`./N/recordTypes/${Type[internalId]}.d.ts`, fileTxt, (err) => {
+            if (err) throw err;
+            console.log(`${Type[internalId]} file has been saved!`);
+            completed[internalId] = Type[internalId];
+            cb();
+        });
+    });
 }
 
+// Process each of the requests with a Promise
 let requests = urls.map((url) => { 
     //console.log('Processing URL', url);
     return new Promise((resolve) => {
@@ -593,16 +615,7 @@ let requests = urls.map((url) => {
 Promise.all(requests).then(() => {
     // console.log('Finished these records', JSON.stringify(completed));
 
-    // Generate the index file for exporting when all the record types are finished.
-    // let indexText = '';
-    // for (let recordType in completed) {
-    //     indexText += `import * as ${completed[recordType]} from './${completed[recordType]}';\n`
-    // }
-    // indexText += `\n`;
-    // for (let recordType in completed) {
-    //     indexText += `export { ${completed[recordType]} as ${completed[recordType]} };\n`
-    // }
-
+    // Generate the text for the _record_exports.d.ts file
     let recordExportsTxt = `import { CopyLoadOptions, RecordCreateOptions, Record } from '../record';\n`;
     for (let recordType in completed) {
         recordExportsTxt += `import { CopyLoadOptions_${completed[recordType]}, RecordCreateOptions_${completed[recordType]}, ${completed[recordType]} } from './${completed[recordType]}';\n`
@@ -667,6 +680,7 @@ export { RecordLoadFunction, RecordCopyFunction, RecordCreateFunction }`;
         console.log('Finished creating Record Exports file.');
     })
 
+    // Generate the text for the _context_exports.d.ts file
     let contextExportsTxt = `
 import * as N_ui_serverWidget from '../ui/serverWidget';
 import * as N_http from '../http';
