@@ -1,7 +1,6 @@
 
 import { Field, Record, Type } from '../record'
 import { Sublist } from '../ui/serverWidget';
-import { UserEventType, UserEventTypes } from './_EventTypes'
 
 // main field types
 type main_integer = 'amortizationperiod';
@@ -951,6 +950,46 @@ interface RecordSaveFunction {
 // Exported for other modules to be able to consume this type
 export interface OTHER_CHARGE_ITEM extends Record {
 
+    /** Returns the line number of the first instance where a specified value is found in a specified column of the matrix. */
+    findMatrixSublistLineWIthValue(options: FindSublistLineWithValueOptions_accountingbookdetail | FindSublistLineWithValueOptions_price1 | FindSublistLineWithValueOptions_price2 | FindSublistLineWithValueOptions_price3 | FindSublistLineWithValueOptions_price4): number;
+    /** Returns the line number for the first occurrence of a field value in a sublist. */
+    findSublistLineWithValue(options: FindSublistLineWithValueOptions_accountingbookdetail | FindSublistLineWithValueOptions_price1 | FindSublistLineWithValueOptions_price2 | FindSublistLineWithValueOptions_price3 | FindSublistLineWithValueOptions_price4): number;
+    /** Gets the value for the currently selected line in the matrix. */
+    getCurrentMatrixSublistValue(options: GetCurrentSublistValueOptions_accountingbookdetail | GetCurrentSublistValueOptions_price1 | GetCurrentSublistValueOptions_price2 | GetCurrentSublistValueOptions_price3 | GetCurrentSublistValueOptions_price4): number | Date | string | string[] | boolean;
+    /** Returns a value indicating whether the associated sublist field has a subrecord on the current line. This method can only be used on dynamic records. */
+    hasCurrentSublistSubrecord(options: GetCurrentSublistValueOptions_accountingbookdetail | GetCurrentSublistValueOptions_price1 | GetCurrentSublistValueOptions_price2 | GetCurrentSublistValueOptions_price3 | GetCurrentSublistValueOptions_price4): boolean;
+    /** Gets the subrecord for the associated sublist field on the current line. */
+    getCurrentSublistSubrecord(options: GetCurrentSublistValueOptions_accountingbookdetail | GetCurrentSublistValueOptions_price1 | GetCurrentSublistValueOptions_price2 | GetCurrentSublistValueOptions_price3 | GetCurrentSublistValueOptions_price4): Record;
+    /** Returns a text representation of the field value in the currently selected line. */
+    getCurrentSublistText(options: GetCurrentSublistValueOptions_accountingbookdetail | GetCurrentSublistValueOptions_price1 | GetCurrentSublistValueOptions_price2 | GetCurrentSublistValueOptions_price3 | GetCurrentSublistValueOptions_price4): string;
+    /** Returns the value of a sublist field on the currently selected sublist line. */
+    getCurrentSublistValue(options: GetCurrentSublistValueOptions_accountingbookdetail | GetCurrentSublistValueOptions_price1 | GetCurrentSublistValueOptions_price2 | GetCurrentSublistValueOptions_price3 | GetCurrentSublistValueOptions_price4): FieldValue;
+    /** Returns the number of columns for the specified matrix. */
+    getMatrixHeaderCount(options: GetMatrixHeaderCountOptions_accountingbookdetail | GetMatrixHeaderCountOptions_price1 | GetMatrixHeaderCountOptions_price2 | GetMatrixHeaderCountOptions_price3 | GetMatrixHeaderCountOptions_price4): number;
+    /** Gets the field for the specified header in the matrix. */
+    getMatrixHeaderField(options: GetMatrixHeaderFieldOptions_accountingbookdetail | GetMatrixHeaderFieldOptions_price1 | GetMatrixHeaderFieldOptions_price2 | GetMatrixHeaderFieldOptions_price3 | GetMatrixHeaderFieldOptions_price4): Field;
+    /** Gets the value for the associated header in the matrix. */
+    getMatrixHeaderValue(options: GetMatrixHeaderFieldOptions_accountingbookdetail | GetMatrixHeaderFieldOptions_price1 | GetMatrixHeaderFieldOptions_price2 | GetMatrixHeaderFieldOptions_price3 | GetMatrixHeaderFieldOptions_price4): FieldValue;
+    /** Gets the field for the specified sublist in the matrix. */
+    getMatrixSublistField(options: GetMatrixSublistFieldOptions_accountingbookdetail | GetMatrixSublistFieldOptions_price1 | GetMatrixSublistFieldOptions_price2 | GetMatrixSublistFieldOptions_price3 | GetMatrixSublistFieldOptions_price4): Field;
+    /** Gets the value for the associated field in the matrix. */
+    getMatrixSublistValue(options: GetMatrixSublistFieldOptions_accountingbookdetail | GetMatrixSublistFieldOptions_price1 | GetMatrixSublistFieldOptions_price2 | GetMatrixSublistFieldOptions_price3 | GetMatrixSublistFieldOptions_price4): FieldValue;
+    /** Sets the value for the line currently selected in the matrix. */
+    setCurrentMatrixSublistValue(options: SetCurrentMatrixSublistValueOptions_accountingbookdetail | SetCurrentMatrixSublistValueOptions_price1 | SetCurrentMatrixSublistValueOptions_price2 | SetCurrentMatrixSublistValueOptions_price3 | SetCurrentMatrixSublistValueOptions_price4): Record;
+    /** Sets the value for the associated header in the matrix. */
+    setMatrixHeaderValue(options: SetCurrentMatrixSublistValueOptions_accountingbookdetail | SetCurrentMatrixSublistValueOptions_price1 | SetCurrentMatrixSublistValueOptions_price2 | SetCurrentMatrixSublistValueOptions_price3 | SetCurrentMatrixSublistValueOptions_price4): Record;
+    /** Sets the value for the field in the currently selected line. */
+    setCurrentSublistValue(options: SetCurrentSublistValueOptions_accountingbookdetail | SetCurrentSublistValueOptions_price1 | SetCurrentSublistValueOptions_price2 | SetCurrentSublistValueOptions_price3 | SetCurrentSublistValueOptions_price4): void;
+    /** Sets the value of a sublist field. (standard mode only). */
+    setSublistValue(options: SetSublistValueOptions_accountingbookdetail | SetSublistValueOptions_price1 | SetSublistValueOptions_price2 | SetSublistValueOptions_price3 | SetSublistValueOptions_price4): Record;
+    /** Sets the value for the field in the currently selected line by a text representation. */
+    setCurrentSublistText(options: SetCurrentSublistTextOptions_accountingbookdetail | SetCurrentSublistTextOptions_price1 | SetCurrentSublistTextOptions_price2 | SetCurrentSublistTextOptions_price3 | SetCurrentSublistTextOptions_price4): void;
+    /** Sets the value of a sublist field by a text representation. */
+    setSublistText(options: SetSublistTextOptions_accountingbookdetail | SetSublistTextOptions_price1 | SetSublistTextOptions_price2 | SetSublistTextOptions_price3 | SetSublistTextOptions_price4): Record;
+    /** Sets the value for the associated field in the matrix. */
+    setMatrixSublistValue(options: SetSublistValueOptions_accountingbookdetail | SetSublistValueOptions_price1 | SetSublistValueOptions_price2 | SetSublistValueOptions_price3 | SetSublistValueOptions_price4): Record;
+    /** Sets the value of a sublist field by a text representation. */
+    setSublistText(options: SetSublistTextOptions_accountingbookdetail | SetSublistTextOptions_price1 | SetSublistTextOptions_price2 | SetSublistTextOptions_price3 | SetSublistTextOptions_price4): Record;
     /** Returns the value of a sublist field. */
     getSublistValue(options: GetSublistValueOptions_accountingbookdetail | GetSublistValueOptions_price1 | GetSublistValueOptions_price2 | GetSublistValueOptions_price3 | GetSublistValueOptions_price4): FieldValue;
     //getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue;

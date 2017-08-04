@@ -1,7 +1,6 @@
 
 import { Field, Record, Type } from '../record'
 import { Sublist } from '../ui/serverWidget';
-import { UserEventType, UserEventTypes } from './_EventTypes'
 
 // main field types
 type main_text = 'city' | 'county' | 'externalid' | 'itemid' | 'itemtype' | 'nexuscountry';
@@ -372,6 +371,46 @@ interface RecordSaveFunction {
 // Exported for other modules to be able to consume this type
 export interface TAX_GROUP extends Record {
 
+    /** Returns the line number of the first instance where a specified value is found in a specified column of the matrix. */
+    findMatrixSublistLineWIthValue(options: FindSublistLineWithValueOptions_taxitem): number;
+    /** Returns the line number for the first occurrence of a field value in a sublist. */
+    findSublistLineWithValue(options: FindSublistLineWithValueOptions_taxitem): number;
+    /** Gets the value for the currently selected line in the matrix. */
+    getCurrentMatrixSublistValue(options: GetCurrentSublistValueOptions_taxitem): number | Date | string | string[] | boolean;
+    /** Returns a value indicating whether the associated sublist field has a subrecord on the current line. This method can only be used on dynamic records. */
+    hasCurrentSublistSubrecord(options: GetCurrentSublistValueOptions_taxitem): boolean;
+    /** Gets the subrecord for the associated sublist field on the current line. */
+    getCurrentSublistSubrecord(options: GetCurrentSublistValueOptions_taxitem): Record;
+    /** Returns a text representation of the field value in the currently selected line. */
+    getCurrentSublistText(options: GetCurrentSublistValueOptions_taxitem): string;
+    /** Returns the value of a sublist field on the currently selected sublist line. */
+    getCurrentSublistValue(options: GetCurrentSublistValueOptions_taxitem): FieldValue;
+    /** Returns the number of columns for the specified matrix. */
+    getMatrixHeaderCount(options: GetMatrixHeaderCountOptions_taxitem): number;
+    /** Gets the field for the specified header in the matrix. */
+    getMatrixHeaderField(options: GetMatrixHeaderFieldOptions_taxitem): Field;
+    /** Gets the value for the associated header in the matrix. */
+    getMatrixHeaderValue(options: GetMatrixHeaderFieldOptions_taxitem): FieldValue;
+    /** Gets the field for the specified sublist in the matrix. */
+    getMatrixSublistField(options: GetMatrixSublistFieldOptions_taxitem): Field;
+    /** Gets the value for the associated field in the matrix. */
+    getMatrixSublistValue(options: GetMatrixSublistFieldOptions_taxitem): FieldValue;
+    /** Sets the value for the line currently selected in the matrix. */
+    setCurrentMatrixSublistValue(options: SetCurrentMatrixSublistValueOptions_taxitem): Record;
+    /** Sets the value for the associated header in the matrix. */
+    setMatrixHeaderValue(options: SetCurrentMatrixSublistValueOptions_taxitem): Record;
+    /** Sets the value for the field in the currently selected line. */
+    setCurrentSublistValue(options: SetCurrentSublistValueOptions_taxitem): void;
+    /** Sets the value of a sublist field. (standard mode only). */
+    setSublistValue(options: SetSublistValueOptions_taxitem): Record;
+    /** Sets the value for the field in the currently selected line by a text representation. */
+    setCurrentSublistText(options: SetCurrentSublistTextOptions_taxitem): void;
+    /** Sets the value of a sublist field by a text representation. */
+    setSublistText(options: SetSublistTextOptions_taxitem): Record;
+    /** Sets the value for the associated field in the matrix. */
+    setMatrixSublistValue(options: SetSublistValueOptions_taxitem): Record;
+    /** Sets the value of a sublist field by a text representation. */
+    setSublistText(options: SetSublistTextOptions_taxitem): Record;
     /** Returns the value of a sublist field. */
     getSublistValue(options: GetSublistValueOptions_taxitem): FieldValue;
     //getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue;

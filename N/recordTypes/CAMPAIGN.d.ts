@@ -1,7 +1,6 @@
 
 import { Field, Record, Type } from '../record'
 import { Sublist } from '../ui/serverWidget';
-import { UserEventType, UserEventTypes } from './_EventTypes'
 
 // main field types
 type main_select = 'audience' | 'category' | 'customform' | 'family' | 'item' | 'offer' | 'owner' | 'promotioncode' | 'searchengine' | 'vertical';
@@ -818,6 +817,46 @@ interface RecordSaveFunction {
 // Exported for other modules to be able to consume this type
 export interface CAMPAIGN extends Record {
 
+    /** Returns the line number of the first instance where a specified value is found in a specified column of the matrix. */
+    findMatrixSublistLineWIthValue(options: FindSublistLineWithValueOptions_campaigndirectmail | FindSublistLineWithValueOptions_campaigndrip | FindSublistLineWithValueOptions_campaignemail | FindSublistLineWithValueOptions_campaignevent): number;
+    /** Returns the line number for the first occurrence of a field value in a sublist. */
+    findSublistLineWithValue(options: FindSublistLineWithValueOptions_campaigndirectmail | FindSublistLineWithValueOptions_campaigndrip | FindSublistLineWithValueOptions_campaignemail | FindSublistLineWithValueOptions_campaignevent): number;
+    /** Gets the value for the currently selected line in the matrix. */
+    getCurrentMatrixSublistValue(options: GetCurrentSublistValueOptions_campaigndirectmail | GetCurrentSublistValueOptions_campaigndrip | GetCurrentSublistValueOptions_campaignemail | GetCurrentSublistValueOptions_campaignevent): number | Date | string | string[] | boolean;
+    /** Returns a value indicating whether the associated sublist field has a subrecord on the current line. This method can only be used on dynamic records. */
+    hasCurrentSublistSubrecord(options: GetCurrentSublistValueOptions_campaigndirectmail | GetCurrentSublistValueOptions_campaigndrip | GetCurrentSublistValueOptions_campaignemail | GetCurrentSublistValueOptions_campaignevent): boolean;
+    /** Gets the subrecord for the associated sublist field on the current line. */
+    getCurrentSublistSubrecord(options: GetCurrentSublistValueOptions_campaigndirectmail | GetCurrentSublistValueOptions_campaigndrip | GetCurrentSublistValueOptions_campaignemail | GetCurrentSublistValueOptions_campaignevent): Record;
+    /** Returns a text representation of the field value in the currently selected line. */
+    getCurrentSublistText(options: GetCurrentSublistValueOptions_campaigndirectmail | GetCurrentSublistValueOptions_campaigndrip | GetCurrentSublistValueOptions_campaignemail | GetCurrentSublistValueOptions_campaignevent): string;
+    /** Returns the value of a sublist field on the currently selected sublist line. */
+    getCurrentSublistValue(options: GetCurrentSublistValueOptions_campaigndirectmail | GetCurrentSublistValueOptions_campaigndrip | GetCurrentSublistValueOptions_campaignemail | GetCurrentSublistValueOptions_campaignevent): FieldValue;
+    /** Returns the number of columns for the specified matrix. */
+    getMatrixHeaderCount(options: GetMatrixHeaderCountOptions_campaigndirectmail | GetMatrixHeaderCountOptions_campaigndrip | GetMatrixHeaderCountOptions_campaignemail | GetMatrixHeaderCountOptions_campaignevent): number;
+    /** Gets the field for the specified header in the matrix. */
+    getMatrixHeaderField(options: GetMatrixHeaderFieldOptions_campaigndirectmail | GetMatrixHeaderFieldOptions_campaigndrip | GetMatrixHeaderFieldOptions_campaignemail | GetMatrixHeaderFieldOptions_campaignevent): Field;
+    /** Gets the value for the associated header in the matrix. */
+    getMatrixHeaderValue(options: GetMatrixHeaderFieldOptions_campaigndirectmail | GetMatrixHeaderFieldOptions_campaigndrip | GetMatrixHeaderFieldOptions_campaignemail | GetMatrixHeaderFieldOptions_campaignevent): FieldValue;
+    /** Gets the field for the specified sublist in the matrix. */
+    getMatrixSublistField(options: GetMatrixSublistFieldOptions_campaigndirectmail | GetMatrixSublistFieldOptions_campaigndrip | GetMatrixSublistFieldOptions_campaignemail | GetMatrixSublistFieldOptions_campaignevent): Field;
+    /** Gets the value for the associated field in the matrix. */
+    getMatrixSublistValue(options: GetMatrixSublistFieldOptions_campaigndirectmail | GetMatrixSublistFieldOptions_campaigndrip | GetMatrixSublistFieldOptions_campaignemail | GetMatrixSublistFieldOptions_campaignevent): FieldValue;
+    /** Sets the value for the line currently selected in the matrix. */
+    setCurrentMatrixSublistValue(options: SetCurrentMatrixSublistValueOptions_campaigndirectmail | SetCurrentMatrixSublistValueOptions_campaigndrip | SetCurrentMatrixSublistValueOptions_campaignemail | SetCurrentMatrixSublistValueOptions_campaignevent): Record;
+    /** Sets the value for the associated header in the matrix. */
+    setMatrixHeaderValue(options: SetCurrentMatrixSublistValueOptions_campaigndirectmail | SetCurrentMatrixSublistValueOptions_campaigndrip | SetCurrentMatrixSublistValueOptions_campaignemail | SetCurrentMatrixSublistValueOptions_campaignevent): Record;
+    /** Sets the value for the field in the currently selected line. */
+    setCurrentSublistValue(options: SetCurrentSublistValueOptions_campaigndirectmail | SetCurrentSublistValueOptions_campaigndrip | SetCurrentSublistValueOptions_campaignemail | SetCurrentSublistValueOptions_campaignevent): void;
+    /** Sets the value of a sublist field. (standard mode only). */
+    setSublistValue(options: SetSublistValueOptions_campaigndirectmail | SetSublistValueOptions_campaigndrip | SetSublistValueOptions_campaignemail | SetSublistValueOptions_campaignevent): Record;
+    /** Sets the value for the field in the currently selected line by a text representation. */
+    setCurrentSublistText(options: SetCurrentSublistTextOptions_campaigndirectmail | SetCurrentSublistTextOptions_campaigndrip | SetCurrentSublistTextOptions_campaignemail | SetCurrentSublistTextOptions_campaignevent): void;
+    /** Sets the value of a sublist field by a text representation. */
+    setSublistText(options: SetSublistTextOptions_campaigndirectmail | SetSublistTextOptions_campaigndrip | SetSublistTextOptions_campaignemail | SetSublistTextOptions_campaignevent): Record;
+    /** Sets the value for the associated field in the matrix. */
+    setMatrixSublistValue(options: SetSublistValueOptions_campaigndirectmail | SetSublistValueOptions_campaigndrip | SetSublistValueOptions_campaignemail | SetSublistValueOptions_campaignevent): Record;
+    /** Sets the value of a sublist field by a text representation. */
+    setSublistText(options: SetSublistTextOptions_campaigndirectmail | SetSublistTextOptions_campaigndrip | SetSublistTextOptions_campaignemail | SetSublistTextOptions_campaignevent): Record;
     /** Returns the value of a sublist field. */
     getSublistValue(options: GetSublistValueOptions_campaigndirectmail | GetSublistValueOptions_campaigndrip | GetSublistValueOptions_campaignemail | GetSublistValueOptions_campaignevent): FieldValue;
     //getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue;

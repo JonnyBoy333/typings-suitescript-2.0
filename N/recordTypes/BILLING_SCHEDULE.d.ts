@@ -1,7 +1,6 @@
 
 import { Field, Record, Type } from '../record'
 import { Sublist } from '../ui/serverWidget';
-import { UserEventType, UserEventTypes } from './_EventTypes'
 
 // main field types
 type main_checkbox = 'applytosubtotal' | 'billforactuals' | 'inarrears' | 'isinactive' | 'ispublic' | 'weekfriday' | 'weekmonday' | 'weeksaturday' | 'weeksunday' | 'weekthursday' | 'weektuesday' | 'weekwednesday';
@@ -520,6 +519,46 @@ interface RecordSaveFunction {
 // Exported for other modules to be able to consume this type
 export interface BILLING_SCHEDULE extends Record {
 
+    /** Returns the line number of the first instance where a specified value is found in a specified column of the matrix. */
+    findMatrixSublistLineWIthValue(options: FindSublistLineWithValueOptions_milestone | FindSublistLineWithValueOptions_recurrence): number;
+    /** Returns the line number for the first occurrence of a field value in a sublist. */
+    findSublistLineWithValue(options: FindSublistLineWithValueOptions_milestone | FindSublistLineWithValueOptions_recurrence): number;
+    /** Gets the value for the currently selected line in the matrix. */
+    getCurrentMatrixSublistValue(options: GetCurrentSublistValueOptions_milestone | GetCurrentSublistValueOptions_recurrence): number | Date | string | string[] | boolean;
+    /** Returns a value indicating whether the associated sublist field has a subrecord on the current line. This method can only be used on dynamic records. */
+    hasCurrentSublistSubrecord(options: GetCurrentSublistValueOptions_milestone | GetCurrentSublistValueOptions_recurrence): boolean;
+    /** Gets the subrecord for the associated sublist field on the current line. */
+    getCurrentSublistSubrecord(options: GetCurrentSublistValueOptions_milestone | GetCurrentSublistValueOptions_recurrence): Record;
+    /** Returns a text representation of the field value in the currently selected line. */
+    getCurrentSublistText(options: GetCurrentSublistValueOptions_milestone | GetCurrentSublistValueOptions_recurrence): string;
+    /** Returns the value of a sublist field on the currently selected sublist line. */
+    getCurrentSublistValue(options: GetCurrentSublistValueOptions_milestone | GetCurrentSublistValueOptions_recurrence): FieldValue;
+    /** Returns the number of columns for the specified matrix. */
+    getMatrixHeaderCount(options: GetMatrixHeaderCountOptions_milestone | GetMatrixHeaderCountOptions_recurrence): number;
+    /** Gets the field for the specified header in the matrix. */
+    getMatrixHeaderField(options: GetMatrixHeaderFieldOptions_milestone | GetMatrixHeaderFieldOptions_recurrence): Field;
+    /** Gets the value for the associated header in the matrix. */
+    getMatrixHeaderValue(options: GetMatrixHeaderFieldOptions_milestone | GetMatrixHeaderFieldOptions_recurrence): FieldValue;
+    /** Gets the field for the specified sublist in the matrix. */
+    getMatrixSublistField(options: GetMatrixSublistFieldOptions_milestone | GetMatrixSublistFieldOptions_recurrence): Field;
+    /** Gets the value for the associated field in the matrix. */
+    getMatrixSublistValue(options: GetMatrixSublistFieldOptions_milestone | GetMatrixSublistFieldOptions_recurrence): FieldValue;
+    /** Sets the value for the line currently selected in the matrix. */
+    setCurrentMatrixSublistValue(options: SetCurrentMatrixSublistValueOptions_milestone | SetCurrentMatrixSublistValueOptions_recurrence): Record;
+    /** Sets the value for the associated header in the matrix. */
+    setMatrixHeaderValue(options: SetCurrentMatrixSublistValueOptions_milestone | SetCurrentMatrixSublistValueOptions_recurrence): Record;
+    /** Sets the value for the field in the currently selected line. */
+    setCurrentSublistValue(options: SetCurrentSublistValueOptions_milestone | SetCurrentSublistValueOptions_recurrence): void;
+    /** Sets the value of a sublist field. (standard mode only). */
+    setSublistValue(options: SetSublistValueOptions_milestone | SetSublistValueOptions_recurrence): Record;
+    /** Sets the value for the field in the currently selected line by a text representation. */
+    setCurrentSublistText(options: SetCurrentSublistTextOptions_milestone | SetCurrentSublistTextOptions_recurrence): void;
+    /** Sets the value of a sublist field by a text representation. */
+    setSublistText(options: SetSublistTextOptions_milestone | SetSublistTextOptions_recurrence): Record;
+    /** Sets the value for the associated field in the matrix. */
+    setMatrixSublistValue(options: SetSublistValueOptions_milestone | SetSublistValueOptions_recurrence): Record;
+    /** Sets the value of a sublist field by a text representation. */
+    setSublistText(options: SetSublistTextOptions_milestone | SetSublistTextOptions_recurrence): Record;
     /** Returns the value of a sublist field. */
     getSublistValue(options: GetSublistValueOptions_milestone | GetSublistValueOptions_recurrence): FieldValue;
     //getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue;

@@ -1,7 +1,6 @@
 
 import { Field, Record, Type } from '../record'
 import { Sublist } from '../ui/serverWidget';
-import { UserEventType, UserEventTypes } from './_EventTypes'
 
 // main field types
 type main_select = 'assigned' | 'buildbroken' | 'buildfixed' | 'buildtarget' | 'customform' | 'emailcells' | 'emailemployees' | 'issuestatus' | 'issuetags' | 'issuetype' | 'item' | 'module' | 'priority' | 'product' | 'productteam' | 'reportedby' | 'reproduce' | 'reviewer' | 'severity' | 'source' | 'versionbroken' | 'versionfixed' | 'versiontarget';
@@ -804,6 +803,46 @@ interface RecordSaveFunction {
 // Exported for other modules to be able to consume this type
 export interface ISSUE extends Record {
 
+    /** Returns the line number of the first instance where a specified value is found in a specified column of the matrix. */
+    findMatrixSublistLineWIthValue(options: FindSublistLineWithValueOptions_brokeninversion | FindSublistLineWithValueOptions_fixedinversion | FindSublistLineWithValueOptions_relatedissues | FindSublistLineWithValueOptions_targetversion): number;
+    /** Returns the line number for the first occurrence of a field value in a sublist. */
+    findSublistLineWithValue(options: FindSublistLineWithValueOptions_brokeninversion | FindSublistLineWithValueOptions_fixedinversion | FindSublistLineWithValueOptions_relatedissues | FindSublistLineWithValueOptions_targetversion): number;
+    /** Gets the value for the currently selected line in the matrix. */
+    getCurrentMatrixSublistValue(options: GetCurrentSublistValueOptions_brokeninversion | GetCurrentSublistValueOptions_fixedinversion | GetCurrentSublistValueOptions_relatedissues | GetCurrentSublistValueOptions_targetversion): number | Date | string | string[] | boolean;
+    /** Returns a value indicating whether the associated sublist field has a subrecord on the current line. This method can only be used on dynamic records. */
+    hasCurrentSublistSubrecord(options: GetCurrentSublistValueOptions_brokeninversion | GetCurrentSublistValueOptions_fixedinversion | GetCurrentSublistValueOptions_relatedissues | GetCurrentSublistValueOptions_targetversion): boolean;
+    /** Gets the subrecord for the associated sublist field on the current line. */
+    getCurrentSublistSubrecord(options: GetCurrentSublistValueOptions_brokeninversion | GetCurrentSublistValueOptions_fixedinversion | GetCurrentSublistValueOptions_relatedissues | GetCurrentSublistValueOptions_targetversion): Record;
+    /** Returns a text representation of the field value in the currently selected line. */
+    getCurrentSublistText(options: GetCurrentSublistValueOptions_brokeninversion | GetCurrentSublistValueOptions_fixedinversion | GetCurrentSublistValueOptions_relatedissues | GetCurrentSublistValueOptions_targetversion): string;
+    /** Returns the value of a sublist field on the currently selected sublist line. */
+    getCurrentSublistValue(options: GetCurrentSublistValueOptions_brokeninversion | GetCurrentSublistValueOptions_fixedinversion | GetCurrentSublistValueOptions_relatedissues | GetCurrentSublistValueOptions_targetversion): FieldValue;
+    /** Returns the number of columns for the specified matrix. */
+    getMatrixHeaderCount(options: GetMatrixHeaderCountOptions_brokeninversion | GetMatrixHeaderCountOptions_fixedinversion | GetMatrixHeaderCountOptions_relatedissues | GetMatrixHeaderCountOptions_targetversion): number;
+    /** Gets the field for the specified header in the matrix. */
+    getMatrixHeaderField(options: GetMatrixHeaderFieldOptions_brokeninversion | GetMatrixHeaderFieldOptions_fixedinversion | GetMatrixHeaderFieldOptions_relatedissues | GetMatrixHeaderFieldOptions_targetversion): Field;
+    /** Gets the value for the associated header in the matrix. */
+    getMatrixHeaderValue(options: GetMatrixHeaderFieldOptions_brokeninversion | GetMatrixHeaderFieldOptions_fixedinversion | GetMatrixHeaderFieldOptions_relatedissues | GetMatrixHeaderFieldOptions_targetversion): FieldValue;
+    /** Gets the field for the specified sublist in the matrix. */
+    getMatrixSublistField(options: GetMatrixSublistFieldOptions_brokeninversion | GetMatrixSublistFieldOptions_fixedinversion | GetMatrixSublistFieldOptions_relatedissues | GetMatrixSublistFieldOptions_targetversion): Field;
+    /** Gets the value for the associated field in the matrix. */
+    getMatrixSublistValue(options: GetMatrixSublistFieldOptions_brokeninversion | GetMatrixSublistFieldOptions_fixedinversion | GetMatrixSublistFieldOptions_relatedissues | GetMatrixSublistFieldOptions_targetversion): FieldValue;
+    /** Sets the value for the line currently selected in the matrix. */
+    setCurrentMatrixSublistValue(options: SetCurrentMatrixSublistValueOptions_brokeninversion | SetCurrentMatrixSublistValueOptions_fixedinversion | SetCurrentMatrixSublistValueOptions_relatedissues | SetCurrentMatrixSublistValueOptions_targetversion): Record;
+    /** Sets the value for the associated header in the matrix. */
+    setMatrixHeaderValue(options: SetCurrentMatrixSublistValueOptions_brokeninversion | SetCurrentMatrixSublistValueOptions_fixedinversion | SetCurrentMatrixSublistValueOptions_relatedissues | SetCurrentMatrixSublistValueOptions_targetversion): Record;
+    /** Sets the value for the field in the currently selected line. */
+    setCurrentSublistValue(options: SetCurrentSublistValueOptions_brokeninversion | SetCurrentSublistValueOptions_fixedinversion | SetCurrentSublistValueOptions_relatedissues | SetCurrentSublistValueOptions_targetversion): void;
+    /** Sets the value of a sublist field. (standard mode only). */
+    setSublistValue(options: SetSublistValueOptions_brokeninversion | SetSublistValueOptions_fixedinversion | SetSublistValueOptions_relatedissues | SetSublistValueOptions_targetversion): Record;
+    /** Sets the value for the field in the currently selected line by a text representation. */
+    setCurrentSublistText(options: SetCurrentSublistTextOptions_brokeninversion | SetCurrentSublistTextOptions_fixedinversion | SetCurrentSublistTextOptions_relatedissues | SetCurrentSublistTextOptions_targetversion): void;
+    /** Sets the value of a sublist field by a text representation. */
+    setSublistText(options: SetSublistTextOptions_brokeninversion | SetSublistTextOptions_fixedinversion | SetSublistTextOptions_relatedissues | SetSublistTextOptions_targetversion): Record;
+    /** Sets the value for the associated field in the matrix. */
+    setMatrixSublistValue(options: SetSublistValueOptions_brokeninversion | SetSublistValueOptions_fixedinversion | SetSublistValueOptions_relatedissues | SetSublistValueOptions_targetversion): Record;
+    /** Sets the value of a sublist field by a text representation. */
+    setSublistText(options: SetSublistTextOptions_brokeninversion | SetSublistTextOptions_fixedinversion | SetSublistTextOptions_relatedissues | SetSublistTextOptions_targetversion): Record;
     /** Returns the value of a sublist field. */
     getSublistValue(options: GetSublistValueOptions_brokeninversion | GetSublistValueOptions_fixedinversion | GetSublistValueOptions_relatedissues | GetSublistValueOptions_targetversion): FieldValue;
     //getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue;

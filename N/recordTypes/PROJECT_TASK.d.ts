@@ -1,7 +1,6 @@
 
 import { Field, Record, Type } from '../record'
 import { Sublist } from '../ui/serverWidget';
-import { UserEventType, UserEventTypes } from './_EventTypes'
 
 // main field types
 type main_float = 'actualwork' | 'estimatedwork' | 'estimatedworkbaseline' | 'remainingwork' | 'slackminutes';
@@ -814,6 +813,46 @@ interface RecordSaveFunction {
 // Exported for other modules to be able to consume this type
 export interface PROJECT_TASK extends Record {
 
+    /** Returns the line number of the first instance where a specified value is found in a specified column of the matrix. */
+    findMatrixSublistLineWIthValue(options: FindSublistLineWithValueOptions_assignee | FindSublistLineWithValueOptions_bbudget | FindSublistLineWithValueOptions_cbudget | FindSublistLineWithValueOptions_predecessor): number;
+    /** Returns the line number for the first occurrence of a field value in a sublist. */
+    findSublistLineWithValue(options: FindSublistLineWithValueOptions_assignee | FindSublistLineWithValueOptions_bbudget | FindSublistLineWithValueOptions_cbudget | FindSublistLineWithValueOptions_predecessor): number;
+    /** Gets the value for the currently selected line in the matrix. */
+    getCurrentMatrixSublistValue(options: GetCurrentSublistValueOptions_assignee | GetCurrentSublistValueOptions_bbudget | GetCurrentSublistValueOptions_cbudget | GetCurrentSublistValueOptions_predecessor): number | Date | string | string[] | boolean;
+    /** Returns a value indicating whether the associated sublist field has a subrecord on the current line. This method can only be used on dynamic records. */
+    hasCurrentSublistSubrecord(options: GetCurrentSublistValueOptions_assignee | GetCurrentSublistValueOptions_bbudget | GetCurrentSublistValueOptions_cbudget | GetCurrentSublistValueOptions_predecessor): boolean;
+    /** Gets the subrecord for the associated sublist field on the current line. */
+    getCurrentSublistSubrecord(options: GetCurrentSublistValueOptions_assignee | GetCurrentSublistValueOptions_bbudget | GetCurrentSublistValueOptions_cbudget | GetCurrentSublistValueOptions_predecessor): Record;
+    /** Returns a text representation of the field value in the currently selected line. */
+    getCurrentSublistText(options: GetCurrentSublistValueOptions_assignee | GetCurrentSublistValueOptions_bbudget | GetCurrentSublistValueOptions_cbudget | GetCurrentSublistValueOptions_predecessor): string;
+    /** Returns the value of a sublist field on the currently selected sublist line. */
+    getCurrentSublistValue(options: GetCurrentSublistValueOptions_assignee | GetCurrentSublistValueOptions_bbudget | GetCurrentSublistValueOptions_cbudget | GetCurrentSublistValueOptions_predecessor): FieldValue;
+    /** Returns the number of columns for the specified matrix. */
+    getMatrixHeaderCount(options: GetMatrixHeaderCountOptions_assignee | GetMatrixHeaderCountOptions_bbudget | GetMatrixHeaderCountOptions_cbudget | GetMatrixHeaderCountOptions_predecessor): number;
+    /** Gets the field for the specified header in the matrix. */
+    getMatrixHeaderField(options: GetMatrixHeaderFieldOptions_assignee | GetMatrixHeaderFieldOptions_bbudget | GetMatrixHeaderFieldOptions_cbudget | GetMatrixHeaderFieldOptions_predecessor): Field;
+    /** Gets the value for the associated header in the matrix. */
+    getMatrixHeaderValue(options: GetMatrixHeaderFieldOptions_assignee | GetMatrixHeaderFieldOptions_bbudget | GetMatrixHeaderFieldOptions_cbudget | GetMatrixHeaderFieldOptions_predecessor): FieldValue;
+    /** Gets the field for the specified sublist in the matrix. */
+    getMatrixSublistField(options: GetMatrixSublistFieldOptions_assignee | GetMatrixSublistFieldOptions_bbudget | GetMatrixSublistFieldOptions_cbudget | GetMatrixSublistFieldOptions_predecessor): Field;
+    /** Gets the value for the associated field in the matrix. */
+    getMatrixSublistValue(options: GetMatrixSublistFieldOptions_assignee | GetMatrixSublistFieldOptions_bbudget | GetMatrixSublistFieldOptions_cbudget | GetMatrixSublistFieldOptions_predecessor): FieldValue;
+    /** Sets the value for the line currently selected in the matrix. */
+    setCurrentMatrixSublistValue(options: SetCurrentMatrixSublistValueOptions_assignee | SetCurrentMatrixSublistValueOptions_bbudget | SetCurrentMatrixSublistValueOptions_cbudget | SetCurrentMatrixSublistValueOptions_predecessor): Record;
+    /** Sets the value for the associated header in the matrix. */
+    setMatrixHeaderValue(options: SetCurrentMatrixSublistValueOptions_assignee | SetCurrentMatrixSublistValueOptions_bbudget | SetCurrentMatrixSublistValueOptions_cbudget | SetCurrentMatrixSublistValueOptions_predecessor): Record;
+    /** Sets the value for the field in the currently selected line. */
+    setCurrentSublistValue(options: SetCurrentSublistValueOptions_assignee | SetCurrentSublistValueOptions_bbudget | SetCurrentSublistValueOptions_cbudget | SetCurrentSublistValueOptions_predecessor): void;
+    /** Sets the value of a sublist field. (standard mode only). */
+    setSublistValue(options: SetSublistValueOptions_assignee | SetSublistValueOptions_bbudget | SetSublistValueOptions_cbudget | SetSublistValueOptions_predecessor): Record;
+    /** Sets the value for the field in the currently selected line by a text representation. */
+    setCurrentSublistText(options: SetCurrentSublistTextOptions_assignee | SetCurrentSublistTextOptions_bbudget | SetCurrentSublistTextOptions_cbudget | SetCurrentSublistTextOptions_predecessor): void;
+    /** Sets the value of a sublist field by a text representation. */
+    setSublistText(options: SetSublistTextOptions_assignee | SetSublistTextOptions_bbudget | SetSublistTextOptions_cbudget | SetSublistTextOptions_predecessor): Record;
+    /** Sets the value for the associated field in the matrix. */
+    setMatrixSublistValue(options: SetSublistValueOptions_assignee | SetSublistValueOptions_bbudget | SetSublistValueOptions_cbudget | SetSublistValueOptions_predecessor): Record;
+    /** Sets the value of a sublist field by a text representation. */
+    setSublistText(options: SetSublistTextOptions_assignee | SetSublistTextOptions_bbudget | SetSublistTextOptions_cbudget | SetSublistTextOptions_predecessor): Record;
     /** Returns the value of a sublist field. */
     getSublistValue(options: GetSublistValueOptions_assignee | GetSublistValueOptions_bbudget | GetSublistValueOptions_cbudget | GetSublistValueOptions_predecessor): FieldValue;
     //getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue;

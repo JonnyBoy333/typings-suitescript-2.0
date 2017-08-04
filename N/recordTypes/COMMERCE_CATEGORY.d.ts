@@ -1,7 +1,6 @@
 
 import { Field, Record, Type } from '../record'
 import { Sublist } from '../ui/serverWidget';
-import { UserEventType, UserEventTypes } from './_EventTypes'
 
 // main field types
 type main_richtext = 'addtohead';
@@ -663,6 +662,46 @@ interface RecordSaveFunction {
 // Exported for other modules to be able to consume this type
 export interface COMMERCE_CATEGORY extends Record {
 
+    /** Returns the line number of the first instance where a specified value is found in a specified column of the matrix. */
+    findMatrixSublistLineWIthValue(options: FindSublistLineWithValueOptions_items | FindSublistLineWithValueOptions_subcategories | FindSublistLineWithValueOptions_urls): number;
+    /** Returns the line number for the first occurrence of a field value in a sublist. */
+    findSublistLineWithValue(options: FindSublistLineWithValueOptions_items | FindSublistLineWithValueOptions_subcategories | FindSublistLineWithValueOptions_urls): number;
+    /** Gets the value for the currently selected line in the matrix. */
+    getCurrentMatrixSublistValue(options: GetCurrentSublistValueOptions_items | GetCurrentSublistValueOptions_subcategories | GetCurrentSublistValueOptions_urls): number | Date | string | string[] | boolean;
+    /** Returns a value indicating whether the associated sublist field has a subrecord on the current line. This method can only be used on dynamic records. */
+    hasCurrentSublistSubrecord(options: GetCurrentSublistValueOptions_items | GetCurrentSublistValueOptions_subcategories | GetCurrentSublistValueOptions_urls): boolean;
+    /** Gets the subrecord for the associated sublist field on the current line. */
+    getCurrentSublistSubrecord(options: GetCurrentSublistValueOptions_items | GetCurrentSublistValueOptions_subcategories | GetCurrentSublistValueOptions_urls): Record;
+    /** Returns a text representation of the field value in the currently selected line. */
+    getCurrentSublistText(options: GetCurrentSublistValueOptions_items | GetCurrentSublistValueOptions_subcategories | GetCurrentSublistValueOptions_urls): string;
+    /** Returns the value of a sublist field on the currently selected sublist line. */
+    getCurrentSublistValue(options: GetCurrentSublistValueOptions_items | GetCurrentSublistValueOptions_subcategories | GetCurrentSublistValueOptions_urls): FieldValue;
+    /** Returns the number of columns for the specified matrix. */
+    getMatrixHeaderCount(options: GetMatrixHeaderCountOptions_items | GetMatrixHeaderCountOptions_subcategories | GetMatrixHeaderCountOptions_urls): number;
+    /** Gets the field for the specified header in the matrix. */
+    getMatrixHeaderField(options: GetMatrixHeaderFieldOptions_items | GetMatrixHeaderFieldOptions_subcategories | GetMatrixHeaderFieldOptions_urls): Field;
+    /** Gets the value for the associated header in the matrix. */
+    getMatrixHeaderValue(options: GetMatrixHeaderFieldOptions_items | GetMatrixHeaderFieldOptions_subcategories | GetMatrixHeaderFieldOptions_urls): FieldValue;
+    /** Gets the field for the specified sublist in the matrix. */
+    getMatrixSublistField(options: GetMatrixSublistFieldOptions_items | GetMatrixSublistFieldOptions_subcategories | GetMatrixSublistFieldOptions_urls): Field;
+    /** Gets the value for the associated field in the matrix. */
+    getMatrixSublistValue(options: GetMatrixSublistFieldOptions_items | GetMatrixSublistFieldOptions_subcategories | GetMatrixSublistFieldOptions_urls): FieldValue;
+    /** Sets the value for the line currently selected in the matrix. */
+    setCurrentMatrixSublistValue(options: SetCurrentMatrixSublistValueOptions_items | SetCurrentMatrixSublistValueOptions_subcategories | SetCurrentMatrixSublistValueOptions_urls): Record;
+    /** Sets the value for the associated header in the matrix. */
+    setMatrixHeaderValue(options: SetCurrentMatrixSublistValueOptions_items | SetCurrentMatrixSublistValueOptions_subcategories | SetCurrentMatrixSublistValueOptions_urls): Record;
+    /** Sets the value for the field in the currently selected line. */
+    setCurrentSublistValue(options: SetCurrentSublistValueOptions_items | SetCurrentSublistValueOptions_subcategories | SetCurrentSublistValueOptions_urls): void;
+    /** Sets the value of a sublist field. (standard mode only). */
+    setSublistValue(options: SetSublistValueOptions_items | SetSublistValueOptions_subcategories | SetSublistValueOptions_urls): Record;
+    /** Sets the value for the field in the currently selected line by a text representation. */
+    setCurrentSublistText(options: SetCurrentSublistTextOptions_items | SetCurrentSublistTextOptions_subcategories | SetCurrentSublistTextOptions_urls): void;
+    /** Sets the value of a sublist field by a text representation. */
+    setSublistText(options: SetSublistTextOptions_items | SetSublistTextOptions_subcategories | SetSublistTextOptions_urls): Record;
+    /** Sets the value for the associated field in the matrix. */
+    setMatrixSublistValue(options: SetSublistValueOptions_items | SetSublistValueOptions_subcategories | SetSublistValueOptions_urls): Record;
+    /** Sets the value of a sublist field by a text representation. */
+    setSublistText(options: SetSublistTextOptions_items | SetSublistTextOptions_subcategories | SetSublistTextOptions_urls): Record;
     /** Returns the value of a sublist field. */
     getSublistValue(options: GetSublistValueOptions_items | GetSublistValueOptions_subcategories | GetSublistValueOptions_urls): FieldValue;
     //getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue;

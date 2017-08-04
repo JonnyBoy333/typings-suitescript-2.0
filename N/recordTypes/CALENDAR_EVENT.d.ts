@@ -1,7 +1,6 @@
 
 import { Field, Record, Type } from '../record'
 import { Sublist } from '../ui/serverWidget';
-import { UserEventType, UserEventTypes } from './_EventTypes'
 
 // main field types
 type main_select = 'accesslevel' | 'company' | 'contact' | 'customform' | 'organizer' | 'reminderminutes' | 'remindertype' | 'status' | 'supportcase' | 'transaction';
@@ -665,6 +664,46 @@ interface RecordSaveFunction {
 // Exported for other modules to be able to consume this type
 export interface CALENDAR_EVENT extends Record {
 
+    /** Returns the line number of the first instance where a specified value is found in a specified column of the matrix. */
+    findMatrixSublistLineWIthValue(options: FindSublistLineWithValueOptions_attendee | FindSublistLineWithValueOptions_resource | FindSublistLineWithValueOptions_timeitem): number;
+    /** Returns the line number for the first occurrence of a field value in a sublist. */
+    findSublistLineWithValue(options: FindSublistLineWithValueOptions_attendee | FindSublistLineWithValueOptions_resource | FindSublistLineWithValueOptions_timeitem): number;
+    /** Gets the value for the currently selected line in the matrix. */
+    getCurrentMatrixSublistValue(options: GetCurrentSublistValueOptions_attendee | GetCurrentSublistValueOptions_resource | GetCurrentSublistValueOptions_timeitem): number | Date | string | string[] | boolean;
+    /** Returns a value indicating whether the associated sublist field has a subrecord on the current line. This method can only be used on dynamic records. */
+    hasCurrentSublistSubrecord(options: GetCurrentSublistValueOptions_attendee | GetCurrentSublistValueOptions_resource | GetCurrentSublistValueOptions_timeitem): boolean;
+    /** Gets the subrecord for the associated sublist field on the current line. */
+    getCurrentSublistSubrecord(options: GetCurrentSublistValueOptions_attendee | GetCurrentSublistValueOptions_resource | GetCurrentSublistValueOptions_timeitem): Record;
+    /** Returns a text representation of the field value in the currently selected line. */
+    getCurrentSublistText(options: GetCurrentSublistValueOptions_attendee | GetCurrentSublistValueOptions_resource | GetCurrentSublistValueOptions_timeitem): string;
+    /** Returns the value of a sublist field on the currently selected sublist line. */
+    getCurrentSublistValue(options: GetCurrentSublistValueOptions_attendee | GetCurrentSublistValueOptions_resource | GetCurrentSublistValueOptions_timeitem): FieldValue;
+    /** Returns the number of columns for the specified matrix. */
+    getMatrixHeaderCount(options: GetMatrixHeaderCountOptions_attendee | GetMatrixHeaderCountOptions_resource | GetMatrixHeaderCountOptions_timeitem): number;
+    /** Gets the field for the specified header in the matrix. */
+    getMatrixHeaderField(options: GetMatrixHeaderFieldOptions_attendee | GetMatrixHeaderFieldOptions_resource | GetMatrixHeaderFieldOptions_timeitem): Field;
+    /** Gets the value for the associated header in the matrix. */
+    getMatrixHeaderValue(options: GetMatrixHeaderFieldOptions_attendee | GetMatrixHeaderFieldOptions_resource | GetMatrixHeaderFieldOptions_timeitem): FieldValue;
+    /** Gets the field for the specified sublist in the matrix. */
+    getMatrixSublistField(options: GetMatrixSublistFieldOptions_attendee | GetMatrixSublistFieldOptions_resource | GetMatrixSublistFieldOptions_timeitem): Field;
+    /** Gets the value for the associated field in the matrix. */
+    getMatrixSublistValue(options: GetMatrixSublistFieldOptions_attendee | GetMatrixSublistFieldOptions_resource | GetMatrixSublistFieldOptions_timeitem): FieldValue;
+    /** Sets the value for the line currently selected in the matrix. */
+    setCurrentMatrixSublistValue(options: SetCurrentMatrixSublistValueOptions_attendee | SetCurrentMatrixSublistValueOptions_resource | SetCurrentMatrixSublistValueOptions_timeitem): Record;
+    /** Sets the value for the associated header in the matrix. */
+    setMatrixHeaderValue(options: SetCurrentMatrixSublistValueOptions_attendee | SetCurrentMatrixSublistValueOptions_resource | SetCurrentMatrixSublistValueOptions_timeitem): Record;
+    /** Sets the value for the field in the currently selected line. */
+    setCurrentSublistValue(options: SetCurrentSublistValueOptions_attendee | SetCurrentSublistValueOptions_resource | SetCurrentSublistValueOptions_timeitem): void;
+    /** Sets the value of a sublist field. (standard mode only). */
+    setSublistValue(options: SetSublistValueOptions_attendee | SetSublistValueOptions_resource | SetSublistValueOptions_timeitem): Record;
+    /** Sets the value for the field in the currently selected line by a text representation. */
+    setCurrentSublistText(options: SetCurrentSublistTextOptions_attendee | SetCurrentSublistTextOptions_resource | SetCurrentSublistTextOptions_timeitem): void;
+    /** Sets the value of a sublist field by a text representation. */
+    setSublistText(options: SetSublistTextOptions_attendee | SetSublistTextOptions_resource | SetSublistTextOptions_timeitem): Record;
+    /** Sets the value for the associated field in the matrix. */
+    setMatrixSublistValue(options: SetSublistValueOptions_attendee | SetSublistValueOptions_resource | SetSublistValueOptions_timeitem): Record;
+    /** Sets the value of a sublist field by a text representation. */
+    setSublistText(options: SetSublistTextOptions_attendee | SetSublistTextOptions_resource | SetSublistTextOptions_timeitem): Record;
     /** Returns the value of a sublist field. */
     getSublistValue(options: GetSublistValueOptions_attendee | GetSublistValueOptions_resource | GetSublistValueOptions_timeitem): FieldValue;
     //getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue;

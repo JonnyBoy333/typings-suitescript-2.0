@@ -1,7 +1,6 @@
 
 import { Field, Record, Type } from '../record'
 import { Sublist } from '../ui/serverWidget';
-import { UserEventType, UserEventTypes } from './_EventTypes'
 
 // main field types
 type main_select = 'currency' | 'customform' | 'fairvalueformula' | 'fairvaluerangepolicy' | 'item' | 'itemrevenuecategory' | 'unitstype';

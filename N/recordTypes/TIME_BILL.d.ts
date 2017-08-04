@@ -1,7 +1,6 @@
 
 import { Field, Record, Type } from '../record'
 import { Sublist } from '../ui/serverWidget';
-import { UserEventType, UserEventTypes } from './_EventTypes'
 
 // main field types
 type main_select = 'casetaskevent' | 'class' | 'customer' | 'customform' | 'department' | 'employee' | 'item' | 'location' | 'payrollitem' | 'projecttaskassignment' | 'serviceitem' | 'subsidiary' | 'timesheet' | 'timetype';

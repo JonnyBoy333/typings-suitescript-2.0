@@ -1,7 +1,6 @@
 
 import { Field, Record, Type } from '../record'
 import { Sublist } from '../ui/serverWidget';
-import { UserEventType, UserEventTypes } from './_EventTypes'
 
 // main field types
 type main_checkbox = 'autocalculatelag' | 'isdefault' | 'isinactive';
@@ -516,6 +515,46 @@ interface RecordSaveFunction {
 // Exported for other modules to be able to consume this type
 export interface MANUFACTURING_ROUTING extends Record {
 
+    /** Returns the line number of the first instance where a specified value is found in a specified column of the matrix. */
+    findMatrixSublistLineWIthValue(options: FindSublistLineWithValueOptions_routingcomponent | FindSublistLineWithValueOptions_routingstep): number;
+    /** Returns the line number for the first occurrence of a field value in a sublist. */
+    findSublistLineWithValue(options: FindSublistLineWithValueOptions_routingcomponent | FindSublistLineWithValueOptions_routingstep): number;
+    /** Gets the value for the currently selected line in the matrix. */
+    getCurrentMatrixSublistValue(options: GetCurrentSublistValueOptions_routingcomponent | GetCurrentSublistValueOptions_routingstep): number | Date | string | string[] | boolean;
+    /** Returns a value indicating whether the associated sublist field has a subrecord on the current line. This method can only be used on dynamic records. */
+    hasCurrentSublistSubrecord(options: GetCurrentSublistValueOptions_routingcomponent | GetCurrentSublistValueOptions_routingstep): boolean;
+    /** Gets the subrecord for the associated sublist field on the current line. */
+    getCurrentSublistSubrecord(options: GetCurrentSublistValueOptions_routingcomponent | GetCurrentSublistValueOptions_routingstep): Record;
+    /** Returns a text representation of the field value in the currently selected line. */
+    getCurrentSublistText(options: GetCurrentSublistValueOptions_routingcomponent | GetCurrentSublistValueOptions_routingstep): string;
+    /** Returns the value of a sublist field on the currently selected sublist line. */
+    getCurrentSublistValue(options: GetCurrentSublistValueOptions_routingcomponent | GetCurrentSublistValueOptions_routingstep): FieldValue;
+    /** Returns the number of columns for the specified matrix. */
+    getMatrixHeaderCount(options: GetMatrixHeaderCountOptions_routingcomponent | GetMatrixHeaderCountOptions_routingstep): number;
+    /** Gets the field for the specified header in the matrix. */
+    getMatrixHeaderField(options: GetMatrixHeaderFieldOptions_routingcomponent | GetMatrixHeaderFieldOptions_routingstep): Field;
+    /** Gets the value for the associated header in the matrix. */
+    getMatrixHeaderValue(options: GetMatrixHeaderFieldOptions_routingcomponent | GetMatrixHeaderFieldOptions_routingstep): FieldValue;
+    /** Gets the field for the specified sublist in the matrix. */
+    getMatrixSublistField(options: GetMatrixSublistFieldOptions_routingcomponent | GetMatrixSublistFieldOptions_routingstep): Field;
+    /** Gets the value for the associated field in the matrix. */
+    getMatrixSublistValue(options: GetMatrixSublistFieldOptions_routingcomponent | GetMatrixSublistFieldOptions_routingstep): FieldValue;
+    /** Sets the value for the line currently selected in the matrix. */
+    setCurrentMatrixSublistValue(options: SetCurrentMatrixSublistValueOptions_routingcomponent | SetCurrentMatrixSublistValueOptions_routingstep): Record;
+    /** Sets the value for the associated header in the matrix. */
+    setMatrixHeaderValue(options: SetCurrentMatrixSublistValueOptions_routingcomponent | SetCurrentMatrixSublistValueOptions_routingstep): Record;
+    /** Sets the value for the field in the currently selected line. */
+    setCurrentSublistValue(options: SetCurrentSublistValueOptions_routingcomponent | SetCurrentSublistValueOptions_routingstep): void;
+    /** Sets the value of a sublist field. (standard mode only). */
+    setSublistValue(options: SetSublistValueOptions_routingcomponent | SetSublistValueOptions_routingstep): Record;
+    /** Sets the value for the field in the currently selected line by a text representation. */
+    setCurrentSublistText(options: SetCurrentSublistTextOptions_routingcomponent | SetCurrentSublistTextOptions_routingstep): void;
+    /** Sets the value of a sublist field by a text representation. */
+    setSublistText(options: SetSublistTextOptions_routingcomponent | SetSublistTextOptions_routingstep): Record;
+    /** Sets the value for the associated field in the matrix. */
+    setMatrixSublistValue(options: SetSublistValueOptions_routingcomponent | SetSublistValueOptions_routingstep): Record;
+    /** Sets the value of a sublist field by a text representation. */
+    setSublistText(options: SetSublistTextOptions_routingcomponent | SetSublistTextOptions_routingstep): Record;
     /** Returns the value of a sublist field. */
     getSublistValue(options: GetSublistValueOptions_routingcomponent | GetSublistValueOptions_routingstep): FieldValue;
     //getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue;

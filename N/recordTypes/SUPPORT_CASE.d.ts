@@ -1,7 +1,6 @@
 
 import { Field, Record, Type } from '../record'
 import { Sublist } from '../ui/serverWidget';
-import { UserEventType, UserEventTypes } from './_EventTypes'
 
 // main field types
 type main_select = 'assigned' | 'category' | 'company' | 'contact' | 'customform' | 'emailemployees' | 'insertsolution' | 'issue' | 'item' | 'module' | 'origin' | 'priority' | 'product' | 'profile' | 'serialnumber' | 'status' | 'subsidiary';
@@ -525,6 +524,46 @@ interface RecordSaveFunction {
 // Exported for other modules to be able to consume this type
 export interface SUPPORT_CASE extends Record {
 
+    /** Returns the line number of the first instance where a specified value is found in a specified column of the matrix. */
+    findMatrixSublistLineWIthValue(options: FindSublistLineWithValueOptions_escalateto | FindSublistLineWithValueOptions_timeitem): number;
+    /** Returns the line number for the first occurrence of a field value in a sublist. */
+    findSublistLineWithValue(options: FindSublistLineWithValueOptions_escalateto | FindSublistLineWithValueOptions_timeitem): number;
+    /** Gets the value for the currently selected line in the matrix. */
+    getCurrentMatrixSublistValue(options: GetCurrentSublistValueOptions_escalateto | GetCurrentSublistValueOptions_timeitem): number | Date | string | string[] | boolean;
+    /** Returns a value indicating whether the associated sublist field has a subrecord on the current line. This method can only be used on dynamic records. */
+    hasCurrentSublistSubrecord(options: GetCurrentSublistValueOptions_escalateto | GetCurrentSublistValueOptions_timeitem): boolean;
+    /** Gets the subrecord for the associated sublist field on the current line. */
+    getCurrentSublistSubrecord(options: GetCurrentSublistValueOptions_escalateto | GetCurrentSublistValueOptions_timeitem): Record;
+    /** Returns a text representation of the field value in the currently selected line. */
+    getCurrentSublistText(options: GetCurrentSublistValueOptions_escalateto | GetCurrentSublistValueOptions_timeitem): string;
+    /** Returns the value of a sublist field on the currently selected sublist line. */
+    getCurrentSublistValue(options: GetCurrentSublistValueOptions_escalateto | GetCurrentSublistValueOptions_timeitem): FieldValue;
+    /** Returns the number of columns for the specified matrix. */
+    getMatrixHeaderCount(options: GetMatrixHeaderCountOptions_escalateto | GetMatrixHeaderCountOptions_timeitem): number;
+    /** Gets the field for the specified header in the matrix. */
+    getMatrixHeaderField(options: GetMatrixHeaderFieldOptions_escalateto | GetMatrixHeaderFieldOptions_timeitem): Field;
+    /** Gets the value for the associated header in the matrix. */
+    getMatrixHeaderValue(options: GetMatrixHeaderFieldOptions_escalateto | GetMatrixHeaderFieldOptions_timeitem): FieldValue;
+    /** Gets the field for the specified sublist in the matrix. */
+    getMatrixSublistField(options: GetMatrixSublistFieldOptions_escalateto | GetMatrixSublistFieldOptions_timeitem): Field;
+    /** Gets the value for the associated field in the matrix. */
+    getMatrixSublistValue(options: GetMatrixSublistFieldOptions_escalateto | GetMatrixSublistFieldOptions_timeitem): FieldValue;
+    /** Sets the value for the line currently selected in the matrix. */
+    setCurrentMatrixSublistValue(options: SetCurrentMatrixSublistValueOptions_escalateto | SetCurrentMatrixSublistValueOptions_timeitem): Record;
+    /** Sets the value for the associated header in the matrix. */
+    setMatrixHeaderValue(options: SetCurrentMatrixSublistValueOptions_escalateto | SetCurrentMatrixSublistValueOptions_timeitem): Record;
+    /** Sets the value for the field in the currently selected line. */
+    setCurrentSublistValue(options: SetCurrentSublistValueOptions_escalateto | SetCurrentSublistValueOptions_timeitem): void;
+    /** Sets the value of a sublist field. (standard mode only). */
+    setSublistValue(options: SetSublistValueOptions_escalateto | SetSublistValueOptions_timeitem): Record;
+    /** Sets the value for the field in the currently selected line by a text representation. */
+    setCurrentSublistText(options: SetCurrentSublistTextOptions_escalateto | SetCurrentSublistTextOptions_timeitem): void;
+    /** Sets the value of a sublist field by a text representation. */
+    setSublistText(options: SetSublistTextOptions_escalateto | SetSublistTextOptions_timeitem): Record;
+    /** Sets the value for the associated field in the matrix. */
+    setMatrixSublistValue(options: SetSublistValueOptions_escalateto | SetSublistValueOptions_timeitem): Record;
+    /** Sets the value of a sublist field by a text representation. */
+    setSublistText(options: SetSublistTextOptions_escalateto | SetSublistTextOptions_timeitem): Record;
     /** Returns the value of a sublist field. */
     getSublistValue(options: GetSublistValueOptions_escalateto | GetSublistValueOptions_timeitem): FieldValue;
     //getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue;

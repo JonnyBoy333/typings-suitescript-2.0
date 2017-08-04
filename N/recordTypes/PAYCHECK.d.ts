@@ -1,7 +1,6 @@
 
 import { Field, Record, Type } from '../record'
 import { Sublist } from '../ui/serverWidget';
-import { UserEventType, UserEventTypes } from './_EventTypes'
 
 // main field types
 type main_select = 'account' | 'class' | 'department' | 'entity' | 'postingperiod' | 'workplace';
@@ -957,6 +956,46 @@ interface RecordSaveFunction {
 // Exported for other modules to be able to consume this type
 export interface PAYCHECK extends Record {
 
+    /** Returns the line number of the first instance where a specified value is found in a specified column of the matrix. */
+    findMatrixSublistLineWIthValue(options: FindSublistLineWithValueOptions_paycontrib | FindSublistLineWithValueOptions_paydeduct | FindSublistLineWithValueOptions_payearn | FindSublistLineWithValueOptions_paytax | FindSublistLineWithValueOptions_paytime): number;
+    /** Returns the line number for the first occurrence of a field value in a sublist. */
+    findSublistLineWithValue(options: FindSublistLineWithValueOptions_paycontrib | FindSublistLineWithValueOptions_paydeduct | FindSublistLineWithValueOptions_payearn | FindSublistLineWithValueOptions_paytax | FindSublistLineWithValueOptions_paytime): number;
+    /** Gets the value for the currently selected line in the matrix. */
+    getCurrentMatrixSublistValue(options: GetCurrentSublistValueOptions_paycontrib | GetCurrentSublistValueOptions_paydeduct | GetCurrentSublistValueOptions_payearn | GetCurrentSublistValueOptions_paytax | GetCurrentSublistValueOptions_paytime): number | Date | string | string[] | boolean;
+    /** Returns a value indicating whether the associated sublist field has a subrecord on the current line. This method can only be used on dynamic records. */
+    hasCurrentSublistSubrecord(options: GetCurrentSublistValueOptions_paycontrib | GetCurrentSublistValueOptions_paydeduct | GetCurrentSublistValueOptions_payearn | GetCurrentSublistValueOptions_paytax | GetCurrentSublistValueOptions_paytime): boolean;
+    /** Gets the subrecord for the associated sublist field on the current line. */
+    getCurrentSublistSubrecord(options: GetCurrentSublistValueOptions_paycontrib | GetCurrentSublistValueOptions_paydeduct | GetCurrentSublistValueOptions_payearn | GetCurrentSublistValueOptions_paytax | GetCurrentSublistValueOptions_paytime): Record;
+    /** Returns a text representation of the field value in the currently selected line. */
+    getCurrentSublistText(options: GetCurrentSublistValueOptions_paycontrib | GetCurrentSublistValueOptions_paydeduct | GetCurrentSublistValueOptions_payearn | GetCurrentSublistValueOptions_paytax | GetCurrentSublistValueOptions_paytime): string;
+    /** Returns the value of a sublist field on the currently selected sublist line. */
+    getCurrentSublistValue(options: GetCurrentSublistValueOptions_paycontrib | GetCurrentSublistValueOptions_paydeduct | GetCurrentSublistValueOptions_payearn | GetCurrentSublistValueOptions_paytax | GetCurrentSublistValueOptions_paytime): FieldValue;
+    /** Returns the number of columns for the specified matrix. */
+    getMatrixHeaderCount(options: GetMatrixHeaderCountOptions_paycontrib | GetMatrixHeaderCountOptions_paydeduct | GetMatrixHeaderCountOptions_payearn | GetMatrixHeaderCountOptions_paytax | GetMatrixHeaderCountOptions_paytime): number;
+    /** Gets the field for the specified header in the matrix. */
+    getMatrixHeaderField(options: GetMatrixHeaderFieldOptions_paycontrib | GetMatrixHeaderFieldOptions_paydeduct | GetMatrixHeaderFieldOptions_payearn | GetMatrixHeaderFieldOptions_paytax | GetMatrixHeaderFieldOptions_paytime): Field;
+    /** Gets the value for the associated header in the matrix. */
+    getMatrixHeaderValue(options: GetMatrixHeaderFieldOptions_paycontrib | GetMatrixHeaderFieldOptions_paydeduct | GetMatrixHeaderFieldOptions_payearn | GetMatrixHeaderFieldOptions_paytax | GetMatrixHeaderFieldOptions_paytime): FieldValue;
+    /** Gets the field for the specified sublist in the matrix. */
+    getMatrixSublistField(options: GetMatrixSublistFieldOptions_paycontrib | GetMatrixSublistFieldOptions_paydeduct | GetMatrixSublistFieldOptions_payearn | GetMatrixSublistFieldOptions_paytax | GetMatrixSublistFieldOptions_paytime): Field;
+    /** Gets the value for the associated field in the matrix. */
+    getMatrixSublistValue(options: GetMatrixSublistFieldOptions_paycontrib | GetMatrixSublistFieldOptions_paydeduct | GetMatrixSublistFieldOptions_payearn | GetMatrixSublistFieldOptions_paytax | GetMatrixSublistFieldOptions_paytime): FieldValue;
+    /** Sets the value for the line currently selected in the matrix. */
+    setCurrentMatrixSublistValue(options: SetCurrentMatrixSublistValueOptions_paycontrib | SetCurrentMatrixSublistValueOptions_paydeduct | SetCurrentMatrixSublistValueOptions_payearn | SetCurrentMatrixSublistValueOptions_paytax | SetCurrentMatrixSublistValueOptions_paytime): Record;
+    /** Sets the value for the associated header in the matrix. */
+    setMatrixHeaderValue(options: SetCurrentMatrixSublistValueOptions_paycontrib | SetCurrentMatrixSublistValueOptions_paydeduct | SetCurrentMatrixSublistValueOptions_payearn | SetCurrentMatrixSublistValueOptions_paytax | SetCurrentMatrixSublistValueOptions_paytime): Record;
+    /** Sets the value for the field in the currently selected line. */
+    setCurrentSublistValue(options: SetCurrentSublistValueOptions_paycontrib | SetCurrentSublistValueOptions_paydeduct | SetCurrentSublistValueOptions_payearn | SetCurrentSublistValueOptions_paytax | SetCurrentSublistValueOptions_paytime): void;
+    /** Sets the value of a sublist field. (standard mode only). */
+    setSublistValue(options: SetSublistValueOptions_paycontrib | SetSublistValueOptions_paydeduct | SetSublistValueOptions_payearn | SetSublistValueOptions_paytax | SetSublistValueOptions_paytime): Record;
+    /** Sets the value for the field in the currently selected line by a text representation. */
+    setCurrentSublistText(options: SetCurrentSublistTextOptions_paycontrib | SetCurrentSublistTextOptions_paydeduct | SetCurrentSublistTextOptions_payearn | SetCurrentSublistTextOptions_paytax | SetCurrentSublistTextOptions_paytime): void;
+    /** Sets the value of a sublist field by a text representation. */
+    setSublistText(options: SetSublistTextOptions_paycontrib | SetSublistTextOptions_paydeduct | SetSublistTextOptions_payearn | SetSublistTextOptions_paytax | SetSublistTextOptions_paytime): Record;
+    /** Sets the value for the associated field in the matrix. */
+    setMatrixSublistValue(options: SetSublistValueOptions_paycontrib | SetSublistValueOptions_paydeduct | SetSublistValueOptions_payearn | SetSublistValueOptions_paytax | SetSublistValueOptions_paytime): Record;
+    /** Sets the value of a sublist field by a text representation. */
+    setSublistText(options: SetSublistTextOptions_paycontrib | SetSublistTextOptions_paydeduct | SetSublistTextOptions_payearn | SetSublistTextOptions_paytax | SetSublistTextOptions_paytime): Record;
     /** Returns the value of a sublist field. */
     getSublistValue(options: GetSublistValueOptions_paycontrib | GetSublistValueOptions_paydeduct | GetSublistValueOptions_payearn | GetSublistValueOptions_paytax | GetSublistValueOptions_paytime): FieldValue;
     //getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue;

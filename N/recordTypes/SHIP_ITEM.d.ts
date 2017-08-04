@@ -1,7 +1,6 @@
 
 import { Field, Record, Type } from '../record'
 import { Sublist } from '../ui/serverWidget';
-import { UserEventType, UserEventTypes } from './_EventTypes'
 
 // main field types
 type main_select = 'account' | 'accounthandling' | 'countries' | 'site' | 'states' | 'subsidiary' | 'taxschedule' | 'taxschedulehandling';
@@ -800,6 +799,46 @@ interface RecordSaveFunction {
 // Exported for other modules to be able to consume this type
 export interface SHIP_ITEM extends Record {
 
+    /** Returns the line number of the first instance where a specified value is found in a specified column of the matrix. */
+    findMatrixSublistLineWIthValue(options: FindSublistLineWithValueOptions_handlingtable | FindSublistLineWithValueOptions_items | FindSublistLineWithValueOptions_shippingtable | FindSublistLineWithValueOptions_translations): number;
+    /** Returns the line number for the first occurrence of a field value in a sublist. */
+    findSublistLineWithValue(options: FindSublistLineWithValueOptions_handlingtable | FindSublistLineWithValueOptions_items | FindSublistLineWithValueOptions_shippingtable | FindSublistLineWithValueOptions_translations): number;
+    /** Gets the value for the currently selected line in the matrix. */
+    getCurrentMatrixSublistValue(options: GetCurrentSublistValueOptions_handlingtable | GetCurrentSublistValueOptions_items | GetCurrentSublistValueOptions_shippingtable | GetCurrentSublistValueOptions_translations): number | Date | string | string[] | boolean;
+    /** Returns a value indicating whether the associated sublist field has a subrecord on the current line. This method can only be used on dynamic records. */
+    hasCurrentSublistSubrecord(options: GetCurrentSublistValueOptions_handlingtable | GetCurrentSublistValueOptions_items | GetCurrentSublistValueOptions_shippingtable | GetCurrentSublistValueOptions_translations): boolean;
+    /** Gets the subrecord for the associated sublist field on the current line. */
+    getCurrentSublistSubrecord(options: GetCurrentSublistValueOptions_handlingtable | GetCurrentSublistValueOptions_items | GetCurrentSublistValueOptions_shippingtable | GetCurrentSublistValueOptions_translations): Record;
+    /** Returns a text representation of the field value in the currently selected line. */
+    getCurrentSublistText(options: GetCurrentSublistValueOptions_handlingtable | GetCurrentSublistValueOptions_items | GetCurrentSublistValueOptions_shippingtable | GetCurrentSublistValueOptions_translations): string;
+    /** Returns the value of a sublist field on the currently selected sublist line. */
+    getCurrentSublistValue(options: GetCurrentSublistValueOptions_handlingtable | GetCurrentSublistValueOptions_items | GetCurrentSublistValueOptions_shippingtable | GetCurrentSublistValueOptions_translations): FieldValue;
+    /** Returns the number of columns for the specified matrix. */
+    getMatrixHeaderCount(options: GetMatrixHeaderCountOptions_handlingtable | GetMatrixHeaderCountOptions_items | GetMatrixHeaderCountOptions_shippingtable | GetMatrixHeaderCountOptions_translations): number;
+    /** Gets the field for the specified header in the matrix. */
+    getMatrixHeaderField(options: GetMatrixHeaderFieldOptions_handlingtable | GetMatrixHeaderFieldOptions_items | GetMatrixHeaderFieldOptions_shippingtable | GetMatrixHeaderFieldOptions_translations): Field;
+    /** Gets the value for the associated header in the matrix. */
+    getMatrixHeaderValue(options: GetMatrixHeaderFieldOptions_handlingtable | GetMatrixHeaderFieldOptions_items | GetMatrixHeaderFieldOptions_shippingtable | GetMatrixHeaderFieldOptions_translations): FieldValue;
+    /** Gets the field for the specified sublist in the matrix. */
+    getMatrixSublistField(options: GetMatrixSublistFieldOptions_handlingtable | GetMatrixSublistFieldOptions_items | GetMatrixSublistFieldOptions_shippingtable | GetMatrixSublistFieldOptions_translations): Field;
+    /** Gets the value for the associated field in the matrix. */
+    getMatrixSublistValue(options: GetMatrixSublistFieldOptions_handlingtable | GetMatrixSublistFieldOptions_items | GetMatrixSublistFieldOptions_shippingtable | GetMatrixSublistFieldOptions_translations): FieldValue;
+    /** Sets the value for the line currently selected in the matrix. */
+    setCurrentMatrixSublistValue(options: SetCurrentMatrixSublistValueOptions_handlingtable | SetCurrentMatrixSublistValueOptions_items | SetCurrentMatrixSublistValueOptions_shippingtable | SetCurrentMatrixSublistValueOptions_translations): Record;
+    /** Sets the value for the associated header in the matrix. */
+    setMatrixHeaderValue(options: SetCurrentMatrixSublistValueOptions_handlingtable | SetCurrentMatrixSublistValueOptions_items | SetCurrentMatrixSublistValueOptions_shippingtable | SetCurrentMatrixSublistValueOptions_translations): Record;
+    /** Sets the value for the field in the currently selected line. */
+    setCurrentSublistValue(options: SetCurrentSublistValueOptions_handlingtable | SetCurrentSublistValueOptions_items | SetCurrentSublistValueOptions_shippingtable | SetCurrentSublistValueOptions_translations): void;
+    /** Sets the value of a sublist field. (standard mode only). */
+    setSublistValue(options: SetSublistValueOptions_handlingtable | SetSublistValueOptions_items | SetSublistValueOptions_shippingtable | SetSublistValueOptions_translations): Record;
+    /** Sets the value for the field in the currently selected line by a text representation. */
+    setCurrentSublistText(options: SetCurrentSublistTextOptions_handlingtable | SetCurrentSublistTextOptions_items | SetCurrentSublistTextOptions_shippingtable | SetCurrentSublistTextOptions_translations): void;
+    /** Sets the value of a sublist field by a text representation. */
+    setSublistText(options: SetSublistTextOptions_handlingtable | SetSublistTextOptions_items | SetSublistTextOptions_shippingtable | SetSublistTextOptions_translations): Record;
+    /** Sets the value for the associated field in the matrix. */
+    setMatrixSublistValue(options: SetSublistValueOptions_handlingtable | SetSublistValueOptions_items | SetSublistValueOptions_shippingtable | SetSublistValueOptions_translations): Record;
+    /** Sets the value of a sublist field by a text representation. */
+    setSublistText(options: SetSublistTextOptions_handlingtable | SetSublistTextOptions_items | SetSublistTextOptions_shippingtable | SetSublistTextOptions_translations): Record;
     /** Returns the value of a sublist field. */
     getSublistValue(options: GetSublistValueOptions_handlingtable | GetSublistValueOptions_items | GetSublistValueOptions_shippingtable | GetSublistValueOptions_translations): FieldValue;
     //getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue;

@@ -1,7 +1,6 @@
 
 import { Field, Record, Type } from '../record'
 import { Sublist } from '../ui/serverWidget';
-import { UserEventType, UserEventTypes } from './_EventTypes'
 
 // main field types
 type main_text = 'accountnumber' | 'aliennumber' | 'billaddr1' | 'billaddr2' | 'billaddr3' | 'billcity' | 'billcountry' | 'billstate' | 'billzip' | 'btemplate' | 'empcenterqty' | 'empcenterqtymax' | 'entityid' | 'externalid' | 'firstname' | 'fulluserqty' | 'fulluserqtymax' | 'initials' | 'isempcenterqtyenforced' | 'isfulluserqtyenforced' | 'isretailuserqtyenforced' | 'jurisdiction1display' | 'jurisdiction2display' | 'jurisdiction3display' | 'jurisdiction4display' | 'jurisdiction5display' | 'lastname' | 'middlename' | 'phoneticname' | 'retailuserqty' | 'retailuserqtymax' | 'salutation' | 'strength' | 'title' | 'wasempcenterhasaccess' | 'wasfulluserhasaccess' | 'wasinactive' | 'wasretailuserhasaccess';
@@ -1253,6 +1252,46 @@ interface RecordSaveFunction {
 // Exported for other modules to be able to consume this type
 export interface EMPLOYEE extends Record {
 
+    /** Returns the line number of the first instance where a specified value is found in a specified column of the matrix. */
+    findMatrixSublistLineWIthValue(options: FindSublistLineWithValueOptions_accruedtime | FindSublistLineWithValueOptions_addressbook | FindSublistLineWithValueOptions_companycontribution | FindSublistLineWithValueOptions_deduction | FindSublistLineWithValueOptions_directdeposit | FindSublistLineWithValueOptions_earning | FindSublistLineWithValueOptions_rates): number;
+    /** Returns the line number for the first occurrence of a field value in a sublist. */
+    findSublistLineWithValue(options: FindSublistLineWithValueOptions_accruedtime | FindSublistLineWithValueOptions_addressbook | FindSublistLineWithValueOptions_companycontribution | FindSublistLineWithValueOptions_deduction | FindSublistLineWithValueOptions_directdeposit | FindSublistLineWithValueOptions_earning | FindSublistLineWithValueOptions_rates): number;
+    /** Gets the value for the currently selected line in the matrix. */
+    getCurrentMatrixSublistValue(options: GetCurrentSublistValueOptions_accruedtime | GetCurrentSublistValueOptions_addressbook | GetCurrentSublistValueOptions_companycontribution | GetCurrentSublistValueOptions_deduction | GetCurrentSublistValueOptions_directdeposit | GetCurrentSublistValueOptions_earning | GetCurrentSublistValueOptions_rates): number | Date | string | string[] | boolean;
+    /** Returns a value indicating whether the associated sublist field has a subrecord on the current line. This method can only be used on dynamic records. */
+    hasCurrentSublistSubrecord(options: GetCurrentSublistValueOptions_accruedtime | GetCurrentSublistValueOptions_addressbook | GetCurrentSublistValueOptions_companycontribution | GetCurrentSublistValueOptions_deduction | GetCurrentSublistValueOptions_directdeposit | GetCurrentSublistValueOptions_earning | GetCurrentSublistValueOptions_rates): boolean;
+    /** Gets the subrecord for the associated sublist field on the current line. */
+    getCurrentSublistSubrecord(options: GetCurrentSublistValueOptions_accruedtime | GetCurrentSublistValueOptions_addressbook | GetCurrentSublistValueOptions_companycontribution | GetCurrentSublistValueOptions_deduction | GetCurrentSublistValueOptions_directdeposit | GetCurrentSublistValueOptions_earning | GetCurrentSublistValueOptions_rates): Record;
+    /** Returns a text representation of the field value in the currently selected line. */
+    getCurrentSublistText(options: GetCurrentSublistValueOptions_accruedtime | GetCurrentSublistValueOptions_addressbook | GetCurrentSublistValueOptions_companycontribution | GetCurrentSublistValueOptions_deduction | GetCurrentSublistValueOptions_directdeposit | GetCurrentSublistValueOptions_earning | GetCurrentSublistValueOptions_rates): string;
+    /** Returns the value of a sublist field on the currently selected sublist line. */
+    getCurrentSublistValue(options: GetCurrentSublistValueOptions_accruedtime | GetCurrentSublistValueOptions_addressbook | GetCurrentSublistValueOptions_companycontribution | GetCurrentSublistValueOptions_deduction | GetCurrentSublistValueOptions_directdeposit | GetCurrentSublistValueOptions_earning | GetCurrentSublistValueOptions_rates): FieldValue;
+    /** Returns the number of columns for the specified matrix. */
+    getMatrixHeaderCount(options: GetMatrixHeaderCountOptions_accruedtime | GetMatrixHeaderCountOptions_addressbook | GetMatrixHeaderCountOptions_companycontribution | GetMatrixHeaderCountOptions_deduction | GetMatrixHeaderCountOptions_directdeposit | GetMatrixHeaderCountOptions_earning | GetMatrixHeaderCountOptions_rates): number;
+    /** Gets the field for the specified header in the matrix. */
+    getMatrixHeaderField(options: GetMatrixHeaderFieldOptions_accruedtime | GetMatrixHeaderFieldOptions_addressbook | GetMatrixHeaderFieldOptions_companycontribution | GetMatrixHeaderFieldOptions_deduction | GetMatrixHeaderFieldOptions_directdeposit | GetMatrixHeaderFieldOptions_earning | GetMatrixHeaderFieldOptions_rates): Field;
+    /** Gets the value for the associated header in the matrix. */
+    getMatrixHeaderValue(options: GetMatrixHeaderFieldOptions_accruedtime | GetMatrixHeaderFieldOptions_addressbook | GetMatrixHeaderFieldOptions_companycontribution | GetMatrixHeaderFieldOptions_deduction | GetMatrixHeaderFieldOptions_directdeposit | GetMatrixHeaderFieldOptions_earning | GetMatrixHeaderFieldOptions_rates): FieldValue;
+    /** Gets the field for the specified sublist in the matrix. */
+    getMatrixSublistField(options: GetMatrixSublistFieldOptions_accruedtime | GetMatrixSublistFieldOptions_addressbook | GetMatrixSublistFieldOptions_companycontribution | GetMatrixSublistFieldOptions_deduction | GetMatrixSublistFieldOptions_directdeposit | GetMatrixSublistFieldOptions_earning | GetMatrixSublistFieldOptions_rates): Field;
+    /** Gets the value for the associated field in the matrix. */
+    getMatrixSublistValue(options: GetMatrixSublistFieldOptions_accruedtime | GetMatrixSublistFieldOptions_addressbook | GetMatrixSublistFieldOptions_companycontribution | GetMatrixSublistFieldOptions_deduction | GetMatrixSublistFieldOptions_directdeposit | GetMatrixSublistFieldOptions_earning | GetMatrixSublistFieldOptions_rates): FieldValue;
+    /** Sets the value for the line currently selected in the matrix. */
+    setCurrentMatrixSublistValue(options: SetCurrentMatrixSublistValueOptions_accruedtime | SetCurrentMatrixSublistValueOptions_addressbook | SetCurrentMatrixSublistValueOptions_companycontribution | SetCurrentMatrixSublistValueOptions_deduction | SetCurrentMatrixSublistValueOptions_directdeposit | SetCurrentMatrixSublistValueOptions_earning | SetCurrentMatrixSublistValueOptions_rates): Record;
+    /** Sets the value for the associated header in the matrix. */
+    setMatrixHeaderValue(options: SetCurrentMatrixSublistValueOptions_accruedtime | SetCurrentMatrixSublistValueOptions_addressbook | SetCurrentMatrixSublistValueOptions_companycontribution | SetCurrentMatrixSublistValueOptions_deduction | SetCurrentMatrixSublistValueOptions_directdeposit | SetCurrentMatrixSublistValueOptions_earning | SetCurrentMatrixSublistValueOptions_rates): Record;
+    /** Sets the value for the field in the currently selected line. */
+    setCurrentSublistValue(options: SetCurrentSublistValueOptions_accruedtime | SetCurrentSublistValueOptions_addressbook | SetCurrentSublistValueOptions_companycontribution | SetCurrentSublistValueOptions_deduction | SetCurrentSublistValueOptions_directdeposit | SetCurrentSublistValueOptions_earning | SetCurrentSublistValueOptions_rates): void;
+    /** Sets the value of a sublist field. (standard mode only). */
+    setSublistValue(options: SetSublistValueOptions_accruedtime | SetSublistValueOptions_addressbook | SetSublistValueOptions_companycontribution | SetSublistValueOptions_deduction | SetSublistValueOptions_directdeposit | SetSublistValueOptions_earning | SetSublistValueOptions_rates): Record;
+    /** Sets the value for the field in the currently selected line by a text representation. */
+    setCurrentSublistText(options: SetCurrentSublistTextOptions_accruedtime | SetCurrentSublistTextOptions_addressbook | SetCurrentSublistTextOptions_companycontribution | SetCurrentSublistTextOptions_deduction | SetCurrentSublistTextOptions_directdeposit | SetCurrentSublistTextOptions_earning | SetCurrentSublistTextOptions_rates): void;
+    /** Sets the value of a sublist field by a text representation. */
+    setSublistText(options: SetSublistTextOptions_accruedtime | SetSublistTextOptions_addressbook | SetSublistTextOptions_companycontribution | SetSublistTextOptions_deduction | SetSublistTextOptions_directdeposit | SetSublistTextOptions_earning | SetSublistTextOptions_rates): Record;
+    /** Sets the value for the associated field in the matrix. */
+    setMatrixSublistValue(options: SetSublistValueOptions_accruedtime | SetSublistValueOptions_addressbook | SetSublistValueOptions_companycontribution | SetSublistValueOptions_deduction | SetSublistValueOptions_directdeposit | SetSublistValueOptions_earning | SetSublistValueOptions_rates): Record;
+    /** Sets the value of a sublist field by a text representation. */
+    setSublistText(options: SetSublistTextOptions_accruedtime | SetSublistTextOptions_addressbook | SetSublistTextOptions_companycontribution | SetSublistTextOptions_deduction | SetSublistTextOptions_directdeposit | SetSublistTextOptions_earning | SetSublistTextOptions_rates): Record;
     /** Returns the value of a sublist field. */
     getSublistValue(options: GetSublistValueOptions_accruedtime | GetSublistValueOptions_addressbook | GetSublistValueOptions_companycontribution | GetSublistValueOptions_deduction | GetSublistValueOptions_directdeposit | GetSublistValueOptions_earning | GetSublistValueOptions_rates): FieldValue;
     //getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue;

@@ -1,7 +1,6 @@
 
 import { Field, Record, Type } from '../record'
 import { Sublist } from '../ui/serverWidget';
-import { UserEventType, UserEventTypes } from './_EventTypes'
 
 // main field types
 type main_select = 'accessrole' | 'buyingreason' | 'buyingtimeframe' | 'campaigncategory' | 'category' | 'contact' | 'creditholdoverride' | 'currency' | 'customform' | 'defaultbankaccount' | 'draccount' | 'emailpreference' | 'entitystatus' | 'fxaccount' | 'globalsubscriptionstatus' | 'image' | 'language' | 'leadsource' | 'monthlyclosing' | 'negativenumberformat' | 'numberformat' | 'otherrelationships' | 'parent' | 'partner' | 'prefccprocessor' | 'pricelevel' | 'receivablesaccount' | 'salesgroup' | 'salesreadiness' | 'subsidiary' | 'taxfractionunit' | 'taxitem' | 'taxrounding' | 'terms' | 'territory' | 'unsubscribe';
@@ -1400,6 +1399,46 @@ interface RecordSaveFunction {
 // Exported for other modules to be able to consume this type
 export interface LEAD extends Record {
 
+    /** Returns the line number of the first instance where a specified value is found in a specified column of the matrix. */
+    findMatrixSublistLineWIthValue(options: FindSublistLineWithValueOptions_addressbook | FindSublistLineWithValueOptions_contactroles | FindSublistLineWithValueOptions_currency | FindSublistLineWithValueOptions_download | FindSublistLineWithValueOptions_grouppricing | FindSublistLineWithValueOptions_itempricing | FindSublistLineWithValueOptions_partners | FindSublistLineWithValueOptions_salesteam): number;
+    /** Returns the line number for the first occurrence of a field value in a sublist. */
+    findSublistLineWithValue(options: FindSublistLineWithValueOptions_addressbook | FindSublistLineWithValueOptions_contactroles | FindSublistLineWithValueOptions_currency | FindSublistLineWithValueOptions_download | FindSublistLineWithValueOptions_grouppricing | FindSublistLineWithValueOptions_itempricing | FindSublistLineWithValueOptions_partners | FindSublistLineWithValueOptions_salesteam): number;
+    /** Gets the value for the currently selected line in the matrix. */
+    getCurrentMatrixSublistValue(options: GetCurrentSublistValueOptions_addressbook | GetCurrentSublistValueOptions_contactroles | GetCurrentSublistValueOptions_currency | GetCurrentSublistValueOptions_download | GetCurrentSublistValueOptions_grouppricing | GetCurrentSublistValueOptions_itempricing | GetCurrentSublistValueOptions_partners | GetCurrentSublistValueOptions_salesteam): number | Date | string | string[] | boolean;
+    /** Returns a value indicating whether the associated sublist field has a subrecord on the current line. This method can only be used on dynamic records. */
+    hasCurrentSublistSubrecord(options: GetCurrentSublistValueOptions_addressbook | GetCurrentSublistValueOptions_contactroles | GetCurrentSublistValueOptions_currency | GetCurrentSublistValueOptions_download | GetCurrentSublistValueOptions_grouppricing | GetCurrentSublistValueOptions_itempricing | GetCurrentSublistValueOptions_partners | GetCurrentSublistValueOptions_salesteam): boolean;
+    /** Gets the subrecord for the associated sublist field on the current line. */
+    getCurrentSublistSubrecord(options: GetCurrentSublistValueOptions_addressbook | GetCurrentSublistValueOptions_contactroles | GetCurrentSublistValueOptions_currency | GetCurrentSublistValueOptions_download | GetCurrentSublistValueOptions_grouppricing | GetCurrentSublistValueOptions_itempricing | GetCurrentSublistValueOptions_partners | GetCurrentSublistValueOptions_salesteam): Record;
+    /** Returns a text representation of the field value in the currently selected line. */
+    getCurrentSublistText(options: GetCurrentSublistValueOptions_addressbook | GetCurrentSublistValueOptions_contactroles | GetCurrentSublistValueOptions_currency | GetCurrentSublistValueOptions_download | GetCurrentSublistValueOptions_grouppricing | GetCurrentSublistValueOptions_itempricing | GetCurrentSublistValueOptions_partners | GetCurrentSublistValueOptions_salesteam): string;
+    /** Returns the value of a sublist field on the currently selected sublist line. */
+    getCurrentSublistValue(options: GetCurrentSublistValueOptions_addressbook | GetCurrentSublistValueOptions_contactroles | GetCurrentSublistValueOptions_currency | GetCurrentSublistValueOptions_download | GetCurrentSublistValueOptions_grouppricing | GetCurrentSublistValueOptions_itempricing | GetCurrentSublistValueOptions_partners | GetCurrentSublistValueOptions_salesteam): FieldValue;
+    /** Returns the number of columns for the specified matrix. */
+    getMatrixHeaderCount(options: GetMatrixHeaderCountOptions_addressbook | GetMatrixHeaderCountOptions_contactroles | GetMatrixHeaderCountOptions_currency | GetMatrixHeaderCountOptions_download | GetMatrixHeaderCountOptions_grouppricing | GetMatrixHeaderCountOptions_itempricing | GetMatrixHeaderCountOptions_partners | GetMatrixHeaderCountOptions_salesteam): number;
+    /** Gets the field for the specified header in the matrix. */
+    getMatrixHeaderField(options: GetMatrixHeaderFieldOptions_addressbook | GetMatrixHeaderFieldOptions_contactroles | GetMatrixHeaderFieldOptions_currency | GetMatrixHeaderFieldOptions_download | GetMatrixHeaderFieldOptions_grouppricing | GetMatrixHeaderFieldOptions_itempricing | GetMatrixHeaderFieldOptions_partners | GetMatrixHeaderFieldOptions_salesteam): Field;
+    /** Gets the value for the associated header in the matrix. */
+    getMatrixHeaderValue(options: GetMatrixHeaderFieldOptions_addressbook | GetMatrixHeaderFieldOptions_contactroles | GetMatrixHeaderFieldOptions_currency | GetMatrixHeaderFieldOptions_download | GetMatrixHeaderFieldOptions_grouppricing | GetMatrixHeaderFieldOptions_itempricing | GetMatrixHeaderFieldOptions_partners | GetMatrixHeaderFieldOptions_salesteam): FieldValue;
+    /** Gets the field for the specified sublist in the matrix. */
+    getMatrixSublistField(options: GetMatrixSublistFieldOptions_addressbook | GetMatrixSublistFieldOptions_contactroles | GetMatrixSublistFieldOptions_currency | GetMatrixSublistFieldOptions_download | GetMatrixSublistFieldOptions_grouppricing | GetMatrixSublistFieldOptions_itempricing | GetMatrixSublistFieldOptions_partners | GetMatrixSublistFieldOptions_salesteam): Field;
+    /** Gets the value for the associated field in the matrix. */
+    getMatrixSublistValue(options: GetMatrixSublistFieldOptions_addressbook | GetMatrixSublistFieldOptions_contactroles | GetMatrixSublistFieldOptions_currency | GetMatrixSublistFieldOptions_download | GetMatrixSublistFieldOptions_grouppricing | GetMatrixSublistFieldOptions_itempricing | GetMatrixSublistFieldOptions_partners | GetMatrixSublistFieldOptions_salesteam): FieldValue;
+    /** Sets the value for the line currently selected in the matrix. */
+    setCurrentMatrixSublistValue(options: SetCurrentMatrixSublistValueOptions_addressbook | SetCurrentMatrixSublistValueOptions_contactroles | SetCurrentMatrixSublistValueOptions_currency | SetCurrentMatrixSublistValueOptions_download | SetCurrentMatrixSublistValueOptions_grouppricing | SetCurrentMatrixSublistValueOptions_itempricing | SetCurrentMatrixSublistValueOptions_partners | SetCurrentMatrixSublistValueOptions_salesteam): Record;
+    /** Sets the value for the associated header in the matrix. */
+    setMatrixHeaderValue(options: SetCurrentMatrixSublistValueOptions_addressbook | SetCurrentMatrixSublistValueOptions_contactroles | SetCurrentMatrixSublistValueOptions_currency | SetCurrentMatrixSublistValueOptions_download | SetCurrentMatrixSublistValueOptions_grouppricing | SetCurrentMatrixSublistValueOptions_itempricing | SetCurrentMatrixSublistValueOptions_partners | SetCurrentMatrixSublistValueOptions_salesteam): Record;
+    /** Sets the value for the field in the currently selected line. */
+    setCurrentSublistValue(options: SetCurrentSublistValueOptions_addressbook | SetCurrentSublistValueOptions_contactroles | SetCurrentSublistValueOptions_currency | SetCurrentSublistValueOptions_download | SetCurrentSublistValueOptions_grouppricing | SetCurrentSublistValueOptions_itempricing | SetCurrentSublistValueOptions_partners | SetCurrentSublistValueOptions_salesteam): void;
+    /** Sets the value of a sublist field. (standard mode only). */
+    setSublistValue(options: SetSublistValueOptions_addressbook | SetSublistValueOptions_contactroles | SetSublistValueOptions_currency | SetSublistValueOptions_download | SetSublistValueOptions_grouppricing | SetSublistValueOptions_itempricing | SetSublistValueOptions_partners | SetSublistValueOptions_salesteam): Record;
+    /** Sets the value for the field in the currently selected line by a text representation. */
+    setCurrentSublistText(options: SetCurrentSublistTextOptions_addressbook | SetCurrentSublistTextOptions_contactroles | SetCurrentSublistTextOptions_currency | SetCurrentSublistTextOptions_download | SetCurrentSublistTextOptions_grouppricing | SetCurrentSublistTextOptions_itempricing | SetCurrentSublistTextOptions_partners | SetCurrentSublistTextOptions_salesteam): void;
+    /** Sets the value of a sublist field by a text representation. */
+    setSublistText(options: SetSublistTextOptions_addressbook | SetSublistTextOptions_contactroles | SetSublistTextOptions_currency | SetSublistTextOptions_download | SetSublistTextOptions_grouppricing | SetSublistTextOptions_itempricing | SetSublistTextOptions_partners | SetSublistTextOptions_salesteam): Record;
+    /** Sets the value for the associated field in the matrix. */
+    setMatrixSublistValue(options: SetSublistValueOptions_addressbook | SetSublistValueOptions_contactroles | SetSublistValueOptions_currency | SetSublistValueOptions_download | SetSublistValueOptions_grouppricing | SetSublistValueOptions_itempricing | SetSublistValueOptions_partners | SetSublistValueOptions_salesteam): Record;
+    /** Sets the value of a sublist field by a text representation. */
+    setSublistText(options: SetSublistTextOptions_addressbook | SetSublistTextOptions_contactroles | SetSublistTextOptions_currency | SetSublistTextOptions_download | SetSublistTextOptions_grouppricing | SetSublistTextOptions_itempricing | SetSublistTextOptions_partners | SetSublistTextOptions_salesteam): Record;
     /** Returns the value of a sublist field. */
     getSublistValue(options: GetSublistValueOptions_addressbook | GetSublistValueOptions_contactroles | GetSublistValueOptions_currency | GetSublistValueOptions_download | GetSublistValueOptions_grouppricing | GetSublistValueOptions_itempricing | GetSublistValueOptions_partners | GetSublistValueOptions_salesteam): FieldValue;
     //getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue;

@@ -1,7 +1,6 @@
 
 import { Field, Record, Type } from '../record'
 import { Sublist } from '../ui/serverWidget';
-import { UserEventType, UserEventTypes } from './_EventTypes'
 
 // main field types
 type main_text = 'accountnumber' | 'companyname' | 'currencyprecision' | 'entityid' | 'externalid' | 'isjob' | 'stage';
@@ -956,6 +955,46 @@ interface RecordSaveFunction {
 // Exported for other modules to be able to consume this type
 export interface JOB extends Record {
 
+    /** Returns the line number of the first instance where a specified value is found in a specified column of the matrix. */
+    findMatrixSublistLineWIthValue(options: FindSublistLineWithValueOptions_bbudget | FindSublistLineWithValueOptions_cbudget | FindSublistLineWithValueOptions_jobresources | FindSublistLineWithValueOptions_percentcompleteoverride | FindSublistLineWithValueOptions_plstatement): number;
+    /** Returns the line number for the first occurrence of a field value in a sublist. */
+    findSublistLineWithValue(options: FindSublistLineWithValueOptions_bbudget | FindSublistLineWithValueOptions_cbudget | FindSublistLineWithValueOptions_jobresources | FindSublistLineWithValueOptions_percentcompleteoverride | FindSublistLineWithValueOptions_plstatement): number;
+    /** Gets the value for the currently selected line in the matrix. */
+    getCurrentMatrixSublistValue(options: GetCurrentSublistValueOptions_bbudget | GetCurrentSublistValueOptions_cbudget | GetCurrentSublistValueOptions_jobresources | GetCurrentSublistValueOptions_percentcompleteoverride | GetCurrentSublistValueOptions_plstatement): number | Date | string | string[] | boolean;
+    /** Returns a value indicating whether the associated sublist field has a subrecord on the current line. This method can only be used on dynamic records. */
+    hasCurrentSublistSubrecord(options: GetCurrentSublistValueOptions_bbudget | GetCurrentSublistValueOptions_cbudget | GetCurrentSublistValueOptions_jobresources | GetCurrentSublistValueOptions_percentcompleteoverride | GetCurrentSublistValueOptions_plstatement): boolean;
+    /** Gets the subrecord for the associated sublist field on the current line. */
+    getCurrentSublistSubrecord(options: GetCurrentSublistValueOptions_bbudget | GetCurrentSublistValueOptions_cbudget | GetCurrentSublistValueOptions_jobresources | GetCurrentSublistValueOptions_percentcompleteoverride | GetCurrentSublistValueOptions_plstatement): Record;
+    /** Returns a text representation of the field value in the currently selected line. */
+    getCurrentSublistText(options: GetCurrentSublistValueOptions_bbudget | GetCurrentSublistValueOptions_cbudget | GetCurrentSublistValueOptions_jobresources | GetCurrentSublistValueOptions_percentcompleteoverride | GetCurrentSublistValueOptions_plstatement): string;
+    /** Returns the value of a sublist field on the currently selected sublist line. */
+    getCurrentSublistValue(options: GetCurrentSublistValueOptions_bbudget | GetCurrentSublistValueOptions_cbudget | GetCurrentSublistValueOptions_jobresources | GetCurrentSublistValueOptions_percentcompleteoverride | GetCurrentSublistValueOptions_plstatement): FieldValue;
+    /** Returns the number of columns for the specified matrix. */
+    getMatrixHeaderCount(options: GetMatrixHeaderCountOptions_bbudget | GetMatrixHeaderCountOptions_cbudget | GetMatrixHeaderCountOptions_jobresources | GetMatrixHeaderCountOptions_percentcompleteoverride | GetMatrixHeaderCountOptions_plstatement): number;
+    /** Gets the field for the specified header in the matrix. */
+    getMatrixHeaderField(options: GetMatrixHeaderFieldOptions_bbudget | GetMatrixHeaderFieldOptions_cbudget | GetMatrixHeaderFieldOptions_jobresources | GetMatrixHeaderFieldOptions_percentcompleteoverride | GetMatrixHeaderFieldOptions_plstatement): Field;
+    /** Gets the value for the associated header in the matrix. */
+    getMatrixHeaderValue(options: GetMatrixHeaderFieldOptions_bbudget | GetMatrixHeaderFieldOptions_cbudget | GetMatrixHeaderFieldOptions_jobresources | GetMatrixHeaderFieldOptions_percentcompleteoverride | GetMatrixHeaderFieldOptions_plstatement): FieldValue;
+    /** Gets the field for the specified sublist in the matrix. */
+    getMatrixSublistField(options: GetMatrixSublistFieldOptions_bbudget | GetMatrixSublistFieldOptions_cbudget | GetMatrixSublistFieldOptions_jobresources | GetMatrixSublistFieldOptions_percentcompleteoverride | GetMatrixSublistFieldOptions_plstatement): Field;
+    /** Gets the value for the associated field in the matrix. */
+    getMatrixSublistValue(options: GetMatrixSublistFieldOptions_bbudget | GetMatrixSublistFieldOptions_cbudget | GetMatrixSublistFieldOptions_jobresources | GetMatrixSublistFieldOptions_percentcompleteoverride | GetMatrixSublistFieldOptions_plstatement): FieldValue;
+    /** Sets the value for the line currently selected in the matrix. */
+    setCurrentMatrixSublistValue(options: SetCurrentMatrixSublistValueOptions_bbudget | SetCurrentMatrixSublistValueOptions_cbudget | SetCurrentMatrixSublistValueOptions_jobresources | SetCurrentMatrixSublistValueOptions_percentcompleteoverride | SetCurrentMatrixSublistValueOptions_plstatement): Record;
+    /** Sets the value for the associated header in the matrix. */
+    setMatrixHeaderValue(options: SetCurrentMatrixSublistValueOptions_bbudget | SetCurrentMatrixSublistValueOptions_cbudget | SetCurrentMatrixSublistValueOptions_jobresources | SetCurrentMatrixSublistValueOptions_percentcompleteoverride | SetCurrentMatrixSublistValueOptions_plstatement): Record;
+    /** Sets the value for the field in the currently selected line. */
+    setCurrentSublistValue(options: SetCurrentSublistValueOptions_bbudget | SetCurrentSublistValueOptions_cbudget | SetCurrentSublistValueOptions_jobresources | SetCurrentSublistValueOptions_percentcompleteoverride | SetCurrentSublistValueOptions_plstatement): void;
+    /** Sets the value of a sublist field. (standard mode only). */
+    setSublistValue(options: SetSublistValueOptions_bbudget | SetSublistValueOptions_cbudget | SetSublistValueOptions_jobresources | SetSublistValueOptions_percentcompleteoverride | SetSublistValueOptions_plstatement): Record;
+    /** Sets the value for the field in the currently selected line by a text representation. */
+    setCurrentSublistText(options: SetCurrentSublistTextOptions_bbudget | SetCurrentSublistTextOptions_cbudget | SetCurrentSublistTextOptions_jobresources | SetCurrentSublistTextOptions_percentcompleteoverride | SetCurrentSublistTextOptions_plstatement): void;
+    /** Sets the value of a sublist field by a text representation. */
+    setSublistText(options: SetSublistTextOptions_bbudget | SetSublistTextOptions_cbudget | SetSublistTextOptions_jobresources | SetSublistTextOptions_percentcompleteoverride | SetSublistTextOptions_plstatement): Record;
+    /** Sets the value for the associated field in the matrix. */
+    setMatrixSublistValue(options: SetSublistValueOptions_bbudget | SetSublistValueOptions_cbudget | SetSublistValueOptions_jobresources | SetSublistValueOptions_percentcompleteoverride | SetSublistValueOptions_plstatement): Record;
+    /** Sets the value of a sublist field by a text representation. */
+    setSublistText(options: SetSublistTextOptions_bbudget | SetSublistTextOptions_cbudget | SetSublistTextOptions_jobresources | SetSublistTextOptions_percentcompleteoverride | SetSublistTextOptions_plstatement): Record;
     /** Returns the value of a sublist field. */
     getSublistValue(options: GetSublistValueOptions_bbudget | GetSublistValueOptions_cbudget | GetSublistValueOptions_jobresources | GetSublistValueOptions_percentcompleteoverride | GetSublistValueOptions_plstatement): FieldValue;
     //getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue;
