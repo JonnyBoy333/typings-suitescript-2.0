@@ -127,7 +127,7 @@ function createDefinitionFile(url, cb) {
             }
 
             // Concatenates fields into one string
-            function concatSublists(sublistFields, mainTxt) {
+            function concatSublists(mainTxt) {
                 let txt = '';
                 for (let i = 0; i < sublistFields.length; i++) {
                     txt += i === sublistFields.length - 1 ? `${mainTxt}_${sublistFields[i].sublist}` : `${mainTxt}_${sublistFields[i].sublist} | `;
@@ -141,7 +141,6 @@ function createDefinitionFile(url, cb) {
 `
 import { Field, Record, Type } from '../record'
 import { Sublist } from '../ui/serverWidget';
-import { UserEventType, UserEventTypes } from './_EventTypes'
 
 `;
 
@@ -529,60 +528,60 @@ export interface ${recordType} extends Record {
                 fileTxt +=
 `
     /** Returns the line number of the first instance where a specified value is found in a specified column of the matrix. */
-    findMatrixSublistLineWIthValue(options: ${concatSublists(sublistFields, 'FindSublistLineWithValueOptions')}): number;
+    findMatrixSublistLineWIthValue(options: ${concatSublists('FindSublistLineWithValueOptions')}): number;
     /** Returns the line number for the first occurrence of a field value in a sublist. */
-    findSublistLineWithValue(options: ${concatSublists(sublistFields, 'FindSublistLineWithValueOptions')}): number;
+    findSublistLineWithValue(options: ${concatSublists('FindSublistLineWithValueOptions')}): number;
     /** Gets the value for the currently selected line in the matrix. */
-    getCurrentMatrixSublistValue(options: ${concatSublists(sublistFields, 'GetCurrentSublistValueOptions')}): number | Date | string | string[] | boolean;
+    getCurrentMatrixSublistValue(options: ${concatSublists('GetCurrentSublistValueOptions')}): number | Date | string | string[] | boolean;
     /** Returns a value indicating whether the associated sublist field has a subrecord on the current line. This method can only be used on dynamic records. */
-    hasCurrentSublistSubrecord(options: ${concatSublists(sublistFields, 'GetCurrentSublistValueOptions')}): boolean;
+    hasCurrentSublistSubrecord(options: ${concatSublists('GetCurrentSublistValueOptions')}): boolean;
     /** Gets the subrecord for the associated sublist field on the current line. */
-    getCurrentSublistSubrecord(options: ${concatSublists(sublistFields, 'GetCurrentSublistValueOptions')}): Record;
+    getCurrentSublistSubrecord(options: ${concatSublists('GetCurrentSublistValueOptions')}): Record;
     /** Returns a text representation of the field value in the currently selected line. */
-    getCurrentSublistText(options: ${concatSublists(sublistFields, 'GetCurrentSublistValueOptions')}): string;
+    getCurrentSublistText(options: ${concatSublists('GetCurrentSublistValueOptions')}): string;
     /** Returns the value of a sublist field on the currently selected sublist line. */
-    getCurrentSublistValue(options: ${concatSublists(sublistFields, 'GetCurrentSublistValueOptions')}): FieldValue;
+    getCurrentSublistValue(options: ${concatSublists('GetCurrentSublistValueOptions')}): FieldValue;
     /** Returns the number of columns for the specified matrix. */
-    getMatrixHeaderCount(options: ${concatSublists(sublistFields, 'GetMatrixHeaderCountOptions')}): number;
+    getMatrixHeaderCount(options: ${concatSublists('GetMatrixHeaderCountOptions')}): number;
     /** Gets the field for the specified header in the matrix. */
-    getMatrixHeaderField(options: ${concatSublists(sublistFields, 'GetMatrixHeaderFieldOptions')}): Field;
+    getMatrixHeaderField(options: ${concatSublists('GetMatrixHeaderFieldOptions')}): Field;
     /** Gets the value for the associated header in the matrix. */
-    getMatrixHeaderValue(options: ${concatSublists(sublistFields, 'GetMatrixHeaderFieldOptions')}): FieldValue;
+    getMatrixHeaderValue(options: ${concatSublists('GetMatrixHeaderFieldOptions')}): FieldValue;
     /** Gets the field for the specified sublist in the matrix. */
-    getMatrixSublistField(options: ${concatSublists(sublistFields, 'GetMatrixSublistFieldOptions')}): Field;
+    getMatrixSublistField(options: ${concatSublists('GetMatrixSublistFieldOptions')}): Field;
     /** Gets the value for the associated field in the matrix. */
-    getMatrixSublistValue(options: ${concatSublists(sublistFields, 'GetMatrixSublistFieldOptions')}): FieldValue;
+    getMatrixSublistValue(options: ${concatSublists('GetMatrixSublistFieldOptions')}): FieldValue;
     /** Sets the value for the line currently selected in the matrix. */
-    setCurrentMatrixSublistValue(options: ${concatSublists(sublistFields, 'SetCurrentMatrixSublistValueOptions')}): Record;
+    setCurrentMatrixSublistValue(options: ${concatSublists('SetCurrentMatrixSublistValueOptions')}): Record;
     /** Sets the value for the associated header in the matrix. */
-    setMatrixHeaderValue(options: ${concatSublists(sublistFields, 'SetCurrentMatrixSublistValueOptions')}): Record;
+    setMatrixHeaderValue(options: ${concatSublists('SetCurrentMatrixSublistValueOptions')}): Record;
     /** Sets the value for the field in the currently selected line. */
-    setCurrentSublistValue(options: ${concatSublists(sublistFields, 'SetCurrentSublistValueOptions')}): void;
+    setCurrentSublistValue(options: ${concatSublists('SetCurrentSublistValueOptions')}): void;
     /** Sets the value of a sublist field. (standard mode only). */
-    setSublistValue(options: ${concatSublists(sublistFields, 'SetSublistValueOptions')}): Record;
+    setSublistValue(options: ${concatSublists('SetSublistValueOptions')}): Record;
     /** Sets the value for the field in the currently selected line by a text representation. */
-    setCurrentSublistText(options: ${concatSublists(sublistFields, 'SetCurrentSublistTextOptions')}): void;
+    setCurrentSublistText(options: ${concatSublists('SetCurrentSublistTextOptions')}): void;
     /** Sets the value of a sublist field by a text representation. */
-    setSublistText(options: ${concatSublists(sublistFields, 'SetSublistTextOptions')}): Record;
+    setSublistText(options: ${concatSublists('SetSublistTextOptions')}): Record;
     /** Sets the value for the associated field in the matrix. */
-    setMatrixSublistValue(options: ${concatSublists(sublistFields, 'SetSublistValueOptions')}): Record;
+    setMatrixSublistValue(options: ${concatSublists('SetSublistValueOptions')}): Record;
     /** Sets the value of a sublist field by a text representation. */
-    setSublistText(options: ${concatSublists(sublistFields, 'SetSublistTextOptions')}): Record;
+    setSublistText(options: ${concatSublists('SetSublistTextOptions')}): Record;
     /** Returns the value of a sublist field. */
-    getSublistValue(options: ${concatSublists(sublistFields, 'GetSublistValueOptions')}): FieldValue;
+    getSublistValue(options: ${concatSublists('GetSublistValueOptions')}): FieldValue;
     //getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue;
     /** Returns a field object from a sublist. */
-    getSublistField(options: ${concatSublists(sublistFields, 'GetSublistValueOptions')}): Field;
+    getSublistField(options: ${concatSublists('GetSublistValueOptions')}): Field;
     /** Returns the value of a sublist field in a text representation. */
-    getSublistText(options: ${concatSublists(sublistFields, 'GetSublistValueOptions')}): string;
+    getSublistText(options: ${concatSublists('GetSublistValueOptions')}): string;
     /** Returns a value indicating whether the associated sublist field contains a subrecord. */
-    hasSublistSubrecord(options: ${concatSublists(sublistFields, 'GetSublistValueOptions')}): boolean;
+    hasSublistSubrecord(options: ${concatSublists('GetSublistValueOptions')}): boolean;
     /** Gets the subrecord associated with a sublist field. */
-    getSublistSubrecord(options: ${concatSublists(sublistFields, 'GetSublistValueOptions')}): Record;
+    getSublistSubrecord(options: ${concatSublists('GetSublistValueOptions')}): Record;
     /** Removes the subrecord for the associated sublist field. */
-    removeSublistSubrecord(options: ${concatSublists(sublistFields, 'GetSublistValueOptions')}): Record;
+    removeSublistSubrecord(options: ${concatSublists('GetSublistValueOptions')}): Record;
     /** Returns the line number of the currently selected line. */
-    getCurrentSublistIndex(options: ${concatSublists(sublistFields, 'GetSublistValueOptions')}): number;
+    getCurrentSublistIndex(options: ${concatSublists('GetSublistValueOptions')}): number;
     /** Returns the number of lines in a sublist. */
     getLineCount(options: RecordGetLineCountOptions): number;
     getLineCount(sublistId: string): number;
@@ -594,9 +593,9 @@ export interface ${recordType} extends Record {
     selectNewLine(options: RecordGetLineCountOptions): void;
     /** Returns all the field names in a sublist. */
     getSublistFields(options: RecordGetLineCountOptions): string[];
-`
-        }
-        fileTxt +=
+`;
+            }
+            fileTxt +=
 `    /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string | string[];
     //getText(fieldId: string): string | string[];
@@ -646,10 +645,10 @@ Promise.all(requests).then(() => {
     // console.log('Finished these records', JSON.stringify(completed));
 
     // Generate the text for the _record_exports.d.ts file
-    let recordExportsTxt = `import { CopyLoadOptions, RecordCreateOptions, Record } from '../record';\n`;
-    for (let recordType in completed) {
-        recordExportsTxt += `import { CopyLoadOptions_${completed[recordType]}, RecordCreateOptions_${completed[recordType]}, ${completed[recordType]} } from './${completed[recordType]}';\n`
-    }
+    let recordExportsTxt = 'import { CopyLoadOptions, RecordCreateOptions, Record } from \'../record\';\n';
+    Object.keys(completed).forEach((recordType) => {
+        recordExportsTxt += `import { CopyLoadOptions_${completed[recordType]}, RecordCreateOptions_${completed[recordType]}, ${completed[recordType]} } from './${completed[recordType]}';\n`;
+    });
 
     recordExportsTxt += `
 // Export Record Load Function
@@ -660,11 +659,11 @@ interface RecordLoadFunction {
 
 interface RecordLoadFunction {`;
 
-    for (let recordType in completed) {
+    Object.keys(completed).forEach((recordType) => {
         recordExportsTxt += `
     (options: CopyLoadOptions_${completed[recordType]}): ${completed[recordType]};
     promise(options: CopyLoadOptions_${completed[recordType]}): Promise<${completed[recordType]}>;`;
-    }
+    });
 
     recordExportsTxt += `
 }
@@ -677,11 +676,11 @@ interface RecordCopyFunction {
 
 interface RecordCopyFunction {`;
 
-    for (let recordType in completed) {
+    Object.keys(completed).forEach((recordType) => {
         recordExportsTxt += `
     (options: CopyLoadOptions_${completed[recordType]}): ${completed[recordType]};
     promise(options: CopyLoadOptions_${completed[recordType]}): Promise<${completed[recordType]}>;`;
-    }
+    });
 
     recordExportsTxt += `
 }
@@ -694,11 +693,11 @@ interface RecordCreateFunction {
 
 interface RecordCreateFunction {`;
 
-    for (let recordType in completed) {
+    Object.keys(completed).forEach((recordType) => {
         recordExportsTxt += `
     (options: RecordCreateOptions_${completed[recordType]}): ${completed[recordType]};
     promise(options: RecordCreateOptions_${completed[recordType]}): Promise<${completed[recordType]}>;`;
-    }
+    });
 
     recordExportsTxt += `
 }
@@ -715,13 +714,13 @@ export { RecordLoadFunction, RecordCopyFunction, RecordCreateFunction }`;
 import * as N_ui_serverWidget from '../ui/serverWidget';
 import * as N_http from '../http';
 import { UserEventType, UserEventTypes } from './_EventTypes';
-`
-    for (let recordType in completed) {
-        contextExportsTxt += `import { ${completed[recordType]} as ${completed[recordType]}_REC } from './${completed[recordType]}';\n`
-    }
+`;
+    Object.keys(completed).forEach((recordType) => {
+        contextExportsTxt += `import { ${completed[recordType]} as ${completed[recordType]}_REC } from './${completed[recordType]}';\n`;
+    });
 
-    contextExportsTxt += `\nexport namespace fieldChangedContext {`;
-    for (let recordType in completed) {
+    contextExportsTxt += '\nexport namespace fieldChangedContext {';
+    Object.keys(completed).forEach((recordType) => {
         contextExportsTxt += `
     interface ${completed[recordType]} {
         currentRecord: ${completed[recordType]}_REC;
@@ -729,52 +728,48 @@ import { UserEventType, UserEventTypes } from './_EventTypes';
         fieldId: string;
         line: number;
         column: number;
-    }`
-    }
+    }`;
+    });
 
-    contextExportsTxt += `\n}\nexport namespace lineInitContext {`
-    for (let recordType in completed) {
+    contextExportsTxt += '\n}\nexport namespace lineInitContext {';
+    Object.keys(completed).forEach((recordType) => {
         contextExportsTxt += `
     interface ${completed[recordType]} {
         currentRecord: ${completed[recordType]}_REC;
         sublistId: string;
-    }`
-    }
+    }`;
+    });
 
-    contextExportsTxt += `\n}\nexport namespace pageInitContext {`;
-
-    for (let recordType in completed) {
+    contextExportsTxt += '\n}\nexport namespace pageInitContext {';
+    Object.keys(completed).forEach((recordType) => {
         contextExportsTxt += `
     interface ${completed[recordType]} {
         currentRecord: ${completed[recordType]}_REC;
         mode: string;
-    }`
-    }
+    }`;
+    });
 
-    contextExportsTxt += `\n}\nexport namespace postSourcingContext {`;
-
-    for (let recordType in completed) {
+    contextExportsTxt += '\n}\nexport namespace postSourcingContext {';
+    Object.keys(completed).forEach((recordType) => {
         contextExportsTxt += `
     interface ${completed[recordType]} {
         currentRecord: ${completed[recordType]}_REC;
         sublistId: string;
         fieldId: string;
-    }`
-    }
+    }`;
+    });
 
-    contextExportsTxt += `\n}\nexport namespace saveRecordContext {`;
-
-    for (let recordType in completed) {
+    contextExportsTxt += '\n}\nexport namespace saveRecordContext {';
+    Object.keys(completed).forEach((recordType) => {
         contextExportsTxt += `
     interface ${completed[recordType]} {
         currentRecord: ${completed[recordType]}_REC;
-    }`
-    }
+    }`;
+    });
 
 
-    contextExportsTxt += `\n}\nexport namespace sublistChangedContext {`
-
-    for (let recordType in completed) {
+    contextExportsTxt += '\n}\nexport namespace sublistChangedContext {';
+    Object.keys(completed).forEach((recordType) => {
         contextExportsTxt += `
     interface ${completed[recordType]} {
         currentRecord: ${completed[recordType]}_REC;
@@ -783,22 +778,20 @@ import { UserEventType, UserEventTypes } from './_EventTypes';
          * Commit, etc.
          */
         operation: string;
-    }`
-    }
+    }`;
+    });
 
-    contextExportsTxt += `\n}\nexport namespace validateDeleteContext {`;
-
-    for (let recordType in completed) {
+    contextExportsTxt += '\n}\nexport namespace validateDeleteContext {';
+    Object.keys(completed).forEach((recordType) => {
         contextExportsTxt += `
     interface ${completed[recordType]} {
         currentRecord: ${completed[recordType]}_REC;
         sublistId: string;
-    }`
-    }
+    }`;
+    });
 
-    contextExportsTxt += `\n}\nexport namespace validateFieldContext {`;
-
-    for (let recordType in completed) {
+    contextExportsTxt += '\n}\nexport namespace validateFieldContext {';
+    Object.keys(completed).forEach((recordType) => {
         contextExportsTxt += `
     interface ${completed[recordType]} {
         currentRecord: ${completed[recordType]}_REC;
@@ -806,32 +799,29 @@ import { UserEventType, UserEventTypes } from './_EventTypes';
         fieldId: string;
         line?: number;
         column?: number;
-    }`
-    }
+    }`;
+    });
 
-    contextExportsTxt += `\n}\nexport namespace validateInsertContext {`
-
-    for (let recordType in completed) {
+    contextExportsTxt += '\n}\nexport namespace validateInsertContext {';
+    Object.keys(completed).forEach((recordType) => {
         contextExportsTxt += `
     interface ${completed[recordType]} {
         currentRecord: ${completed[recordType]}_REC;
         sublistId: string;
-    }`
-    }
+    }`;
+    });
 
-    contextExportsTxt += `\n}\nexport namespace validateLineContext {`;
-
-    for (let recordType in completed) {
+    contextExportsTxt += '\n}\nexport namespace validateLineContext {';
+    Object.keys(completed).forEach((recordType) => {
         contextExportsTxt += `
     interface ${completed[recordType]} {
         currentRecord: ${completed[recordType]}_REC;
         sublistId: string;
-    }`
-    }
+    }`;
+    });
 
-    contextExportsTxt += `\n}\nexport namespace beforeLoadContext {`;
-
-    for (let recordType in completed) {
+    contextExportsTxt += '\n}\nexport namespace beforeLoadContext {';
+    Object.keys(completed).forEach((recordType) => {
         contextExportsTxt += `
     interface ${completed[recordType]} {
         newRecord: ${completed[recordType]}_REC;
@@ -839,46 +829,44 @@ import { UserEventType, UserEventTypes } from './_EventTypes';
         type: UserEventType;
         UserEventType: UserEventTypes;
         request: N_http.ServerRequest;
-    }`
-    }
+    }`;
+    });
 
-    contextExportsTxt += `\n}\nexport namespace beforeSubmitContext {`;
-
-    for (let recordType in completed) {
+    contextExportsTxt += '\n}\nexport namespace beforeSubmitContext {';
+    Object.keys(completed).forEach((recordType) => {
         contextExportsTxt += `
     interface ${completed[recordType]} {
         newRecord: ${completed[recordType]}_REC;
         oldRecord: ${completed[recordType]}_REC;
         type: UserEventType;
         UserEventType: UserEventTypes;
-    }`
-    }
+    }`;
+    });
 
-    contextExportsTxt += `\n}\nexport namespace afterSubmitContext {`
-
-    for (let recordType in completed) {
+    contextExportsTxt += '\n}\nexport namespace afterSubmitContext {';
+    Object.keys(completed).forEach((recordType) => {
         contextExportsTxt += `
     interface ${completed[recordType]} {
         newRecord: ${completed[recordType]}_REC;
         oldRecord: ${completed[recordType]}_REC;
         type: UserEventType;
         UserEventType: UserEventTypes;
-    }`
-    }
+    }`;
+    });
 
-    contextExportsTxt += `\n}\nexport namespace onActionContext {`;
+    contextExportsTxt += '\n}\nexport namespace onActionContext {';
 
-    for (let recordType in completed) {
+    Object.keys(completed).forEach((recordType) => {
         contextExportsTxt += `
     interface ${completed[recordType]} {
         newRecord: ${completed[recordType]}_REC;
         oldRecord: ${completed[recordType]}_REC;
-    }`
-    }
+    }`;
+    });
 
     // fs.writeFile(`./N/recordTypes/_context_exports.d.ts`, contextExportsTxt, (err) => {
     //     if (err) throw err;
     //     console.log('Finished creating Context Exports file.');
     //     console.log('PROCESS FINISHED SUCCESSFULLY');
     // })
-})
+});
