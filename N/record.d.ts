@@ -350,7 +350,7 @@ export interface ClientCurrentRecord {
     getCurrentSublistText(options: GetCurrentSublistValueOptions): string;
     /** Returns the value of a sublist field on the currently selected sublist line. */
     getCurrentSublistValue(options: GetCurrentSublistValueOptions): FieldValue;
-    getCurrentSublistValue(sublistId: string, fieldId: string): FieldValue;
+    //getCurrentSublistValue(sublistId: string, fieldId: string): FieldValue;
     /** Returns a field object from a record. */
     getField(options: GetFieldOptions): Field;
     /** Returns the number of lines in a sublist. */
@@ -420,7 +420,7 @@ export interface ClientCurrentRecord {
     setCurrentSublistText(options: SetCurrentSublistTextOptions): void;
     /** Sets the value for the field in the currently selected line. */
     setCurrentSublistValue(options: SetCurrentSublistValueOptions): void;
-    setCurrentSublistValue(sublistId: string, fieldId: string, value: FieldValue): void;
+    //setCurrentSublistValue(sublistId: string, fieldId: string, value: FieldValue): void;
     /** Sets the value for the associated header in the matrix. */
     setMatrixHeaderValue(options: SetCurrentMatrixSublistValueOptions): Record;
     /** Sets the value for the associated field in the matrix. */
