@@ -89,7 +89,7 @@ function createDefinitionFile(url, cb) {
                     // console.log(names);
                 }
             }
-            // console.log('Main Fields', mainFields);
+            console.log('Main Fields', mainFields);
             if (!mainFields) {
                 console.log('No Main Fields', url);
                 cb();
@@ -102,10 +102,15 @@ function createDefinitionFile(url, cb) {
             const mainFieldsTxt = mainFields.length === 1 ?
                 `main_${mainFields[0].field_type}` :
                 mainFields.reduce((txt, val, i, arr) => {
-                    if (i === arr.length - 1) return `${txt}main_${val.field_type}`;
-                    else return i === 1 ? `main_${txt.field_type} | main_${val.field_type} | ` : `${txt}main_${val.field_type} | `;
+                    if (arr.length = 2) {
+                        return `main_${txt.field_type} | main_${val.field_type}`;
+                    } else if (i === arr.length - 1) {
+                        return `${txt}main_${val.field_type}`;
+                    } else {
+                        return i === 1 ? `main_${txt.field_type} | main_${val.field_type} | ` : `${txt}main_${val.field_type} | `;
+                    }
                 });
-            // console.log('Main Field Text', mainFieldsTxt);
+            console.log('Main Field Text', mainFieldsTxt);
             // Concatenates fields into one string
             function concatTopFields(fieldArr, sublist) {
                 let txt = '';
@@ -863,6 +868,8 @@ import { UserEventType, UserEventTypes } from './_EventTypes';
         oldRecord: ${completed[recordType]}_REC;
     }`;
     });
+
+    contextExportsTxt += '\n}';
 
     // fs.writeFile(`./N/recordTypes/_context_exports.d.ts`, contextExportsTxt, (err) => {
     //     if (err) throw err;
