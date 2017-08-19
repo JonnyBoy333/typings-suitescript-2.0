@@ -5,11 +5,6 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_richtext = 'addtohead';
 type main_select = 'catalog' | 'displayinsite' | 'lastmodifiedby' | 'pagebanner' | 'primaryparent' | 'sitemappriority' | 'thumbnail';
-type main_date = 'created' | 'lastmodified';
-type main_textarea = 'description';
-type main_text = 'externalid' | 'metadescription' | 'metakeywords' | 'name' | 'pageheading' | 'pagetitle' | 'urlfragment';
-type main_checkbox = 'isinactive' | 'origbinactive';
-type main_integer = 'sequencenumber' | 'version';
 
 // items field types
 type items_select = 'item';
@@ -519,17 +514,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_richtext | main_select | main_date | main_textarea | main_text | main_checkbox | main_integer;
+    fieldId: main_richtext | main_select;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_richtext | main_select | main_date | main_textarea | main_text | main_checkbox | main_integer;
+    fieldId: main_richtext | main_select;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_richtext | main_select | main_date | main_textarea | main_text | main_checkbox | main_integer;
+    fieldId: main_richtext | main_select;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -547,7 +542,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_richtext | main_select | main_date | main_textarea | main_text | main_checkbox | main_integer;
+    fieldId: main_richtext | main_select;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -558,7 +553,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_richtext | main_select | main_date | main_textarea | main_text | main_checkbox | main_integer;
+    fieldId: main_richtext | main_select;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:

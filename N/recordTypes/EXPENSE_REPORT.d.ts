@@ -5,10 +5,6 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_select = 'account' | 'approvalstatus' | 'class' | 'customform' | 'department' | 'entity' | 'entitynexus' | 'location' | 'nextapprover' | 'nexus' | 'postingperiod' | 'subsidiary';
 type main_checkbox = 'accountingapproval' | 'complete' | 'supervisorapproval' | 'usemulticurrency';
-type main_currency = 'advance' | 'amount' | 'total';
-type main_datetime = 'createddate' | 'lastmodifieddate';
-type main_date = 'duedate' | 'trandate';
-type main_text = 'externalid' | 'memo' | 'status' | 'statusRef' | 'tranid';
 
 // accountingbookdetail field types
 type accountingbookdetail_select = 'accountingbook';
@@ -374,17 +370,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_select | main_checkbox | main_currency | main_datetime | main_date | main_text;
+    fieldId: main_select | main_checkbox;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_checkbox | main_currency | main_datetime | main_date | main_text;
+    fieldId: main_select | main_checkbox;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_checkbox | main_currency | main_datetime | main_date | main_text;
+    fieldId: main_select | main_checkbox;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -402,7 +398,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_checkbox | main_currency | main_datetime | main_date | main_text;
+    fieldId: main_select | main_checkbox;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -413,7 +409,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_checkbox | main_currency | main_datetime | main_date | main_text;
+    fieldId: main_select | main_checkbox;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:

@@ -5,8 +5,6 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_select = 'customform' | 'subsidiary';
 type main_text = 'externalid' | 'name';
-type main_checkbox = 'isinactive';
-type main_textarea = 'memo';
 
 // costdetail field types
 type costdetail_select = 'costcategory' | 'item';
@@ -224,17 +222,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_select | main_text | main_checkbox | main_textarea;
+    fieldId: main_select | main_text;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_text | main_checkbox | main_textarea;
+    fieldId: main_select | main_text;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_text | main_checkbox | main_textarea;
+    fieldId: main_select | main_text;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -252,7 +250,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_text | main_checkbox | main_textarea;
+    fieldId: main_select | main_text;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -263,7 +261,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_text | main_checkbox | main_textarea;
+    fieldId: main_select | main_text;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:

@@ -5,10 +5,6 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_text = 'city' | 'county' | 'externalid' | 'itemid' | 'itemtype' | 'nexuscountry';
 type main_textarea = 'description' | 'zip';
-type main_checkbox = 'includechildren' | 'isdefault' | 'isinactive' | 'piggyback';
-type main_percent = 'rate';
-type main_select = 'state' | 'subsidiary' | 'taxitem1' | 'taxitem2' | 'taxtype';
-type main_rate = 'unitprice1' | 'unitprice2';
 
 // taxitem field types
 type taxitem_posfloat = 'basis';
@@ -228,17 +224,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_text | main_textarea | main_checkbox | main_percent | main_select | main_rate;
+    fieldId: main_text | main_textarea;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_textarea | main_checkbox | main_percent | main_select | main_rate;
+    fieldId: main_text | main_textarea;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_textarea | main_checkbox | main_percent | main_select | main_rate;
+    fieldId: main_text | main_textarea;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -256,7 +252,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_textarea | main_checkbox | main_percent | main_select | main_rate;
+    fieldId: main_text | main_textarea;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -267,7 +263,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_textarea | main_checkbox | main_percent | main_select | main_rate;
+    fieldId: main_text | main_textarea;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:

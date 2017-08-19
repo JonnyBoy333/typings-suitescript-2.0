@@ -5,21 +5,6 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_select = 'accessrole' | 'alcoholrecipienttype' | 'buyingreason' | 'buyingtimeframe' | 'campaigncategory' | 'category' | 'contact' | 'creditholdoverride' | 'currency' | 'customform' | 'defaultbankaccount' | 'draccount' | 'emailpreference' | 'entitystatus' | 'fxaccount' | 'globalsubscriptionstatus' | 'image' | 'language' | 'leadsource' | 'monthlyclosing' | 'negativenumberformat' | 'numberformat' | 'openingbalanceaccount' | 'parent' | 'partner' | 'prefccprocessor' | 'pricelevel' | 'receivablesaccount' | 'representingsubsidiary' | 'salesgroup' | 'salesreadiness' | 'salesrep' | 'shippingcarrier' | 'shippingitem' | 'subsidiary' | 'taxfractionunit' | 'taxitem' | 'taxrounding' | 'terms' | 'territory' | 'thirdpartycarrier' | 'thirdpartycountry' | 'unsubscribe';
 type main_text = 'accountnumber' | 'billaddr1' | 'billaddr2' | 'billaddr3' | 'billcity' | 'billcountry' | 'billstate' | 'billzip' | 'clickstream' | 'companyname' | 'currencyprecision' | 'entityid' | 'externalid' | 'firstname' | 'isjob' | 'keywords' | 'lastname' | 'lastpagevisited' | 'middlename' | 'phoneticname' | 'printoncheckas' | 'referrer' | 'resalenumber' | 'salutation' | 'stage' | 'strength' | 'thirdpartyacct' | 'thirdpartyzipcode' | 'title' | 'vatregnumber' | 'weblead';
-type main_email = 'altemail' | 'email';
-type main_phone = 'altphone' | 'fax' | 'homephone' | 'mobilephone' | 'phone';
-type main_checkbox = 'autoname' | 'billpay' | 'emailtransactions' | 'faxtransactions' | 'giveaccess' | 'isbudgetapproved' | 'isinactive' | 'printtransactions' | 'sendemail' | 'shipcomplete' | 'syncpartnerteams' | 'syncsalesteams' | 'taxable' | 'taxexempt';
-type main_currency = 'balance' | 'consolbalance' | 'consoldepositbalance' | 'consoloverduebalance' | 'consolunbilledorders' | 'depositbalance' | 'estimatedbudget' | 'openingbalance' | 'overduebalance' | 'unbilledorders';
-type main_textarea = 'comments';
-type main_integer = 'consoldaysoverdue' | 'daysoverdue' | 'visits';
-type main_poscurrency = 'creditlimit';
-type main_datetime = 'datecreated' | 'firstvisit' | 'lastmodifieddate' | 'lastvisit';
-type main_address = 'defaultaddress';
-type main_float = 'defaultorderpriority';
-type main_date = 'enddate' | 'openingbalancedate' | 'startdate';
-type main_radio = 'isperson';
-type main_password = 'password' | 'password2';
-type main_posinteger = 'reminderdays';
-type main_url = 'url';
 
 // addressbook field types
 type addressbook_text = 'addr1' | 'addr2' | 'addr3' | 'addressee' | 'addressid' | 'attention' | 'city' | 'displaystate' | 'label' | 'state' | 'zip';
@@ -1555,17 +1540,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_select | main_text | main_email | main_phone | main_checkbox | main_currency | main_textarea | main_integer | main_poscurrency | main_datetime | main_address | main_float | main_date | main_radio | main_password | main_posinteger | main_url;
+    fieldId: main_select | main_text;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_text | main_email | main_phone | main_checkbox | main_currency | main_textarea | main_integer | main_poscurrency | main_datetime | main_address | main_float | main_date | main_radio | main_password | main_posinteger | main_url;
+    fieldId: main_select | main_text;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_text | main_email | main_phone | main_checkbox | main_currency | main_textarea | main_integer | main_poscurrency | main_datetime | main_address | main_float | main_date | main_radio | main_password | main_posinteger | main_url;
+    fieldId: main_select | main_text;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -1583,7 +1568,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_text | main_email | main_phone | main_checkbox | main_currency | main_textarea | main_integer | main_poscurrency | main_datetime | main_address | main_float | main_date | main_radio | main_password | main_posinteger | main_url;
+    fieldId: main_select | main_text;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -1594,7 +1579,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_text | main_email | main_phone | main_checkbox | main_currency | main_textarea | main_integer | main_poscurrency | main_datetime | main_address | main_float | main_date | main_radio | main_password | main_posinteger | main_url;
+    fieldId: main_select | main_text;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:

@@ -5,9 +5,6 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_select = 'account' | 'class' | 'currency' | 'customform' | 'department' | 'employee' | 'location' | 'postingperiod' | 'subsidiary';
 type main_datetime = 'createddate' | 'lastmodifieddate';
-type main_float = 'exchangerate';
-type main_text = 'externalid';
-type main_date = 'trandate';
 
 // companycontribution field types
 type companycontribution_currency2 = 'amount';
@@ -807,17 +804,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_select | main_datetime | main_float | main_text | main_date;
+    fieldId: main_select | main_datetime;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_datetime | main_float | main_text | main_date;
+    fieldId: main_select | main_datetime;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_datetime | main_float | main_text | main_date;
+    fieldId: main_select | main_datetime;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -835,7 +832,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_datetime | main_float | main_text | main_date;
+    fieldId: main_select | main_datetime;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -846,7 +843,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_datetime | main_float | main_text | main_date;
+    fieldId: main_select | main_datetime;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:

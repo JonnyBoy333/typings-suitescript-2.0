@@ -5,14 +5,6 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_select = 'audience' | 'category' | 'customform' | 'family' | 'item' | 'offer' | 'owner' | 'promotioncode' | 'searchengine' | 'vertical';
 type main_checkbox = 'autoname' | 'isinactive';
-type main_currency = 'basecost' | 'convcostpercustomer' | 'cost' | 'costpercustomer' | 'expectedrevenue' | 'profit' | 'totalrevenue';
-type main_identifieranycase = 'campaignid';
-type main_integer = 'conversions' | 'leadsgenerated' | 'uniquevisitors';
-type main_date = 'enddate' | 'startdate';
-type main_text = 'eventnumber' | 'externalid' | 'keyword' | 'title';
-type main_textarea = 'message';
-type main_percent = 'roi';
-type main_url = 'url';
 
 // campaigndirectmail field types
 type campaigndirectmail_select = 'campaigngroup' | 'channel' | 'promocode' | 'status' | 'subscription' | 'template';
@@ -674,17 +666,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_select | main_checkbox | main_currency | main_identifieranycase | main_integer | main_date | main_text | main_textarea | main_percent | main_url;
+    fieldId: main_select | main_checkbox;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_checkbox | main_currency | main_identifieranycase | main_integer | main_date | main_text | main_textarea | main_percent | main_url;
+    fieldId: main_select | main_checkbox;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_checkbox | main_currency | main_identifieranycase | main_integer | main_date | main_text | main_textarea | main_percent | main_url;
+    fieldId: main_select | main_checkbox;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -702,7 +694,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_checkbox | main_currency | main_identifieranycase | main_integer | main_date | main_text | main_textarea | main_percent | main_url;
+    fieldId: main_select | main_checkbox;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -713,7 +705,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_checkbox | main_currency | main_identifieranycase | main_integer | main_date | main_text | main_textarea | main_percent | main_url;
+    fieldId: main_select | main_checkbox;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:

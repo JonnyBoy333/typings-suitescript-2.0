@@ -5,12 +5,6 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_checkbox = 'availabletopartners' | 'dontshowprice' | 'excludefromsitemap' | 'includechildren' | 'isdonationitem' | 'isfulfillable' | 'isgcocompliant' | 'isinactive' | 'isonline' | 'offersupport' | 'showdefaultdonationamount';
 type main_select = 'billingschedule' | 'class' | 'costestimatetype' | 'customform' | 'department' | 'incomeaccount' | 'issueproduct' | 'itemnumberoptions' | 'itemoptions' | 'liabilityaccount' | 'location' | 'outofstockbehavior' | 'parent' | 'sitemappriority' | 'storedisplayimage' | 'storedisplaythumbnail' | 'storeitemtemplate' | 'subsidiary' | 'taxschedule';
-type main_currency = 'costestimate';
-type main_datetime = 'createddate' | 'lastmodifieddate';
-type main_integer = 'daysbeforeexpiration' | 'internalid';
-type main_text = 'displayname' | 'externalid' | 'itemid' | 'itemtype' | 'nopricemessage' | 'storedisplayname' | 'subtype' | 'upccode';
-type main_textarea = 'featureddescription' | 'metataghtml' | 'outofstockmessage' | 'pagetitle' | 'relateditemsdescription' | 'salesdescription' | 'searchkeywords' | 'storedescription' | 'storedetaileddescription' | 'urlcomponent';
-type main_currency2 = 'maxdonationamount';
 
 // price field types
 type price_text = 'currency' | 'pricelevel';
@@ -372,17 +366,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_checkbox | main_select | main_currency | main_datetime | main_integer | main_text | main_textarea | main_currency2;
+    fieldId: main_checkbox | main_select;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_checkbox | main_select | main_currency | main_datetime | main_integer | main_text | main_textarea | main_currency2;
+    fieldId: main_checkbox | main_select;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_checkbox | main_select | main_currency | main_datetime | main_integer | main_text | main_textarea | main_currency2;
+    fieldId: main_checkbox | main_select;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -400,7 +394,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_checkbox | main_select | main_currency | main_datetime | main_integer | main_text | main_textarea | main_currency2;
+    fieldId: main_checkbox | main_select;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -411,7 +405,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_checkbox | main_select | main_currency | main_datetime | main_integer | main_text | main_textarea | main_currency2;
+    fieldId: main_checkbox | main_select;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:

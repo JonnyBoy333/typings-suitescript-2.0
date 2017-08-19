@@ -5,14 +5,6 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_select = 'accessibilitytypefedex' | 'ancillaryendorsementfedex' | 'b13afilingoptionfedex' | 'createdfrom' | 'customform' | 'entity' | 'haladdressfedex' | 'hazmattypefedex' | 'postingperiod' | 'shipaddresslist' | 'shipcountry' | 'shipmethod' | 'shipstatus' | 'subsidiary' | 'termsofsalefedex';
 type main_text = 'b13astatementdatafedex' | 'backupemailaddressups' | 'bookingconfirmationnumfedex' | 'externalid' | 'haladdr1fedex' | 'haladdr2fedex' | 'haladdr3fedex' | 'halcityfedex' | 'halcountryfedex' | 'halstatefedex' | 'halzipfedex' | 'memo' | 'shipaddr1' | 'shipaddr2' | 'shipattention' | 'shipcity' | 'shipcompany' | 'shipstate' | 'shipzip' | 'status' | 'statusRef' | 'tranid';
-type main_currency = 'balance' | 'consolidatebalance' | 'handlingcost' | 'shippingcost';
-type main_checkbox = 'certifiedmailusps' | 'holdatlocationfedex' | 'insidedeliveryfedex' | 'insidepickupfedex' | 'isbasecurrency' | 'iscargoaircraftonlyfedex' | 'shipisresidential' | 'shipoverride';
-type main_datetime = 'createddate' | 'lastmodifieddate';
-type main_posfloat = 'exchangerate';
-type main_phone = 'halphonefedex' | 'shipphone';
-type main_date = 'packeddate' | 'pickeddate' | 'shippeddate' | 'trandate';
-type main_textarea = 'shipaddress';
-type main_summary = 'shippingaddress';
 
 // item field types
 type item_text = 'class' | 'countryofmanufacture' | 'createdpo' | 'department' | 'item' | 'itemdescription' | 'itemkey' | 'itemname' | 'itemtype' | 'line' | 'manufactureraddr1' | 'manufacturercity' | 'manufacturerstate' | 'manufacturertariff' | 'manufacturertaxid' | 'manufacturerzip' | 'multmanufactureaddr' | 'preferencecriterion' | 'producer' | 'schedulebcode' | 'schedulebnumber' | 'schedulebquantity' | 'sitemname' | 'units';
@@ -235,17 +227,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_select | main_text | main_currency | main_checkbox | main_datetime | main_posfloat | main_phone | main_date | main_textarea | main_summary;
+    fieldId: main_select | main_text;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_text | main_currency | main_checkbox | main_datetime | main_posfloat | main_phone | main_date | main_textarea | main_summary;
+    fieldId: main_select | main_text;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_text | main_currency | main_checkbox | main_datetime | main_posfloat | main_phone | main_date | main_textarea | main_summary;
+    fieldId: main_select | main_text;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -263,7 +255,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_text | main_currency | main_checkbox | main_datetime | main_posfloat | main_phone | main_date | main_textarea | main_summary;
+    fieldId: main_select | main_text;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -274,7 +266,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_text | main_currency | main_checkbox | main_datetime | main_posfloat | main_phone | main_date | main_textarea | main_summary;
+    fieldId: main_select | main_text;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:

@@ -5,12 +5,6 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_select = 'accountingbook' | 'amortizationtype' | 'job' | 'parentSched' | 'recogintervalsrc' | 'recurrencetype' | 'sourcetran' | 'status';
 type main_date = 'enddate' | 'startdate';
-type main_text = 'externalid' | 'name' | 'schedulenumber';
-type main_rate = 'initialamount' | 'residual';
-type main_checkbox = 'isinactive';
-type main_integer = 'periodoffset' | 'revrecoffset';
-type main_currency = 'remainingdeferredbalance' | 'totalamortized';
-type main_currency2 = 'totalamount';
 
 // recurrence field types
 type recurrence_select = 'defrevaccount';
@@ -232,17 +226,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_select | main_date | main_text | main_rate | main_checkbox | main_integer | main_currency | main_currency2;
+    fieldId: main_select | main_date;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_date | main_text | main_rate | main_checkbox | main_integer | main_currency | main_currency2;
+    fieldId: main_select | main_date;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_date | main_text | main_rate | main_checkbox | main_integer | main_currency | main_currency2;
+    fieldId: main_select | main_date;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -260,7 +254,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_date | main_text | main_rate | main_checkbox | main_integer | main_currency | main_currency2;
+    fieldId: main_select | main_date;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -271,7 +265,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_date | main_text | main_rate | main_checkbox | main_integer | main_currency | main_currency2;
+    fieldId: main_select | main_date;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:

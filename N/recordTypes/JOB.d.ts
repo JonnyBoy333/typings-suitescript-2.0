@@ -5,14 +5,6 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_text = 'accountnumber' | 'companyname' | 'currencyprecision' | 'entityid' | 'externalid' | 'isjob' | 'stage';
 type main_time = 'actualtime' | 'estimatedtime' | 'estimatedtimeoverride' | 'estimatedtimeoverridebaseline' | 'timeremaining';
-type main_checkbox = 'allowallresourcesfortasks' | 'allowexpenses' | 'allowtime' | 'applyprojectexpensetypetoall' | 'autoname' | 'bbudgetshowcalculatedlines' | 'bbudgetusecalculatedvalues' | 'cbudgetshowcalculatedlines' | 'cbudgetusecalculatedvalues' | 'includecrmtasksintotals' | 'isbasecurrency' | 'isexempttime' | 'isinactive' | 'isproductivetime' | 'isutilizedtime' | 'limittimetoassignees' | 'materializetime';
-type main_select = 'billingschedule' | 'category' | 'contact' | 'currency' | 'customform' | 'entitystatus' | 'estimaterevrectemplate' | 'jobbillingtype' | 'jobitem' | 'jobtype' | 'language' | 'otherrelationships' | 'parent' | 'projectexpensetype' | 'subsidiary';
-type main_date = 'calculatedenddate' | 'calculatedenddatebaseline' | 'enddate' | 'lastbaselinedate' | 'projectedenddate' | 'projectedenddatebaseline' | 'startdate' | 'startdatebaseline';
-type main_textarea = 'comments';
-type main_datetime = 'datecreated' | 'lastmodifieddate';
-type main_currency = 'estimatedcost' | 'estimatedgrossprofit' | 'estimatedlaborcost' | 'estimatedlaborcostbaseline' | 'estimatedlaborrevenue' | 'estimatedrevenue' | 'jobprice';
-type main_percent = 'estimatedgrossprofitpercent' | 'percentcomplete' | 'percenttimecomplete';
-type main_currency2 = 'fxrate';
 
 // bbudget field types
 type bbudget_integer = 'costcategoryref';
@@ -812,17 +804,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_text | main_time | main_checkbox | main_select | main_date | main_textarea | main_datetime | main_currency | main_percent | main_currency2;
+    fieldId: main_text | main_time;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_time | main_checkbox | main_select | main_date | main_textarea | main_datetime | main_currency | main_percent | main_currency2;
+    fieldId: main_text | main_time;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_time | main_checkbox | main_select | main_date | main_textarea | main_datetime | main_currency | main_percent | main_currency2;
+    fieldId: main_text | main_time;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -840,7 +832,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_time | main_checkbox | main_select | main_date | main_textarea | main_datetime | main_currency | main_percent | main_currency2;
+    fieldId: main_text | main_time;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -851,7 +843,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_time | main_checkbox | main_select | main_date | main_textarea | main_datetime | main_currency | main_percent | main_currency2;
+    fieldId: main_text | main_time;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:

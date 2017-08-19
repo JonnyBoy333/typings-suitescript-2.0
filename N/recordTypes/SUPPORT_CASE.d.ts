@@ -5,15 +5,6 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_select = 'assigned' | 'category' | 'company' | 'contact' | 'customform' | 'emailemployees' | 'insertsolution' | 'issue' | 'item' | 'module' | 'origin' | 'priority' | 'product' | 'profile' | 'serialnumber' | 'status' | 'subsidiary';
 type main_checkbox = 'autoname' | 'emailform' | 'helpdesk' | 'internalonly' | 'isinactive' | 'messagenew';
-type main_identifieranycase = 'casenumber';
-type main_text = 'companyname' | 'eventnumber' | 'externalid' | 'stage' | 'title';
-type main_datetime = 'createddate' | 'enddate' | 'lastmessagedate' | 'lastmodifieddate' | 'lastreopeneddate';
-type main_emails = 'email';
-type main_textarea = 'escalationmessage' | 'incomingmessage' | 'newsolutionfrommsg' | 'outgoingmessage' | 'searchsolution';
-type main_email = 'inboundemail';
-type main_phone = 'phone';
-type main_date = 'startdate';
-type main_timeofday = 'starttime';
 
 // escalateto field types
 type escalateto_email = 'email';
@@ -381,17 +372,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_select | main_checkbox | main_identifieranycase | main_text | main_datetime | main_emails | main_textarea | main_email | main_phone | main_date | main_timeofday;
+    fieldId: main_select | main_checkbox;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_checkbox | main_identifieranycase | main_text | main_datetime | main_emails | main_textarea | main_email | main_phone | main_date | main_timeofday;
+    fieldId: main_select | main_checkbox;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_checkbox | main_identifieranycase | main_text | main_datetime | main_emails | main_textarea | main_email | main_phone | main_date | main_timeofday;
+    fieldId: main_select | main_checkbox;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -409,7 +400,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_checkbox | main_identifieranycase | main_text | main_datetime | main_emails | main_textarea | main_email | main_phone | main_date | main_timeofday;
+    fieldId: main_select | main_checkbox;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -420,7 +411,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_checkbox | main_identifieranycase | main_text | main_datetime | main_emails | main_textarea | main_email | main_phone | main_date | main_timeofday;
+    fieldId: main_select | main_checkbox;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:

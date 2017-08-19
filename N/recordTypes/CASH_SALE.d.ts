@@ -5,22 +5,6 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_select = 'account' | 'billaddresslist' | 'billingaccount' | 'ccavsstreetmatch' | 'ccavszipmatch' | 'cciavsmatch' | 'ccsecuritycodematch' | 'class' | 'couponcode' | 'createdfrom' | 'creditcard' | 'creditcardprocessor' | 'currency' | 'customform' | 'department' | 'discountitem' | 'entity' | 'entitynexus' | 'expcostdiscount' | 'expcosttaxcode' | 'handlingtaxcode' | 'itemcostdiscount' | 'itemcosttaxcode' | 'leadsource' | 'location' | 'messagesel' | 'nexus' | 'opportunity' | 'partner' | 'paymenteventholdreason' | 'paymenteventresult' | 'paymentmethod' | 'postingperiod' | 'promocode' | 'salesgroup' | 'salesrep' | 'shipaddresslist' | 'shipmethod' | 'shippingtaxcode' | 'subsidiary' | 'taxitem' | 'timediscount' | 'timetaxcode';
 type main_checkbox = 'allowemptycards' | 'ccapproved' | 'ccispurchasecardbin' | 'chargeit' | 'excludecommission' | 'expcostdiscprint' | 'expcostdisctaxable' | 'ignoreavs' | 'ignorecsc' | 'isbasecurrency' | 'ismultishipto' | 'isrecurringpayment' | 'istaxable' | 'itemcostdiscprint' | 'itemcostdisctaxable' | 'overridehold' | 'overrideholdchecked' | 'paypalprocess' | 'recurringbill' | 'revreconrevcommitment' | 'syncpartnerteams' | 'syncsalesteams' | 'timediscprint' | 'timedisctaxable' | 'tobeemailed' | 'tobefaxed' | 'tobeprinted' | 'tranisvsoebundle' | 'vsoeautocalc';
-type main_currency = 'althandlingcost' | 'altshippingcost' | 'deferredrevenue' | 'discounttotal' | 'estgrossprofit' | 'expcostdiscamount' | 'giftcertapplied' | 'handlingcost' | 'itemcostdiscamount' | 'recognizedrevenue' | 'shippingcost' | 'subtotal' | 'taxtotal' | 'timediscamount' | 'total' | 'totalcostestimate';
-type main_text = 'authcode' | 'billaddr1' | 'billaddr2' | 'billaddr3' | 'billaddressee' | 'billattention' | 'billcity' | 'billcountry' | 'billisresidential' | 'billphone' | 'billstate' | 'billzip' | 'cchold' | 'ccname' | 'ccprocessoraccount' | 'ccsecuritycode' | 'ccstreet' | 'cczipcode' | 'currencyname' | 'currencysymbol' | 'customercode' | 'debitcardissueno' | 'externalid' | 'fob' | 'handlingtax1rate' | 'inputpnrefnum' | 'ispurchasecard' | 'linkedtrackingnumbers' | 'memo' | 'muccpromocodeinstance' | 'otherrefnum' | 'paymenteventpurchasedatasent' | 'paymenteventtype' | 'paymenteventupdatedby' | 'paypalauthid' | 'paypalstatus' | 'paypaltranid' | 'pnrefnum' | 'promocodepluginimpl' | 'returntrackingnumbers' | 'revenuestatus' | 'shipaddr1' | 'shipaddr2' | 'shipaddr3' | 'shipaddressee' | 'shipattention' | 'shipcity' | 'shipcountry' | 'shipisresidential' | 'shipoverride' | 'shipphone' | 'shippingcostoverridden' | 'shippingtax1rate' | 'shipstate' | 'shipzip' | 'softdescriptor' | 'source' | 'status' | 'statusRef' | 'threedstatuscode' | 'trackingnumbers' | 'tranid';
-type main_address = 'billaddress' | 'shipaddress';
-type main_summary = 'billingaddress' | 'shippingaddress';
-type main_ccexpdate = 'ccexpiredate';
-type main_textarea = 'ccholdetails' | 'message';
-type main_ccnumber = 'ccnumber';
-type main_datetime = 'createddate' | 'lastmodifieddate' | 'paymenteventdate';
-type main_rate = 'discountrate' | 'expcostdiscrate' | 'itemcostdiscrate' | 'timediscrate';
-type main_emails = 'email';
-type main_date = 'enddate' | 'saleseffectivedate' | 'shipdate' | 'startdate' | 'trandate';
-type main_percent = 'estgrossprofitpercent' | 'expcosttaxrate1' | 'itemcosttaxrate1' | 'timetaxrate1';
-type main_currency2 = 'exchangerate';
-type main_float = 'taxrate';
-type main_radio = 'undepfunds';
-type main_ccvalidfrom = 'validfrom';
 
 // accountingbookdetail field types
 type accountingbookdetail_select = 'accountingbook';
@@ -1430,17 +1414,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_select | main_checkbox | main_currency | main_text | main_address | main_summary | main_ccexpdate | main_textarea | main_ccnumber | main_datetime | main_rate | main_emails | main_date | main_percent | main_currency2 | main_float | main_radio | main_ccvalidfrom;
+    fieldId: main_select | main_checkbox;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_checkbox | main_currency | main_text | main_address | main_summary | main_ccexpdate | main_textarea | main_ccnumber | main_datetime | main_rate | main_emails | main_date | main_percent | main_currency2 | main_float | main_radio | main_ccvalidfrom;
+    fieldId: main_select | main_checkbox;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_checkbox | main_currency | main_text | main_address | main_summary | main_ccexpdate | main_textarea | main_ccnumber | main_datetime | main_rate | main_emails | main_date | main_percent | main_currency2 | main_float | main_radio | main_ccvalidfrom;
+    fieldId: main_select | main_checkbox;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -1458,7 +1442,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_checkbox | main_currency | main_text | main_address | main_summary | main_ccexpdate | main_textarea | main_ccnumber | main_datetime | main_rate | main_emails | main_date | main_percent | main_currency2 | main_float | main_radio | main_ccvalidfrom;
+    fieldId: main_select | main_checkbox;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -1469,7 +1453,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_checkbox | main_currency | main_text | main_address | main_summary | main_ccexpdate | main_textarea | main_ccnumber | main_datetime | main_rate | main_emails | main_date | main_percent | main_currency2 | main_float | main_radio | main_ccvalidfrom;
+    fieldId: main_select | main_checkbox;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:

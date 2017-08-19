@@ -5,9 +5,6 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_select = 'class' | 'department' | 'location' | 'postingperiod' | 'subsidiary' | 'transferlocation';
 type main_datetime = 'createddate' | 'lastmodifieddate';
-type main_text = 'externalid' | 'memo' | 'tranid';
-type main_currency = 'total';
-type main_date = 'trandate';
 
 // inventory field types
 type inventory_posfloat = 'adjustqtyby';
@@ -228,17 +225,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_select | main_datetime | main_text | main_currency | main_date;
+    fieldId: main_select | main_datetime;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_datetime | main_text | main_currency | main_date;
+    fieldId: main_select | main_datetime;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_datetime | main_text | main_currency | main_date;
+    fieldId: main_select | main_datetime;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -256,7 +253,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_datetime | main_text | main_currency | main_date;
+    fieldId: main_select | main_datetime;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -267,7 +264,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_datetime | main_text | main_currency | main_date;
+    fieldId: main_select | main_datetime;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:

@@ -5,10 +5,6 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_textarea = 'description';
 type main_text = 'externalid' | 'fieldchangedfunction' | 'lineinitfunction' | 'name' | 'pageinitfunction' | 'postsourcingfunction' | 'recalcfunction' | 'saverecordfunction' | 'validatedeletefunction' | 'validatefieldfunction' | 'validateinsertfunction' | 'validatelinefunction';
-type main_checkbox = 'isinactive' | 'notifyadmins' | 'notifyowner' | 'notifyuser';
-type main_emails = 'notifyemails';
-type main_select = 'notifygroup' | 'owner' | 'scriptfile' | 'scripttype';
-type main_identifier = 'scriptid';
 
 
 interface AttachOptions {
@@ -55,17 +51,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_textarea | main_text | main_checkbox | main_emails | main_select | main_identifier;
+    fieldId: main_textarea | main_text;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_textarea | main_text | main_checkbox | main_emails | main_select | main_identifier;
+    fieldId: main_textarea | main_text;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_textarea | main_text | main_checkbox | main_emails | main_select | main_identifier;
+    fieldId: main_textarea | main_text;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -83,7 +79,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_textarea | main_text | main_checkbox | main_emails | main_select | main_identifier;
+    fieldId: main_textarea | main_text;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -94,7 +90,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_textarea | main_text | main_checkbox | main_emails | main_select | main_identifier;
+    fieldId: main_textarea | main_text;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:

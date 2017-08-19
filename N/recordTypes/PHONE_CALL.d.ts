@@ -5,12 +5,6 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_checkbox = 'accesslevel' | 'sendemail' | 'timedevent';
 type main_select = 'assigned' | 'company' | 'contact' | 'customform' | 'endtimepicker' | 'priority' | 'reminderminutes' | 'remindertype' | 'starttimepicker' | 'status' | 'supportcase' | 'transaction';
-type main_date = 'completeddate' | 'startdate';
-type main_datetime = 'createddate' | 'lastmodifieddate';
-type main_text = 'enddate' | 'externalid' | 'group' | 'owner' | 'timezone' | 'title';
-type main_timeofday = 'endtime' | 'starttime';
-type main_textarea = 'message';
-type main_phone = 'phone';
 
 // timeitem field types
 type timeitem_select = 'class' | 'customer' | 'department' | 'employee' | 'item' | 'location' | 'payrollitem' | 'price' | 'timetype';
@@ -234,17 +228,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_checkbox | main_select | main_date | main_datetime | main_text | main_timeofday | main_textarea | main_phone;
+    fieldId: main_checkbox | main_select;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_checkbox | main_select | main_date | main_datetime | main_text | main_timeofday | main_textarea | main_phone;
+    fieldId: main_checkbox | main_select;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_checkbox | main_select | main_date | main_datetime | main_text | main_timeofday | main_textarea | main_phone;
+    fieldId: main_checkbox | main_select;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -262,7 +256,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_checkbox | main_select | main_date | main_datetime | main_text | main_timeofday | main_textarea | main_phone;
+    fieldId: main_checkbox | main_select;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -273,7 +267,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_checkbox | main_select | main_date | main_datetime | main_text | main_timeofday | main_textarea | main_phone;
+    fieldId: main_checkbox | main_select;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:

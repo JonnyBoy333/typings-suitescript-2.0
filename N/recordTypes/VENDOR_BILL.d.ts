@@ -5,12 +5,6 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_select = 'account' | 'approvalstatus' | 'billaddresslist' | 'class' | 'currency' | 'customform' | 'department' | 'entity' | 'entitynexus' | 'location' | 'nextapprover' | 'nexus' | 'postingperiod' | 'subsidiary' | 'terms';
 type main_currency = 'availablevendorcredit' | 'creditlimit' | 'discountamount' | 'total' | 'usertotal';
-type main_text = 'balance' | 'currencyname' | 'currencysymbol' | 'documentstatus' | 'externalid' | 'memo' | 'received' | 'status' | 'statusRef' | 'tranid' | 'transactionnumber' | 'unbilledorders';
-type main_summary = 'billingaddress';
-type main_datetime = 'createddate' | 'lastmodifieddate';
-type main_date = 'discountdate' | 'duedate' | 'trandate';
-type main_currency2 = 'exchangerate';
-type main_checkbox = 'isbasecurrency' | 'landedcostperline' | 'paymenthold';
 
 // accountingbookdetail field types
 type accountingbookdetail_select = 'accountingbook';
@@ -529,17 +523,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_select | main_currency | main_text | main_summary | main_datetime | main_date | main_currency2 | main_checkbox;
+    fieldId: main_select | main_currency;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_currency | main_text | main_summary | main_datetime | main_date | main_currency2 | main_checkbox;
+    fieldId: main_select | main_currency;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_currency | main_text | main_summary | main_datetime | main_date | main_currency2 | main_checkbox;
+    fieldId: main_select | main_currency;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -557,7 +551,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_currency | main_text | main_summary | main_datetime | main_date | main_currency2 | main_checkbox;
+    fieldId: main_select | main_currency;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -568,7 +562,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_currency | main_text | main_summary | main_datetime | main_date | main_currency2 | main_checkbox;
+    fieldId: main_select | main_currency;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:

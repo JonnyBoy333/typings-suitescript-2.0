@@ -5,15 +5,6 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_integer = 'amortizationperiod';
 type main_select = 'amortizationtemplate' | 'billingschedule' | 'class' | 'costcategory' | 'costestimatetype' | 'createrevenueplanson' | 'customform' | 'deferralaccount' | 'deferredrevenueaccount' | 'department' | 'expenseaccount' | 'incomeaccount' | 'intercoexpenseaccount' | 'intercoincomeaccount' | 'issueproduct' | 'itemoptions' | 'itemrevenuecategory' | 'location' | 'matrixtype' | 'overallquantitypricingtype' | 'overheadtype' | 'parent' | 'pricinggroup' | 'purchaseunit' | 'quantitypricingschedule' | 'revenueallocationgroup' | 'revenuerecognitionrule' | 'revrecschedule' | 'saleunit' | 'softdescriptor' | 'subsidiary' | 'taxschedule' | 'unitstype' | 'vsoedeferral' | 'vsoepermitdiscount' | 'vsoesopgroup';
-type main_checkbox = 'availabletopartners' | 'deferrevrec' | 'enforceminqtyinternally' | 'generateaccruals' | 'includechildren' | 'isfulfillable' | 'isgcocompliant' | 'isinactive' | 'isonline' | 'mossapplies' | 'offersupport' | 'usemarginalrates' | 'vsoedelivered';
-type main_currency2 = 'cost' | 'vsoeprice';
-type main_currency = 'costestimate';
-type main_text = 'costunits' | 'currency' | 'displayname' | 'externalid' | 'itemid' | 'itemtype' | 'minimumquantityunits' | 'subtype' | 'upccode' | 'vendorname';
-type main_datetime = 'createddate' | 'lastmodifieddate';
-type main_textarea = 'matrixitemnametemplate' | 'purchasedescription' | 'salesdescription';
-type main_posinteger = 'minimumquantity';
-type main_posfloat = 'purchaseorderamount' | 'purchaseorderquantity' | 'purchaseorderquantitydiff' | 'receiptamount' | 'receiptquantity' | 'receiptquantitydiff';
-type main_rate = 'residual';
 
 // accountingbookdetail field types
 type accountingbookdetail_select = 'amortizationtemplate' | 'revrecschedule';
@@ -807,17 +798,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_integer | main_select | main_checkbox | main_currency2 | main_currency | main_text | main_datetime | main_textarea | main_posinteger | main_posfloat | main_rate;
+    fieldId: main_integer | main_select;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_integer | main_select | main_checkbox | main_currency2 | main_currency | main_text | main_datetime | main_textarea | main_posinteger | main_posfloat | main_rate;
+    fieldId: main_integer | main_select;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_integer | main_select | main_checkbox | main_currency2 | main_currency | main_text | main_datetime | main_textarea | main_posinteger | main_posfloat | main_rate;
+    fieldId: main_integer | main_select;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -835,7 +826,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_integer | main_select | main_checkbox | main_currency2 | main_currency | main_text | main_datetime | main_textarea | main_posinteger | main_posfloat | main_rate;
+    fieldId: main_integer | main_select;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -846,7 +837,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_integer | main_select | main_checkbox | main_currency2 | main_currency | main_text | main_datetime | main_textarea | main_posinteger | main_posfloat | main_rate;
+    fieldId: main_integer | main_select;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:

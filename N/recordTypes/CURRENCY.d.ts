@@ -5,8 +5,6 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_text = 'currencyformatsample' | 'displaysymbol' | 'externalid' | 'name' | 'symbol';
 type main_select = 'currencyprecision' | 'symbolplacement';
-type main_currency2 = 'exchangerate';
-type main_checkbox = 'includeinfxrateupdates' | 'isbasecurrency' | 'isinactive' | 'overridecurrencyformat';
 
 
 interface AttachOptions {
@@ -53,17 +51,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_text | main_select | main_currency2 | main_checkbox;
+    fieldId: main_text | main_select;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_select | main_currency2 | main_checkbox;
+    fieldId: main_text | main_select;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_select | main_currency2 | main_checkbox;
+    fieldId: main_text | main_select;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -81,7 +79,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_select | main_currency2 | main_checkbox;
+    fieldId: main_text | main_select;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -92,7 +90,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_select | main_currency2 | main_checkbox;
+    fieldId: main_text | main_select;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:

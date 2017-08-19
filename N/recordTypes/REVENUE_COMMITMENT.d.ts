@@ -5,14 +5,6 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_select = 'accountingbook' | 'billaddresslist' | 'class' | 'couponcode' | 'createdfrom' | 'currency' | 'customform' | 'department' | 'discountitem' | 'entity' | 'entitynexus' | 'job' | 'location' | 'nexus' | 'opportunity' | 'partner' | 'postingperiod' | 'promocode' | 'salesgroup' | 'salesrep' | 'shipaddresslist' | 'subsidiary';
 type main_text = 'billaddr1' | 'billaddr2' | 'billaddr3' | 'billaddressee' | 'billattention' | 'billcity' | 'billcountry' | 'billisresidential' | 'billphone' | 'billstate' | 'billzip' | 'currencyname' | 'currencysymbol' | 'externalid' | 'fob' | 'linkedtrackingnumbers' | 'memo' | 'muccpromocodeinstance' | 'otherrefnum' | 'promocodepluginimpl' | 'returntrackingnumbers' | 'revenuestatus' | 'shipaddr1' | 'shipaddr2' | 'shipaddr3' | 'shipaddressee' | 'shipattention' | 'shipcity' | 'shipcountry' | 'shipisresidential' | 'shipoverride' | 'shipphone' | 'shipstate' | 'shipzip' | 'source' | 'trackingnumbers' | 'tranid';
-type main_address = 'billaddress' | 'shipaddress';
-type main_summary = 'billingaddress' | 'shippingaddress';
-type main_datetime = 'createddate' | 'lastmodifieddate';
-type main_currency = 'deferredrevenue' | 'discountamount' | 'discounttotal' | 'recognizedrevenue' | 'subtotal' | 'total';
-type main_date = 'discountdate' | 'enddate' | 'startdate' | 'trandate';
-type main_rate = 'discountrate';
-type main_currency2 = 'exchangerate';
-type main_checkbox = 'isbasecurrency' | 'syncpartnerteams' | 'syncsalesteams' | 'tranisvsoebundle' | 'vsoeautocalc';
 
 // accountingbookdetail field types
 type accountingbookdetail_select = 'accountingbook';
@@ -677,17 +669,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_select | main_text | main_address | main_summary | main_datetime | main_currency | main_date | main_rate | main_currency2 | main_checkbox;
+    fieldId: main_select | main_text;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_text | main_address | main_summary | main_datetime | main_currency | main_date | main_rate | main_currency2 | main_checkbox;
+    fieldId: main_select | main_text;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_text | main_address | main_summary | main_datetime | main_currency | main_date | main_rate | main_currency2 | main_checkbox;
+    fieldId: main_select | main_text;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -705,7 +697,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_text | main_address | main_summary | main_datetime | main_currency | main_date | main_rate | main_currency2 | main_checkbox;
+    fieldId: main_select | main_text;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -716,7 +708,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_text | main_address | main_summary | main_datetime | main_currency | main_date | main_rate | main_currency2 | main_checkbox;
+    fieldId: main_select | main_text;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:

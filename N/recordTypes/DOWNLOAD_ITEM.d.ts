@@ -5,12 +5,6 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_checkbox = 'availabletopartners' | 'deferrevrec' | 'dontshowprice' | 'excludefromsitemap' | 'immediatedownload' | 'includechildren' | 'isdonationitem' | 'isfulfillable' | 'isgcocompliant' | 'isinactive' | 'isonline' | 'mossapplies' | 'offersupport' | 'showdefaultdonationamount' | 'usemarginalrates' | 'vsoedelivered';
 type main_select = 'billingschedule' | 'class' | 'costestimatetype' | 'createrevenueplanson' | 'customform' | 'deferredrevenueaccount' | 'department' | 'incomeaccount' | 'issueproduct' | 'itemoptions' | 'itemrevenuecategory' | 'location' | 'outofstockbehavior' | 'overallquantitypricingtype' | 'parent' | 'pricinggroup' | 'quantitypricingschedule' | 'revenueallocationgroup' | 'revenuerecognitionrule' | 'revrecschedule' | 'sitemappriority' | 'storedisplayimage' | 'storedisplaythumbnail' | 'storeitemtemplate' | 'subsidiary' | 'taxschedule' | 'vsoedeferral' | 'vsoepermitdiscount' | 'vsoesopgroup';
-type main_currency = 'costestimate';
-type main_datetime = 'createddate' | 'lastmodifieddate';
-type main_integer = 'daysbeforeexpiration' | 'internalid' | 'numofalloweddownloads';
-type main_text = 'displayname' | 'externalid' | 'itemid' | 'itemtype' | 'nopricemessage' | 'storedisplayname' | 'subtype' | 'upccode';
-type main_textarea = 'featureddescription' | 'metataghtml' | 'outofstockmessage' | 'pagetitle' | 'relateditemsdescription' | 'salesdescription' | 'searchkeywords' | 'storedescription' | 'storedetaileddescription' | 'urlcomponent';
-type main_currency2 = 'maxdonationamount' | 'vsoeprice';
 
 // accountingbookdetail field types
 type accountingbookdetail_select = 'revrecschedule';
@@ -949,17 +943,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_checkbox | main_select | main_currency | main_datetime | main_integer | main_text | main_textarea | main_currency2;
+    fieldId: main_checkbox | main_select;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_checkbox | main_select | main_currency | main_datetime | main_integer | main_text | main_textarea | main_currency2;
+    fieldId: main_checkbox | main_select;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_checkbox | main_select | main_currency | main_datetime | main_integer | main_text | main_textarea | main_currency2;
+    fieldId: main_checkbox | main_select;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -977,7 +971,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_checkbox | main_select | main_currency | main_datetime | main_integer | main_text | main_textarea | main_currency2;
+    fieldId: main_checkbox | main_select;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -988,7 +982,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_checkbox | main_select | main_currency | main_datetime | main_integer | main_text | main_textarea | main_currency2;
+    fieldId: main_checkbox | main_select;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:

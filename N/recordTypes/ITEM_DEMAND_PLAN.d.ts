@@ -5,9 +5,6 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_text = 'alternatesourceitem' | 'externalid' | 'memo' | 'projectioninterval' | 'projectionmethod';
 type main_integer = 'analysisduration' | 'projectionduration';
-type main_select = 'customform' | 'demandplancalendartype' | 'item' | 'location' | 'month' | 'subsidiary' | 'units';
-type main_date = 'enddate' | 'projectionstartdate' | 'startdate';
-type main_year = 'year';
 
 // demandplandetail field types
 type demandplandetail_date = 'enddate' | 'startdate';
@@ -226,17 +223,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_text | main_integer | main_select | main_date | main_year;
+    fieldId: main_text | main_integer;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_integer | main_select | main_date | main_year;
+    fieldId: main_text | main_integer;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_integer | main_select | main_date | main_year;
+    fieldId: main_text | main_integer;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -254,7 +251,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_integer | main_select | main_date | main_year;
+    fieldId: main_text | main_integer;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -265,7 +262,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_integer | main_select | main_date | main_year;
+    fieldId: main_text | main_integer;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:

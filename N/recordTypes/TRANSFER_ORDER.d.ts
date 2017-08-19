@@ -5,13 +5,6 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_currency = 'althandlingcost' | 'altshippingcost' | 'handlingcost' | 'shippingcost' | 'subtotal' | 'total';
 type main_select = 'class' | 'createdfrom' | 'currency' | 'customform' | 'department' | 'employee' | 'entitynexus' | 'location' | 'nexus' | 'orderstatus' | 'shipaddresslist' | 'shipmethod' | 'subsidiary' | 'transferlocation';
-type main_datetime = 'createddate' | 'lastmodifieddate';
-type main_text = 'currencyname' | 'currencysymbol' | 'externalid' | 'fob' | 'linkedtrackingnumbers' | 'memo' | 'returntrackingnumbers' | 'shipaddr1' | 'shipaddr2' | 'shipaddr3' | 'shipaddressee' | 'shipattention' | 'shipcity' | 'shipcountry' | 'shipisresidential' | 'shipoverride' | 'shipphone' | 'shippingcostoverridden' | 'shipstate' | 'shipzip' | 'source' | 'status' | 'statusRef' | 'trackingnumbers' | 'tranid';
-type main_currency2 = 'exchangerate';
-type main_checkbox = 'firmed' | 'isbasecurrency' | 'shipcomplete' | 'useitemcostastransfercost';
-type main_address = 'shipaddress';
-type main_date = 'shipdate' | 'trandate';
-type main_summary = 'shippingaddress';
 
 // accountingbookdetail field types
 type accountingbookdetail_select = 'accountingbook';
@@ -382,17 +375,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_currency | main_select | main_datetime | main_text | main_currency2 | main_checkbox | main_address | main_date | main_summary;
+    fieldId: main_currency | main_select;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_currency | main_select | main_datetime | main_text | main_currency2 | main_checkbox | main_address | main_date | main_summary;
+    fieldId: main_currency | main_select;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_currency | main_select | main_datetime | main_text | main_currency2 | main_checkbox | main_address | main_date | main_summary;
+    fieldId: main_currency | main_select;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -410,7 +403,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_currency | main_select | main_datetime | main_text | main_currency2 | main_checkbox | main_address | main_date | main_summary;
+    fieldId: main_currency | main_select;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -421,7 +414,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_currency | main_select | main_datetime | main_text | main_currency2 | main_checkbox | main_address | main_date | main_summary;
+    fieldId: main_currency | main_select;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
