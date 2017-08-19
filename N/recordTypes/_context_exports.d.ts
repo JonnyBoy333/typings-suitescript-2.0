@@ -13498,3 +13498,4 @@ export namespace onActionContext {
         newRecord: VENDOR_CATEGORY_REC;
         oldRecord: VENDOR_CATEGORY_REC;
     }
+}
