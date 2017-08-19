@@ -456,12 +456,6 @@ export interface Record extends ClientCurrentRecord {
     toString(): string;
 }
 
-// export { SalesOrder as SalesOrder }
-
-// export { PurchaseOrder as PurchaseOrder }
-
-// export { INVENTORY_COUNT as INVENTORY_COUNT }
-
 interface SubmitConfig {
     /** Indicates whether to enable sourcing during the record update. Defaults to true. */
     enableSourcing?: boolean;
