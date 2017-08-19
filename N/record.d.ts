@@ -427,10 +427,10 @@ export interface ClientCurrentRecord {
     setMatrixSublistValue(options: SetSublistValueOptions): Record;
     /** Sets the value of the field by a text representation. */
     setText(options: SetFieldTextOptions): void;
-    setText(fieldId: string, value: string): void;
+    //setText(fieldId: string, value: string): void;
     /** Sets the value of a field. */
     setValue(options: ClientSetValueOptions): void;
-    setValue(fieldId: string, value: FieldValue): void;
+    //setValue(fieldId: string, value: FieldValue): void;
     /** The record type. */
     type: Type | string;
 }
