@@ -3,8 +3,6 @@ import * as N_portlet from './portlet';
 import * as N_record from './record';
 import * as N_search from './search';
 import * as N_ui_serverWidget from './ui/serverWidget';
-import * as recordTypes from './recordTypes';
-import * as testing from './testing';
 import { 
     fieldChangedContext as fieldChangedContextAlias,
     lineInitContext as lineInitContextAlias,
