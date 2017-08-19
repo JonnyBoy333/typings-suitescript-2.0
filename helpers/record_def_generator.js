@@ -601,7 +601,11 @@ export interface ${recordType} extends Record {
 `;
             }
             fileTxt +=
-`    /** Returns the text representation of a field value. */
+`    /** Sets the value of the field by a text representation. */
+    setText(options: SetFieldTextOptions): void;
+    /** Sets the value of a field. */
+    setValue(options: ClientSetValueOptions): void;
+    /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string | string[];
     //getText(fieldId: string): string | string[];
     /** Returns the value of a field. */
