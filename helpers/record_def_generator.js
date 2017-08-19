@@ -102,7 +102,7 @@ function createDefinitionFile(url, cb) {
             const mainFieldsTxt = mainFields.length === 1 ?
                 `main_${mainFields[0].field_type}` :
                 mainFields.reduce((txt, val, i, arr) => {
-                    if (arr.length = 2) {
+                    if (arr.length === 2) {
                         return `main_${txt.field_type} | main_${val.field_type}`;
                     } else if (i === arr.length - 1) {
                         return `${txt}main_${val.field_type}`;
