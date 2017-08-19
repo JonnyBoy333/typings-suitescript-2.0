@@ -89,7 +89,7 @@ function createDefinitionFile(url, cb) {
                     // console.log(names);
                 }
             }
-            console.log('Main Fields', mainFields);
+            // console.log('Main Fields', mainFields);
             if (!mainFields) {
                 console.log('No Main Fields', url);
                 cb();
@@ -110,7 +110,7 @@ function createDefinitionFile(url, cb) {
                         return i === 1 ? `main_${txt.field_type} | main_${val.field_type} | ` : `${txt}main_${val.field_type} | `;
                     }
                 });
-            console.log('Main Field Text', mainFieldsTxt);
+            // console.log('Main Field Text', mainFieldsTxt);
             // Concatenates fields into one string
             function concatTopFields(fieldArr, sublist) {
                 let txt = '';
