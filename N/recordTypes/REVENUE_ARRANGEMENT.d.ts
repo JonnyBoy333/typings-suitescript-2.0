@@ -5,6 +5,9 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_select = 'accountingbook' | 'class' | 'department' | 'location' | 'subsidiary';
 type main_checkbox = 'compliant' | 'contrevhandlingtriggered' | 'tranisvsoebundle';
+type main_text = 'memo' | 'transactionnumber';
+type main_currency = 'totalallocationamount' | 'totalrevenueamount' | 'totalsellingamount';
+type main_date = 'trandate';
 
 
 interface AttachOptions {
@@ -51,17 +54,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_select | main_checkbox;
+    fieldId: main_select | main_checkbox | main_text | main_currency | main_date;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_checkbox;
+    fieldId: main_select | main_checkbox | main_text | main_currency | main_date;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_checkbox;
+    fieldId: main_select | main_checkbox | main_text | main_currency | main_date;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -79,7 +82,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_checkbox;
+    fieldId: main_select | main_checkbox | main_text | main_currency | main_date;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -90,7 +93,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_checkbox;
+    fieldId: main_select | main_checkbox | main_text | main_currency | main_date;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -193,6 +196,10 @@ interface RecordSaveFunction {
 
 // Exported for other modules to be able to consume this type
 export interface REVENUE_ARRANGEMENT extends Record {
+    /** Sets the value of the field by a text representation. */
+    setText(options: SetFieldTextOptions): void;
+    /** Sets the value of a field. */
+    setValue(options: ClientSetValueOptions): void;
     /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string | string[];
     //getText(fieldId: string): string | string[];

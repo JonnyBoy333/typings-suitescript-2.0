@@ -5,6 +5,13 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_email = 'altemail' | 'email';
 type main_select = 'assistant' | 'category' | 'company' | 'contactsource' | 'customform' | 'globalsubscriptionstatus' | 'image' | 'otherrelationships' | 'subsidiary' | 'supervisor' | 'unsubscribe';
+type main_phone = 'assistantphone' | 'fax' | 'homephone' | 'mobilephone' | 'officephone' | 'phone' | 'supervisorphone';
+type main_text = 'billaddr1' | 'billaddr2' | 'billaddr3' | 'billcity' | 'billcountry' | 'billstate' | 'billzip' | 'entityid' | 'externalid' | 'firstname' | 'lastname' | 'middlename' | 'phoneticname' | 'salutation' | 'title';
+type main_textarea = 'comments';
+type main_integer = 'contactrole' | 'owner';
+type main_datetime = 'datecreated' | 'lastmodifieddate';
+type main_address = 'defaultaddress';
+type main_checkbox = 'isinactive' | 'isprivate';
 
 // addressbook field types
 type addressbook_text = 'addr1' | 'addr2' | 'addr3' | 'addressee' | 'addressid' | 'attention' | 'city' | 'displaystate' | 'label' | 'state' | 'zip';
@@ -227,17 +234,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_email | main_select;
+    fieldId: main_email | main_select | main_phone | main_text | main_textarea | main_integer | main_datetime | main_address | main_checkbox;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_email | main_select;
+    fieldId: main_email | main_select | main_phone | main_text | main_textarea | main_integer | main_datetime | main_address | main_checkbox;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_email | main_select;
+    fieldId: main_email | main_select | main_phone | main_text | main_textarea | main_integer | main_datetime | main_address | main_checkbox;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -255,7 +262,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_email | main_select;
+    fieldId: main_email | main_select | main_phone | main_text | main_textarea | main_integer | main_datetime | main_address | main_checkbox;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -266,7 +273,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_email | main_select;
+    fieldId: main_email | main_select | main_phone | main_text | main_textarea | main_integer | main_datetime | main_address | main_checkbox;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -436,6 +443,10 @@ export interface CONTACT extends Record {
     selectNewLine(options: RecordGetLineCountOptions): void;
     /** Returns all the field names in a sublist. */
     getSublistFields(options: RecordGetLineCountOptions): string[];
+    /** Sets the value of the field by a text representation. */
+    setText(options: SetFieldTextOptions): void;
+    /** Sets the value of a field. */
+    setValue(options: ClientSetValueOptions): void;
     /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string | string[];
     //getText(fieldId: string): string | string[];

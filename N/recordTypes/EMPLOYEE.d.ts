@@ -5,6 +5,15 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_text = 'accountnumber' | 'aliennumber' | 'billaddr1' | 'billaddr2' | 'billaddr3' | 'billcity' | 'billcountry' | 'billstate' | 'billzip' | 'btemplate' | 'empcenterqty' | 'empcenterqtymax' | 'entityid' | 'externalid' | 'firstname' | 'fulluserqty' | 'fulluserqtymax' | 'initials' | 'isempcenterqtyenforced' | 'isfulluserqtyenforced' | 'isretailuserqtyenforced' | 'jurisdiction1display' | 'jurisdiction2display' | 'jurisdiction3display' | 'jurisdiction4display' | 'jurisdiction5display' | 'lastname' | 'middlename' | 'phoneticname' | 'retailuserqty' | 'retailuserqtymax' | 'salutation' | 'strength' | 'title' | 'wasempcenterhasaccess' | 'wasfulluserhasaccess' | 'wasinactive' | 'wasretailuserhasaccess';
 type main_currency = 'approvallimit' | 'expenselimit' | 'laborcost' | 'purchaseorderapprovallimit' | 'purchaseorderlimit';
+type main_select = 'approver' | 'billingclass' | 'class' | 'commissionpaymentpreference' | 'currency' | 'customform' | 'department' | 'employeestatus' | 'employeetype' | 'ethnicity' | 'gender' | 'globalsubscriptionstatus' | 'image' | 'location' | 'maritalstatus' | 'payfrequency' | 'purchaseorderapprover' | 'residentstatus' | 'salesrole' | 'subsidiary' | 'supervisor' | 'timeapprover' | 'unsubscribe' | 'usetimedata' | 'visatype' | 'workcalendar' | 'workplace';
+type main_date = 'authworkdate' | 'birthdate' | 'hiredate' | 'lastpaiddate' | 'lastreviewdate' | 'nextreviewdate' | 'releasedate' | 'visaexpdate';
+type main_checkbox = 'autoname' | 'billpay' | 'directdeposit' | 'eligibleforcommission' | 'giveaccess' | 'hasofflineaccess' | 'i9verified' | 'inheritiprules' | 'isinactive' | 'isjobresource' | 'issalesrep' | 'issupportrep' | 'requirepwdchange' | 'sendemail' | 'terminationbydeath' | 'useperquest';
+type main_textarea = 'comments' | 'ipaddressrule' | 'jobdescription';
+type main_datetime = 'datecreated' | 'lastmodifieddate';
+type main_address = 'defaultaddress';
+type main_email = 'email';
+type main_phone = 'fax' | 'homephone' | 'mobilephone' | 'officephone' | 'phone';
+type main_ssnumber = 'socialsecuritynumber';
 
 // accruedtime field types
 type accruedtime_select = 'accrualmethod' | 'payrollitem';
@@ -1100,17 +1109,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_text | main_currency;
+    fieldId: main_text | main_currency | main_select | main_date | main_checkbox | main_textarea | main_datetime | main_address | main_email | main_phone | main_ssnumber;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_currency;
+    fieldId: main_text | main_currency | main_select | main_date | main_checkbox | main_textarea | main_datetime | main_address | main_email | main_phone | main_ssnumber;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_currency;
+    fieldId: main_text | main_currency | main_select | main_date | main_checkbox | main_textarea | main_datetime | main_address | main_email | main_phone | main_ssnumber;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -1128,7 +1137,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_currency;
+    fieldId: main_text | main_currency | main_select | main_date | main_checkbox | main_textarea | main_datetime | main_address | main_email | main_phone | main_ssnumber;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -1139,7 +1148,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_currency;
+    fieldId: main_text | main_currency | main_select | main_date | main_checkbox | main_textarea | main_datetime | main_address | main_email | main_phone | main_ssnumber;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -1309,6 +1318,10 @@ export interface EMPLOYEE extends Record {
     selectNewLine(options: RecordGetLineCountOptions): void;
     /** Returns all the field names in a sublist. */
     getSublistFields(options: RecordGetLineCountOptions): string[];
+    /** Sets the value of the field by a text representation. */
+    setText(options: SetFieldTextOptions): void;
+    /** Sets the value of a field. */
+    setValue(options: ClientSetValueOptions): void;
     /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string | string[];
     //getText(fieldId: string): string | string[];

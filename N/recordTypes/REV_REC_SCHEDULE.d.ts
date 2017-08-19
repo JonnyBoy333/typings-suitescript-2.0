@@ -5,6 +5,10 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_integer = 'amortizationperiod' | 'periodoffset' | 'revrecoffset';
 type main_select = 'amortizationtype' | 'job' | 'recogintervalsrc' | 'recurrencetype';
+type main_text = 'externalid' | 'name';
+type main_rate = 'initialamount';
+type main_checkbox = 'isinactive' | 'ispublic';
+type main_currency2 = 'totalamount';
 
 // recurrence field types
 type recurrence_select = 'incomeaccount';
@@ -224,17 +228,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_integer | main_select;
+    fieldId: main_integer | main_select | main_text | main_rate | main_checkbox | main_currency2;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_integer | main_select;
+    fieldId: main_integer | main_select | main_text | main_rate | main_checkbox | main_currency2;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_integer | main_select;
+    fieldId: main_integer | main_select | main_text | main_rate | main_checkbox | main_currency2;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -252,7 +256,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_integer | main_select;
+    fieldId: main_integer | main_select | main_text | main_rate | main_checkbox | main_currency2;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -263,7 +267,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_integer | main_select;
+    fieldId: main_integer | main_select | main_text | main_rate | main_checkbox | main_currency2;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -433,6 +437,10 @@ export interface REV_REC_SCHEDULE extends Record {
     selectNewLine(options: RecordGetLineCountOptions): void;
     /** Returns all the field names in a sublist. */
     getSublistFields(options: RecordGetLineCountOptions): string[];
+    /** Sets the value of the field by a text representation. */
+    setText(options: SetFieldTextOptions): void;
+    /** Sets the value of a field. */
+    setValue(options: ClientSetValueOptions): void;
     /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string | string[];
     //getText(fieldId: string): string | string[];

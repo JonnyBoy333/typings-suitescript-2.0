@@ -5,6 +5,10 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_select = 'accountingperiod' | 'author' | 'direction' | 'entity' | 'folder' | 'item' | 'media' | 'notetype' | 'record' | 'recordtype' | 'topic' | 'transaction';
 type main_text = 'externalid' | 'title';
+type main_datetime = 'lastmodifieddate';
+type main_textarea = 'note';
+type main_date = 'notedate';
+type main_timeofday = 'time';
 
 
 interface AttachOptions {
@@ -51,17 +55,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_select | main_text;
+    fieldId: main_select | main_text | main_datetime | main_textarea | main_date | main_timeofday;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_text;
+    fieldId: main_select | main_text | main_datetime | main_textarea | main_date | main_timeofday;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_text;
+    fieldId: main_select | main_text | main_datetime | main_textarea | main_date | main_timeofday;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -79,7 +83,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_text;
+    fieldId: main_select | main_text | main_datetime | main_textarea | main_date | main_timeofday;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -90,7 +94,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_text;
+    fieldId: main_select | main_text | main_datetime | main_textarea | main_date | main_timeofday;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -193,6 +197,10 @@ interface RecordSaveFunction {
 
 // Exported for other modules to be able to consume this type
 export interface NOTE extends Record {
+    /** Sets the value of the field by a text representation. */
+    setText(options: SetFieldTextOptions): void;
+    /** Sets the value of a field. */
+    setValue(options: ClientSetValueOptions): void;
     /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string | string[];
     //getText(fieldId: string): string | string[];

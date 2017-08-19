@@ -5,6 +5,10 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_text = 'deletefunction' | 'externalid' | 'getfunction' | 'name' | 'postfunction' | 'putfunction';
 type main_textarea = 'description';
+type main_checkbox = 'isinactive' | 'notifyadmins' | 'notifyowner' | 'notifyuser';
+type main_emails = 'notifyemails';
+type main_select = 'notifygroup' | 'owner' | 'scriptfile' | 'scripttype';
+type main_identifier = 'scriptid';
 
 
 interface AttachOptions {
@@ -51,17 +55,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_text | main_textarea;
+    fieldId: main_text | main_textarea | main_checkbox | main_emails | main_select | main_identifier;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_textarea;
+    fieldId: main_text | main_textarea | main_checkbox | main_emails | main_select | main_identifier;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_textarea;
+    fieldId: main_text | main_textarea | main_checkbox | main_emails | main_select | main_identifier;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -79,7 +83,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_textarea;
+    fieldId: main_text | main_textarea | main_checkbox | main_emails | main_select | main_identifier;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -90,7 +94,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_textarea;
+    fieldId: main_text | main_textarea | main_checkbox | main_emails | main_select | main_identifier;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -193,6 +197,10 @@ interface RecordSaveFunction {
 
 // Exported for other modules to be able to consume this type
 export interface RESTLET extends Record {
+    /** Sets the value of the field by a text representation. */
+    setText(options: SetFieldTextOptions): void;
+    /** Sets the value of a field. */
+    setValue(options: ClientSetValueOptions): void;
     /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string | string[];
     //getText(fieldId: string): string | string[];

@@ -5,6 +5,11 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_select = 'account' | 'accounthandling' | 'countries' | 'site' | 'states' | 'subsidiary' | 'taxschedule' | 'taxschedulehandling';
 type main_radio = 'costbasis' | 'handlingcost';
+type main_textarea = 'description';
+type main_text = 'displayname' | 'doifarrangement' | 'externalid' | 'integratedlabelsarrangement' | 'invt_dispname' | 'itemid' | 'itemtype' | 'restrictionarrangement' | 'shipitemcurrency';
+type main_checkbox = 'doiftotal' | 'doifweight' | 'excludecountries' | 'excludesites' | 'hasmaximumshippingcost' | 'hasminimumshippingcost' | 'isfreeifordertotalisover' | 'ishandlingbyweightbracketed' | 'isinactive' | 'isonline' | 'isshippingbyweightbracketed' | 'needsallfreeshippingitems' | 'returnsintegrated' | 'shipperintegrated';
+type main_float = 'fedexdiscountrate' | 'handlingbyweightperquantity' | 'shippingbyweightperquantity' | 'upsdiscountrate' | 'uspsdiscountrate';
+type main_currency = 'handlingperitemamount' | 'shippingperitemamount';
 
 // handlingtable field types
 type handlingtable_currency = 'handlingtablecharge' | 'handlingtablerangevalue';
@@ -651,17 +656,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_select | main_radio;
+    fieldId: main_select | main_radio | main_textarea | main_text | main_checkbox | main_float | main_currency;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_radio;
+    fieldId: main_select | main_radio | main_textarea | main_text | main_checkbox | main_float | main_currency;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_radio;
+    fieldId: main_select | main_radio | main_textarea | main_text | main_checkbox | main_float | main_currency;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -679,7 +684,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_radio;
+    fieldId: main_select | main_radio | main_textarea | main_text | main_checkbox | main_float | main_currency;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -690,7 +695,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_radio;
+    fieldId: main_select | main_radio | main_textarea | main_text | main_checkbox | main_float | main_currency;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -860,6 +865,10 @@ export interface SHIP_ITEM extends Record {
     selectNewLine(options: RecordGetLineCountOptions): void;
     /** Returns all the field names in a sublist. */
     getSublistFields(options: RecordGetLineCountOptions): string[];
+    /** Sets the value of the field by a text representation. */
+    setText(options: SetFieldTextOptions): void;
+    /** Sets the value of a field. */
+    setValue(options: ClientSetValueOptions): void;
     /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string | string[];
     //getText(fieldId: string): string | string[];

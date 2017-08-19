@@ -5,6 +5,15 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_text = 'actionitem' | 'altsalestotal' | 'billaddr1' | 'billaddr2' | 'billaddr3' | 'billaddressee' | 'billattention' | 'billcity' | 'billcountry' | 'billisresidential' | 'billphone' | 'billstate' | 'billzip' | 'currencyname' | 'currencysymbol' | 'documentstatus' | 'externalid' | 'shipaddr1' | 'shipaddr2' | 'shipaddr3' | 'shipaddressee' | 'shipattention' | 'shipcity' | 'shipcountry' | 'shipisresidential' | 'shipoverride' | 'shipphone' | 'shipstate' | 'shipzip' | 'source' | 'status' | 'statusRef' | 'title' | 'total' | 'tranid';
 type main_currency = 'altsalesrangehigh' | 'altsalesrangelow' | 'balance' | 'consolidatebalance' | 'estgrossprofit' | 'estimatedbudget' | 'projaltsalesamt' | 'projectedtotal' | 'rangehigh' | 'rangelow' | 'totalcostestimate' | 'unbilledorders' | 'weightedtotal';
+type main_address = 'billaddress' | 'shipaddress';
+type main_select = 'billaddresslist' | 'buyingreason' | 'buyingtimeframe' | 'class' | 'currency' | 'customform' | 'department' | 'entity' | 'entitynexus' | 'entitystatus' | 'forecasttype' | 'job' | 'leadsource' | 'location' | 'nexus' | 'partner' | 'salesgroup' | 'salesreadiness' | 'salesrep' | 'shipaddresslist' | 'subsidiary' | 'winlossreason';
+type main_summary = 'billingaddress' | 'shippingaddress';
+type main_datetime = 'createddate' | 'lastmodifieddate';
+type main_percent = 'estgrossprofitpercent' | 'probability';
+type main_currency2 = 'exchangerate' | 'onetime' | 'recurannually' | 'recurmonthly' | 'recurquarterly' | 'recurweekly';
+type main_date = 'expectedclosedate' | 'trandate';
+type main_checkbox = 'isbasecurrency' | 'isbudgetapproved' | 'syncpartnerteams' | 'syncsalesteams';
+type main_textarea = 'memo';
 
 // accountingbookdetail field types
 type accountingbookdetail_select = 'accountingbook';
@@ -814,17 +823,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_text | main_currency;
+    fieldId: main_text | main_currency | main_address | main_select | main_summary | main_datetime | main_percent | main_currency2 | main_date | main_checkbox | main_textarea;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_currency;
+    fieldId: main_text | main_currency | main_address | main_select | main_summary | main_datetime | main_percent | main_currency2 | main_date | main_checkbox | main_textarea;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_currency;
+    fieldId: main_text | main_currency | main_address | main_select | main_summary | main_datetime | main_percent | main_currency2 | main_date | main_checkbox | main_textarea;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -842,7 +851,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_currency;
+    fieldId: main_text | main_currency | main_address | main_select | main_summary | main_datetime | main_percent | main_currency2 | main_date | main_checkbox | main_textarea;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -853,7 +862,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_currency;
+    fieldId: main_text | main_currency | main_address | main_select | main_summary | main_datetime | main_percent | main_currency2 | main_date | main_checkbox | main_textarea;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -1023,6 +1032,10 @@ export interface OPPORTUNITY extends Record {
     selectNewLine(options: RecordGetLineCountOptions): void;
     /** Returns all the field names in a sublist. */
     getSublistFields(options: RecordGetLineCountOptions): string[];
+    /** Sets the value of the field by a text representation. */
+    setText(options: SetFieldTextOptions): void;
+    /** Sets the value of a field. */
+    setValue(options: ClientSetValueOptions): void;
     /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string | string[];
     //getText(fieldId: string): string | string[];

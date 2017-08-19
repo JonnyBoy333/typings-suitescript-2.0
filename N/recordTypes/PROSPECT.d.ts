@@ -5,6 +5,19 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_select = 'accessrole' | 'buyingreason' | 'buyingtimeframe' | 'campaigncategory' | 'category' | 'contact' | 'creditholdoverride' | 'currency' | 'customform' | 'defaultbankaccount' | 'draccount' | 'emailpreference' | 'entitystatus' | 'fxaccount' | 'globalsubscriptionstatus' | 'image' | 'language' | 'leadsource' | 'monthlyclosing' | 'negativenumberformat' | 'numberformat' | 'openingbalanceaccount' | 'otherrelationships' | 'parent' | 'partner' | 'prefccprocessor' | 'pricelevel' | 'receivablesaccount' | 'salesreadiness' | 'subsidiary' | 'taxfractionunit' | 'taxitem' | 'taxrounding' | 'terms' | 'territory' | 'unsubscribe';
 type main_text = 'accountnumber' | 'billaddr1' | 'billaddr2' | 'billaddr3' | 'billcity' | 'billcountry' | 'billstate' | 'billzip' | 'clickstream' | 'companyname' | 'currencyprecision' | 'entityid' | 'externalid' | 'firstname' | 'isjob' | 'keywords' | 'lastname' | 'lastpagevisited' | 'middlename' | 'phoneticname' | 'printoncheckas' | 'referrer' | 'resalenumber' | 'salutation' | 'stage' | 'strength' | 'title' | 'vatregnumber' | 'weblead';
+type main_email = 'altemail' | 'email';
+type main_phone = 'altphone' | 'fax' | 'homephone' | 'mobilephone' | 'phone';
+type main_checkbox = 'autoname' | 'billpay' | 'emailtransactions' | 'faxtransactions' | 'giveaccess' | 'isbudgetapproved' | 'isinactive' | 'printtransactions' | 'sendemail' | 'syncpartnerteams' | 'syncsalesteams' | 'taxable';
+type main_currency = 'balance' | 'consolbalance' | 'consoldepositbalance' | 'consoloverduebalance' | 'consolunbilledorders' | 'depositbalance' | 'estimatedbudget' | 'openingbalance' | 'overduebalance' | 'unbilledorders';
+type main_textarea = 'comments';
+type main_integer = 'consoldaysoverdue' | 'daysoverdue' | 'salesrep' | 'visits';
+type main_poscurrency = 'creditlimit';
+type main_datetime = 'datecreated' | 'firstvisit' | 'lastmodifieddate' | 'lastvisit';
+type main_address = 'defaultaddress';
+type main_radio = 'isperson';
+type main_date = 'openingbalancedate' | 'startdate';
+type main_percent = 'probability';
+type main_url = 'url';
 
 // addressbook field types
 type addressbook_text = 'addr1' | 'addr2' | 'addr3' | 'addressee' | 'addressid' | 'attention' | 'city' | 'displaystate' | 'label' | 'state' | 'zip';
@@ -1245,17 +1258,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_select | main_text;
+    fieldId: main_select | main_text | main_email | main_phone | main_checkbox | main_currency | main_textarea | main_integer | main_poscurrency | main_datetime | main_address | main_radio | main_date | main_percent | main_url;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_text;
+    fieldId: main_select | main_text | main_email | main_phone | main_checkbox | main_currency | main_textarea | main_integer | main_poscurrency | main_datetime | main_address | main_radio | main_date | main_percent | main_url;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_text;
+    fieldId: main_select | main_text | main_email | main_phone | main_checkbox | main_currency | main_textarea | main_integer | main_poscurrency | main_datetime | main_address | main_radio | main_date | main_percent | main_url;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -1273,7 +1286,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_text;
+    fieldId: main_select | main_text | main_email | main_phone | main_checkbox | main_currency | main_textarea | main_integer | main_poscurrency | main_datetime | main_address | main_radio | main_date | main_percent | main_url;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -1284,7 +1297,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_text;
+    fieldId: main_select | main_text | main_email | main_phone | main_checkbox | main_currency | main_textarea | main_integer | main_poscurrency | main_datetime | main_address | main_radio | main_date | main_percent | main_url;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -1454,6 +1467,10 @@ export interface PROSPECT extends Record {
     selectNewLine(options: RecordGetLineCountOptions): void;
     /** Returns all the field names in a sublist. */
     getSublistFields(options: RecordGetLineCountOptions): string[];
+    /** Sets the value of the field by a text representation. */
+    setText(options: SetFieldTextOptions): void;
+    /** Sets the value of a field. */
+    setValue(options: ClientSetValueOptions): void;
     /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string | string[];
     //getText(fieldId: string): string | string[];

@@ -5,6 +5,16 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_select = 'account' | 'ccavsstreetmatch' | 'ccavszipmatch' | 'cciavsmatch' | 'ccsecuritycodematch' | 'class' | 'creditcard' | 'creditcardprocessor' | 'currency' | 'customer' | 'customform' | 'department' | 'entitynexus' | 'location' | 'nexus' | 'paymenteventholdreason' | 'paymenteventresult' | 'paymentmethod' | 'postingperiod' | 'salesorder' | 'subsidiary';
 type main_checkbox = 'allowemptycards' | 'ccapproved' | 'ccispurchasecardbin' | 'chargeit' | 'ignoreavs' | 'ignorecsc' | 'isbasecurrency' | 'isrecurringpayment' | 'overridehold' | 'overrideholdchecked' | 'tobeemailed';
+type main_text = 'authcode' | 'cchold' | 'ccname' | 'ccprocessoraccount' | 'ccsecuritycode' | 'ccstreet' | 'cczipcode' | 'checknum' | 'currencyname' | 'currencysymbol' | 'customercode' | 'debitcardissueno' | 'externalid' | 'inputpnrefnum' | 'ispurchasecard' | 'memo' | 'paymenteventpurchasedatasent' | 'paymenteventtype' | 'paymenteventupdatedby' | 'pnrefnum' | 'softdescriptor' | 'status' | 'statusRef' | 'threedstatuscode' | 'tranid';
+type main_ccexpdate = 'ccexpiredate';
+type main_textarea = 'ccholdetails';
+type main_ccnumber = 'ccnumber';
+type main_datetime = 'createddate' | 'lastmodifieddate' | 'paymenteventdate';
+type main_currency2 = 'exchangerate';
+type main_poscurrency = 'payment';
+type main_date = 'trandate';
+type main_radio = 'undepfunds';
+type main_ccvalidfrom = 'validfrom';
 
 // accountingbookdetail field types
 type accountingbookdetail_select = 'accountingbook';
@@ -222,17 +232,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_select | main_checkbox;
+    fieldId: main_select | main_checkbox | main_text | main_ccexpdate | main_textarea | main_ccnumber | main_datetime | main_currency2 | main_poscurrency | main_date | main_radio | main_ccvalidfrom;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_checkbox;
+    fieldId: main_select | main_checkbox | main_text | main_ccexpdate | main_textarea | main_ccnumber | main_datetime | main_currency2 | main_poscurrency | main_date | main_radio | main_ccvalidfrom;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_checkbox;
+    fieldId: main_select | main_checkbox | main_text | main_ccexpdate | main_textarea | main_ccnumber | main_datetime | main_currency2 | main_poscurrency | main_date | main_radio | main_ccvalidfrom;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -250,7 +260,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_checkbox;
+    fieldId: main_select | main_checkbox | main_text | main_ccexpdate | main_textarea | main_ccnumber | main_datetime | main_currency2 | main_poscurrency | main_date | main_radio | main_ccvalidfrom;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -261,7 +271,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_checkbox;
+    fieldId: main_select | main_checkbox | main_text | main_ccexpdate | main_textarea | main_ccnumber | main_datetime | main_currency2 | main_poscurrency | main_date | main_radio | main_ccvalidfrom;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -431,6 +441,10 @@ export interface CUSTOMER_DEPOSIT extends Record {
     selectNewLine(options: RecordGetLineCountOptions): void;
     /** Returns all the field names in a sublist. */
     getSublistFields(options: RecordGetLineCountOptions): string[];
+    /** Sets the value of the field by a text representation. */
+    setText(options: SetFieldTextOptions): void;
+    /** Sets the value of a field. */
+    setValue(options: ClientSetValueOptions): void;
     /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string | string[];
     //getText(fieldId: string): string | string[];

@@ -5,6 +5,17 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_currency = 'althandlingcost' | 'altsalestotal' | 'altshippingcost' | 'balance' | 'consolidatebalance' | 'discounttotal' | 'estgrossprofit' | 'handlingcost' | 'shippingcost' | 'subtotal' | 'taxtotal' | 'total' | 'totalcostestimate' | 'unbilledorders';
 type main_text = 'billaddr1' | 'billaddr2' | 'billaddr3' | 'billaddressee' | 'billattention' | 'billcity' | 'billcountry' | 'billisresidential' | 'billphone' | 'billstate' | 'billzip' | 'currencyname' | 'currencysymbol' | 'externalid' | 'fob' | 'handlingtax1rate' | 'includeinforecasthigh' | 'includeinforecastlow' | 'linkedtrackingnumbers' | 'memo' | 'muccpromocodeinstance' | 'otherrefnum' | 'promocodepluginimpl' | 'returntrackingnumbers' | 'shipaddr1' | 'shipaddr2' | 'shipaddr3' | 'shipaddressee' | 'shipattention' | 'shipcity' | 'shipcountry' | 'shipisresidential' | 'shipoverride' | 'shipphone' | 'shippingcostoverridden' | 'shippingtax1rate' | 'shipstate' | 'shipzip' | 'source' | 'status' | 'statusRef' | 'title' | 'trackingnumbers' | 'tranid';
+type main_address = 'billaddress' | 'shipaddress';
+type main_select = 'billaddresslist' | 'billingschedule' | 'class' | 'couponcode' | 'createdfrom' | 'currency' | 'customform' | 'department' | 'discountitem' | 'entity' | 'entitynexus' | 'entitystatus' | 'forecasttype' | 'handlingtaxcode' | 'job' | 'leadsource' | 'location' | 'messagesel' | 'nexus' | 'opportunity' | 'partner' | 'promocode' | 'salesgroup' | 'salesrep' | 'shipaddresslist' | 'shipmethod' | 'shippingtaxcode' | 'subsidiary' | 'terms';
+type main_summary = 'billingaddress' | 'shippingaddress';
+type main_datetime = 'createddate' | 'lastmodifieddate';
+type main_rate = 'discountrate';
+type main_date = 'duedate' | 'enddate' | 'expectedclosedate' | 'shipdate' | 'startdate' | 'trandate';
+type main_emails = 'email';
+type main_percent = 'estgrossprofitpercent' | 'probability';
+type main_currency2 = 'exchangerate' | 'onetime' | 'recurannually' | 'recurmonthly' | 'recurquarterly' | 'recurweekly';
+type main_checkbox = 'isbasecurrency' | 'ismultishipto' | 'istaxable' | 'syncpartnerteams' | 'syncsalesteams' | 'tobeemailed' | 'tobefaxed' | 'tobeprinted' | 'visibletocustomer';
+type main_textarea = 'message';
 
 // accountingbookdetail field types
 type accountingbookdetail_select = 'accountingbook';
@@ -961,17 +972,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_currency | main_text;
+    fieldId: main_currency | main_text | main_address | main_select | main_summary | main_datetime | main_rate | main_date | main_emails | main_percent | main_currency2 | main_checkbox | main_textarea;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_currency | main_text;
+    fieldId: main_currency | main_text | main_address | main_select | main_summary | main_datetime | main_rate | main_date | main_emails | main_percent | main_currency2 | main_checkbox | main_textarea;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_currency | main_text;
+    fieldId: main_currency | main_text | main_address | main_select | main_summary | main_datetime | main_rate | main_date | main_emails | main_percent | main_currency2 | main_checkbox | main_textarea;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -989,7 +1000,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_currency | main_text;
+    fieldId: main_currency | main_text | main_address | main_select | main_summary | main_datetime | main_rate | main_date | main_emails | main_percent | main_currency2 | main_checkbox | main_textarea;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -1000,7 +1011,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_currency | main_text;
+    fieldId: main_currency | main_text | main_address | main_select | main_summary | main_datetime | main_rate | main_date | main_emails | main_percent | main_currency2 | main_checkbox | main_textarea;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -1170,6 +1181,10 @@ export interface ESTIMATE extends Record {
     selectNewLine(options: RecordGetLineCountOptions): void;
     /** Returns all the field names in a sublist. */
     getSublistFields(options: RecordGetLineCountOptions): string[];
+    /** Sets the value of the field by a text representation. */
+    setText(options: SetFieldTextOptions): void;
+    /** Sets the value of a field. */
+    setValue(options: ClientSetValueOptions): void;
     /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string | string[];
     //getText(fieldId: string): string | string[];

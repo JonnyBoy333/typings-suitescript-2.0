@@ -5,6 +5,17 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_integer = 'amortizationperiod' | 'ebayitemlots' | 'internalid' | 'numactivelistings' | 'numcurrentlylisted' | 'primarycategory' | 'secondarycategory' | 'storecategory' | 'storecategory2';
 type main_select = 'amortizationtemplate' | 'auctiontype' | 'billingschedule' | 'class' | 'costcategory' | 'costestimatetype' | 'createrevenueplanson' | 'customform' | 'deferralaccount' | 'deferredrevenueaccount' | 'department' | 'ebayhandlingtime' | 'ebayintlshipinsurance' | 'ebayintlshippingitem1' | 'ebayintlshippingitem2' | 'ebayintlshippingitem3' | 'ebaylayout' | 'ebaypackagetype' | 'ebaypagecounter' | 'ebayrelistingoption' | 'ebaytheme' | 'ebaythemegroup' | 'expenseaccount' | 'imageslocation' | 'incomeaccount' | 'intercoexpenseaccount' | 'intercoincomeaccount' | 'issueproduct' | 'itemcondition' | 'itemoptions' | 'itemrevenuecategory' | 'itemshipinsurance' | 'listingduration' | 'listingstarttime' | 'location' | 'matrixtype' | 'outofstockbehavior' | 'overheadtype' | 'parent' | 'pricinggroup' | 'purchaseunit' | 'refundgivenas' | 'returnpolicy' | 'returnshippingpaidby' | 'returnswithin' | 'revenueallocationgroup' | 'revenuerecognitionrule' | 'revrecschedule' | 'saleunit' | 'shippingitem1' | 'shippingitem2' | 'shippingitem3' | 'sitemappriority' | 'softdescriptor' | 'storedisplayimage' | 'storedisplaythumbnail' | 'storeitemtemplate' | 'subsidiary' | 'taxschedule' | 'unitstype' | 'vsoedeferral' | 'vsoepermitdiscount' | 'vsoesopgroup';
+type main_posinteger = 'auctionquantity' | 'minimumquantity' | 'packageheight' | 'packagelength' | 'packagewidth';
+type main_checkbox = 'availabletopartners' | 'createjob' | 'deferrevrec' | 'displayinebaystore' | 'dontshowprice' | 'ebayisirregularpackage' | 'endauctionswhenoutofstock' | 'enforceminqtyinternally' | 'excludefromsitemap' | 'gallery' | 'galleryfeatured' | 'generateaccruals' | 'gifttypeexpressship' | 'gifttypegiftwrap' | 'gifttypeshiptorecipient' | 'includechildren' | 'isdonationitem' | 'isfulfillable' | 'isgcocompliant' | 'isinactive' | 'isonline' | 'manufacturingchargeitem' | 'mossapplies' | 'offersupport' | 'sellonebay' | 'shipasia' | 'shipaustralia' | 'shipcanada' | 'shipeurope' | 'shipgermany' | 'shipjapan' | 'shipmexico' | 'shipnorthsouthamerica' | 'shipuk' | 'shipworldwide' | 'showasgift' | 'showdefaultdonationamount' | 'supersizeimages' | 'taxable' | 'vsoedelivered';
+type main_currency = 'buyitnowprice' | 'costestimate' | 'ebayintlinsurancefee' | 'ebayintlpackagehandlingfee' | 'itemhandlingfee' | 'iteminsurancefee' | 'reserveprice' | 'shippingrate1' | 'shippingrate2' | 'shippingrate3' | 'startingprice';
+type main_text = 'conditionenabled' | 'conditionhelpurl' | 'costunits' | 'currency' | 'displayname' | 'ebayitemlocdisplay' | 'ebayitemloczipcode' | 'ebayitemsubtitle' | 'ebayitemtitle' | 'externalid' | 'handlinggroup' | 'imagesgroup' | 'itemid' | 'itemtype' | 'minimumquantityunits' | 'nopricemessage' | 'primarycatdisplayname' | 'secondarycatdisplayname' | 'shippingdomesticmethodsgroup' | 'shippingdomgroup' | 'shippingintlgroup' | 'shippingintlgroup1' | 'shippingintlgroup2' | 'shippingintlgroup3' | 'shippinglocationsgroup' | 'shippingpackaginggroup' | 'storecatdisplayname' | 'storecatdisplayname2' | 'storedisplayname' | 'subtype' | 'templatesgroup' | 'upccode' | 'vendorname';
+type main_currency2 = 'cost' | 'maxdonationamount' | 'vsoeprice';
+type main_datetime = 'createddate' | 'lastmodifieddate';
+type main_radio = 'ebayisintlcalculatedrate' | 'iscalculatedrate' | 'listimmediate' | 'standardimages' | 'willship';
+type main_textarea = 'ebayitemdescription' | 'featureddescription' | 'matrixitemnametemplate' | 'metataghtml' | 'outofstockmessage' | 'pagetitle' | 'purchasedescription' | 'relateditemsdescription' | 'returnpolicydetails' | 'salesdescription' | 'searchkeywords' | 'storedescription' | 'storedetaileddescription' | 'urlcomponent';
+type main_posfloat = 'ebayitemweightamt' | 'purchaseorderamount' | 'purchaseorderquantity' | 'purchaseorderquantitydiff' | 'receiptamount' | 'receiptquantity' | 'receiptquantitydiff';
+type main_date = 'listingstartdate';
+type main_rate = 'residual';
 
 // accountingbookdetail field types
 type accountingbookdetail_select = 'amortizationtemplate' | 'revrecschedule';
@@ -943,17 +954,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_integer | main_select;
+    fieldId: main_integer | main_select | main_posinteger | main_checkbox | main_currency | main_text | main_currency2 | main_datetime | main_radio | main_textarea | main_posfloat | main_date | main_rate;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_integer | main_select;
+    fieldId: main_integer | main_select | main_posinteger | main_checkbox | main_currency | main_text | main_currency2 | main_datetime | main_radio | main_textarea | main_posfloat | main_date | main_rate;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_integer | main_select;
+    fieldId: main_integer | main_select | main_posinteger | main_checkbox | main_currency | main_text | main_currency2 | main_datetime | main_radio | main_textarea | main_posfloat | main_date | main_rate;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -971,7 +982,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_integer | main_select;
+    fieldId: main_integer | main_select | main_posinteger | main_checkbox | main_currency | main_text | main_currency2 | main_datetime | main_radio | main_textarea | main_posfloat | main_date | main_rate;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -982,7 +993,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_integer | main_select;
+    fieldId: main_integer | main_select | main_posinteger | main_checkbox | main_currency | main_text | main_currency2 | main_datetime | main_radio | main_textarea | main_posfloat | main_date | main_rate;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -1152,6 +1163,10 @@ export interface SERVICE_ITEM extends Record {
     selectNewLine(options: RecordGetLineCountOptions): void;
     /** Returns all the field names in a sublist. */
     getSublistFields(options: RecordGetLineCountOptions): string[];
+    /** Sets the value of the field by a text representation. */
+    setText(options: SetFieldTextOptions): void;
+    /** Sets the value of a field. */
+    setValue(options: ClientSetValueOptions): void;
     /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string | string[];
     //getText(fieldId: string): string | string[];

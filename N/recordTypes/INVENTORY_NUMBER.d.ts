@@ -5,6 +5,8 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_DATE = 'expirationdate';
 type main_text = 'externalid' | 'inventorynumber' | 'status';
+type main_textarea = 'memo';
+type main_SELECT = 'units';
 
 // Locations field types
 type Locations_SELECT = 'location';
@@ -222,17 +224,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_DATE | main_text;
+    fieldId: main_DATE | main_text | main_textarea | main_SELECT;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_DATE | main_text;
+    fieldId: main_DATE | main_text | main_textarea | main_SELECT;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_DATE | main_text;
+    fieldId: main_DATE | main_text | main_textarea | main_SELECT;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -250,7 +252,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_DATE | main_text;
+    fieldId: main_DATE | main_text | main_textarea | main_SELECT;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -261,7 +263,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_DATE | main_text;
+    fieldId: main_DATE | main_text | main_textarea | main_SELECT;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -431,6 +433,10 @@ export interface INVENTORY_NUMBER extends Record {
     selectNewLine(options: RecordGetLineCountOptions): void;
     /** Returns all the field names in a sublist. */
     getSublistFields(options: RecordGetLineCountOptions): string[];
+    /** Sets the value of the field by a text representation. */
+    setText(options: SetFieldTextOptions): void;
+    /** Sets the value of a field. */
+    setValue(options: ClientSetValueOptions): void;
     /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string | string[];
     //getText(fieldId: string): string | string[];

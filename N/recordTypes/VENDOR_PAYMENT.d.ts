@@ -5,6 +5,12 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_select = 'account' | 'apacct' | 'class' | 'currency' | 'customform' | 'department' | 'entity' | 'entitynexus' | 'location' | 'nexus' | 'postingperiod' | 'subsidiary';
 type main_address = 'address';
+type main_currency = 'balance' | 'total' | 'unapplied';
+type main_checkbox = 'billpay' | 'isbasecurrency' | 'printvoucher' | 'toach' | 'tobeemailed' | 'tobeprinted';
+type main_datetime = 'createddate' | 'lastmodifieddate';
+type main_text = 'currencyname' | 'currencysymbol' | 'externalid' | 'memo' | 'status' | 'statusRef' | 'tranid' | 'transactionnumber';
+type main_currency2 = 'exchangerate';
+type main_date = 'trandate';
 
 // accountingbookdetail field types
 type accountingbookdetail_select = 'accountingbook';
@@ -370,17 +376,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_select | main_address;
+    fieldId: main_select | main_address | main_currency | main_checkbox | main_datetime | main_text | main_currency2 | main_date;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_address;
+    fieldId: main_select | main_address | main_currency | main_checkbox | main_datetime | main_text | main_currency2 | main_date;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_address;
+    fieldId: main_select | main_address | main_currency | main_checkbox | main_datetime | main_text | main_currency2 | main_date;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -398,7 +404,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_address;
+    fieldId: main_select | main_address | main_currency | main_checkbox | main_datetime | main_text | main_currency2 | main_date;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -409,7 +415,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_address;
+    fieldId: main_select | main_address | main_currency | main_checkbox | main_datetime | main_text | main_currency2 | main_date;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -579,6 +585,10 @@ export interface VENDOR_PAYMENT extends Record {
     selectNewLine(options: RecordGetLineCountOptions): void;
     /** Returns all the field names in a sublist. */
     getSublistFields(options: RecordGetLineCountOptions): string[];
+    /** Sets the value of the field by a text representation. */
+    setText(options: SetFieldTextOptions): void;
+    /** Sets the value of a field. */
+    setValue(options: ClientSetValueOptions): void;
     /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string | string[];
     //getText(fieldId: string): string | string[];

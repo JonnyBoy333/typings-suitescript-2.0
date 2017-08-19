@@ -192,6 +192,10 @@ interface RecordSaveFunction {
 
 // Exported for other modules to be able to consume this type
 export interface ACCOUNTING_CONTEXT extends Record {
+    /** Sets the value of the field by a text representation. */
+    setText(options: SetFieldTextOptions): void;
+    /** Sets the value of a field. */
+    setValue(options: ClientSetValueOptions): void;
     /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string | string[];
     //getText(fieldId: string): string | string[];

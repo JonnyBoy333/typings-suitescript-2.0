@@ -5,6 +5,12 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_text = 'addr1' | 'addr2' | 'addr3' | 'addressee' | 'attention' | 'city' | 'externalid' | 'name' | 'returnaddress1' | 'returnaddress2' | 'returncity' | 'returnzip' | 'state' | 'tranprefix' | 'zip';
 type main_phone = 'addrphone';
+type main_address = 'addrtext' | 'returnaddr';
+type main_select = 'autoassignmentregionsetting' | 'country' | 'locationtype' | 'logo' | 'parent' | 'returncountry' | 'returnstate' | 'subsidiary' | 'timezone';
+type main_integer = 'bufferstock' | 'dailyshippingcapacity' | 'totalshippingcapacity';
+type main_radio = 'geolocationmethod';
+type main_checkbox = 'isinactive' | 'makeinventoryavailable' | 'makeinventoryavailablestore' | 'override' | 'usebins';
+type main_float = 'latitude' | 'longitude';
 
 // excludelocationregions field types
 type excludelocationregions_text = 'name';
@@ -368,17 +374,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_text | main_phone;
+    fieldId: main_text | main_phone | main_address | main_select | main_integer | main_radio | main_checkbox | main_float;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_phone;
+    fieldId: main_text | main_phone | main_address | main_select | main_integer | main_radio | main_checkbox | main_float;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_phone;
+    fieldId: main_text | main_phone | main_address | main_select | main_integer | main_radio | main_checkbox | main_float;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -396,7 +402,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_phone;
+    fieldId: main_text | main_phone | main_address | main_select | main_integer | main_radio | main_checkbox | main_float;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -407,7 +413,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_phone;
+    fieldId: main_text | main_phone | main_address | main_select | main_integer | main_radio | main_checkbox | main_float;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -577,6 +583,10 @@ export interface LOCATION extends Record {
     selectNewLine(options: RecordGetLineCountOptions): void;
     /** Returns all the field names in a sublist. */
     getSublistFields(options: RecordGetLineCountOptions): string[];
+    /** Sets the value of the field by a text representation. */
+    setText(options: SetFieldTextOptions): void;
+    /** Sets the value of a field. */
+    setValue(options: ClientSetValueOptions): void;
     /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string | string[];
     //getText(fieldId: string): string | string[];

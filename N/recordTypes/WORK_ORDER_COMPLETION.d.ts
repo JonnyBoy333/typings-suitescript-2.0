@@ -5,6 +5,12 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_select = 'class' | 'customform' | 'department' | 'endoperation' | 'item' | 'location' | 'manufacturingrouting' | 'postingperiod' | 'revision' | 'startoperation' | 'subsidiary' | 'units';
 type main_float = 'completedquantity' | 'orderquantity' | 'quantity' | 'scrapquantity' | 'unitcost';
+type main_datetime = 'createddate' | 'lastmodifieddate';
+type main_text = 'externalid' | 'memo' | 'revisionmemo' | 'taxperiod' | 'tranid';
+type main_summary = 'inventorydetail';
+type main_checkbox = 'isbackflush';
+type main_currency = 'total';
+type main_date = 'trandate';
 
 // accountingbookdetail field types
 type accountingbookdetail_select = 'accountingbook';
@@ -514,17 +520,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_select | main_float;
+    fieldId: main_select | main_float | main_datetime | main_text | main_summary | main_checkbox | main_currency | main_date;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_float;
+    fieldId: main_select | main_float | main_datetime | main_text | main_summary | main_checkbox | main_currency | main_date;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_float;
+    fieldId: main_select | main_float | main_datetime | main_text | main_summary | main_checkbox | main_currency | main_date;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -542,7 +548,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_float;
+    fieldId: main_select | main_float | main_datetime | main_text | main_summary | main_checkbox | main_currency | main_date;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -553,7 +559,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_select | main_float;
+    fieldId: main_select | main_float | main_datetime | main_text | main_summary | main_checkbox | main_currency | main_date;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -723,6 +729,10 @@ export interface WORK_ORDER_COMPLETION extends Record {
     selectNewLine(options: RecordGetLineCountOptions): void;
     /** Returns all the field names in a sublist. */
     getSublistFields(options: RecordGetLineCountOptions): string[];
+    /** Sets the value of the field by a text representation. */
+    setText(options: SetFieldTextOptions): void;
+    /** Sets the value of a field. */
+    setValue(options: ClientSetValueOptions): void;
     /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string | string[];
     //getText(fieldId: string): string | string[];

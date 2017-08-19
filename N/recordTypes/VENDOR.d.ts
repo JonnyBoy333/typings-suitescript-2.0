@@ -5,6 +5,19 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_text = 'accountnumber' | 'bcn' | 'billaddr1' | 'billaddr2' | 'billaddr3' | 'billcity' | 'billcountry' | 'billstate' | 'billzip' | 'companyname' | 'entityid' | 'externalid' | 'firstname' | 'lastname' | 'legalname' | 'middlename' | 'phoneticname' | 'printoncheckas' | 'salutation' | 'strength' | 'subsidiaryedition' | 'taxidnum' | 'title' | 'vatregnumber';
 type main_email = 'altemail' | 'email';
+type main_phone = 'altphone' | 'fax' | 'homephone' | 'mobilephone' | 'phone';
+type main_checkbox = 'autoname' | 'billpay' | 'emailtransactions' | 'faxtransactions' | 'giveaccess' | 'is1099eligible' | 'isinactive' | 'isjobresourcevend' | 'printtransactions' | 'requirepwdchange' | 'sendemail';
+type main_currency = 'balance' | 'balanceprimary' | 'laborcost' | 'openingbalance' | 'unbilledorders' | 'unbilledordersprimary';
+type main_select = 'category' | 'contact' | 'currency' | 'customform' | 'defaultbankaccount' | 'emailpreference' | 'expenseaccount' | 'globalsubscriptionstatus' | 'image' | 'incoterm' | 'openingbalanceaccount' | 'otherrelationships' | 'payablesaccount' | 'representingsubsidiary' | 'subsidiary' | 'taxfractionunit' | 'taxitem' | 'taxrounding' | 'terms' | 'unsubscribe' | 'workcalendar';
+type main_textarea = 'comments';
+type main_poscurrency = 'creditlimit';
+type main_datetime = 'datecreated' | 'lastmodifieddate';
+type main_address = 'defaultaddress';
+type main_radio = 'isperson';
+type main_date = 'openingbalancedate';
+type main_integer = 'parent' | 'tegatamaturity';
+type main_posfloat = 'purchaseorderamount' | 'purchaseorderquantity' | 'purchaseorderquantitydiff' | 'receiptamount' | 'receiptquantity' | 'receiptquantitydiff';
+type main_url = 'url';
 
 // addressbook field types
 type addressbook_text = 'addr1' | 'addr2' | 'addr3' | 'addressee' | 'addressid' | 'attention' | 'city' | 'displaystate' | 'label' | 'state' | 'zip';
@@ -371,17 +384,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_text | main_email;
+    fieldId: main_text | main_email | main_phone | main_checkbox | main_currency | main_select | main_textarea | main_poscurrency | main_datetime | main_address | main_radio | main_date | main_integer | main_posfloat | main_url;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_email;
+    fieldId: main_text | main_email | main_phone | main_checkbox | main_currency | main_select | main_textarea | main_poscurrency | main_datetime | main_address | main_radio | main_date | main_integer | main_posfloat | main_url;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_email;
+    fieldId: main_text | main_email | main_phone | main_checkbox | main_currency | main_select | main_textarea | main_poscurrency | main_datetime | main_address | main_radio | main_date | main_integer | main_posfloat | main_url;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -399,7 +412,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_email;
+    fieldId: main_text | main_email | main_phone | main_checkbox | main_currency | main_select | main_textarea | main_poscurrency | main_datetime | main_address | main_radio | main_date | main_integer | main_posfloat | main_url;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -410,7 +423,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_text | main_email;
+    fieldId: main_text | main_email | main_phone | main_checkbox | main_currency | main_select | main_textarea | main_poscurrency | main_datetime | main_address | main_radio | main_date | main_integer | main_posfloat | main_url;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -580,6 +593,10 @@ export interface VENDOR extends Record {
     selectNewLine(options: RecordGetLineCountOptions): void;
     /** Returns all the field names in a sublist. */
     getSublistFields(options: RecordGetLineCountOptions): string[];
+    /** Sets the value of the field by a text representation. */
+    setText(options: SetFieldTextOptions): void;
+    /** Sets the value of a field. */
+    setValue(options: ClientSetValueOptions): void;
     /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string | string[];
     //getText(fieldId: string): string | string[];

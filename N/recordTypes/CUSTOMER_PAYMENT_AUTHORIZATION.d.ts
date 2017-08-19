@@ -5,6 +5,16 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_checkbox = 'allowemptycards' | 'ccapproved' | 'getauth' | 'ignoreavs' | 'ignorecsc' | 'isbasecurrency' | 'isrecurringpayment' | 'overridehold' | 'overrideholdchecked';
 type main_text = 'authcode' | 'cchold' | 'ccname' | 'ccprocessoraccount' | 'ccsecuritycode' | 'ccstreet' | 'cczipcode' | 'currencyname' | 'currencysymbol' | 'customercode' | 'debitcardissueno' | 'externalid' | 'memo' | 'pnrefnum' | 'threedstatuscode' | 'tranid' | 'transactionnumber' | 'updatecurrency';
+type main_select = 'ccavsstreetmatch' | 'ccavszipmatch' | 'cciavsmatch' | 'ccsecuritycodematch' | 'class' | 'creditcard' | 'creditcardprocessor' | 'currency' | 'customer' | 'customform' | 'department' | 'location' | 'paymenteventholdreason' | 'paymenteventresult' | 'paymentmethod' | 'salesorder' | 'subsidiary';
+type main_ccexpdate = 'ccexpiredate';
+type main_textarea = 'ccholdetails';
+type main_ccnumber = 'ccnumber';
+type main_datetime = 'createddate' | 'lastmodifieddate';
+type main_currency2 = 'exchangerate';
+type main_poscurrency = 'payment';
+type main_url = 'redirecturl' | 'returnurl';
+type main_date = 'trandate';
+type main_ccvalidfrom = 'validfrom';
 
 
 interface AttachOptions {
@@ -51,17 +61,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_checkbox | main_text;
+    fieldId: main_checkbox | main_text | main_select | main_ccexpdate | main_textarea | main_ccnumber | main_datetime | main_currency2 | main_poscurrency | main_url | main_date | main_ccvalidfrom;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_checkbox | main_text;
+    fieldId: main_checkbox | main_text | main_select | main_ccexpdate | main_textarea | main_ccnumber | main_datetime | main_currency2 | main_poscurrency | main_url | main_date | main_ccvalidfrom;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_checkbox | main_text;
+    fieldId: main_checkbox | main_text | main_select | main_ccexpdate | main_textarea | main_ccnumber | main_datetime | main_currency2 | main_poscurrency | main_url | main_date | main_ccvalidfrom;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -79,7 +89,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_checkbox | main_text;
+    fieldId: main_checkbox | main_text | main_select | main_ccexpdate | main_textarea | main_ccnumber | main_datetime | main_currency2 | main_poscurrency | main_url | main_date | main_ccvalidfrom;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -90,7 +100,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_checkbox | main_text;
+    fieldId: main_checkbox | main_text | main_select | main_ccexpdate | main_textarea | main_ccnumber | main_datetime | main_currency2 | main_poscurrency | main_url | main_date | main_ccvalidfrom;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -193,6 +203,10 @@ interface RecordSaveFunction {
 
 // Exported for other modules to be able to consume this type
 export interface CUSTOMER_PAYMENT_AUTHORIZATION extends Record {
+    /** Sets the value of the field by a text representation. */
+    setText(options: SetFieldTextOptions): void;
+    /** Sets the value of a field. */
+    setValue(options: ClientSetValueOptions): void;
     /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string | string[];
     //getText(fieldId: string): string | string[];

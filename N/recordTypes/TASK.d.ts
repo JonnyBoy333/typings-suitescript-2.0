@@ -5,6 +5,13 @@ import { Sublist } from '../ui/serverWidget';
 // main field types
 type main_checkbox = 'accesslevel' | 'sendemail' | 'timedevent';
 type main_time = 'actualtime' | 'estimatedtime' | 'estimatedtimeoverride' | 'timeremaining';
+type main_select = 'assigned' | 'company' | 'contact' | 'customform' | 'endtimepicker' | 'milestone' | 'parent' | 'priority' | 'reminderminutes' | 'remindertype' | 'starttimepicker' | 'status' | 'supportcase' | 'transaction';
+type main_datetime = 'createddate' | 'lastmodifieddate';
+type main_date = 'duedate' | 'startdate';
+type main_text = 'enddate' | 'externalid' | 'group' | 'owner' | 'timezone' | 'title';
+type main_timeofday = 'endtime' | 'starttime';
+type main_textarea = 'message';
+type main_percent = 'percentcomplete' | 'percenttimecomplete';
 
 // timeitem field types
 type timeitem_select = 'class' | 'customer' | 'department' | 'employee' | 'item' | 'location' | 'payrollitem' | 'price' | 'timetype';
@@ -228,17 +235,17 @@ interface GetSelectOptionsOpts {
 
 interface HasSubrecordOptions {
     /** The internal ID of the field that may contain a subrecord. */
-    fieldId: main_checkbox | main_time;
+    fieldId: main_checkbox | main_time | main_select | main_datetime | main_date | main_text | main_timeofday | main_textarea | main_percent;
 }
 
 interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_checkbox | main_time;
+    fieldId: main_checkbox | main_time | main_select | main_datetime | main_date | main_text | main_timeofday | main_textarea | main_percent;
 }
 
 interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_checkbox | main_time;
+    fieldId: main_checkbox | main_time | main_select | main_datetime | main_date | main_text | main_timeofday | main_textarea | main_percent;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -256,7 +263,7 @@ interface SetValueOptions {
 
 interface SetFieldTextOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_checkbox | main_time;
+    fieldId: main_checkbox | main_time | main_select | main_datetime | main_date | main_text | main_timeofday | main_textarea | main_percent;
     /** The text to change the field value to. */
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
@@ -267,7 +274,7 @@ interface SetFieldTextOptions {
 
 interface ClientSetValueOptions {
     /** The internal ID of a standard or custom body field. */
-    fieldId: main_checkbox | main_time;
+    fieldId: main_checkbox | main_time | main_select | main_datetime | main_date | main_text | main_timeofday | main_textarea | main_percent;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -437,6 +444,10 @@ export interface TASK extends Record {
     selectNewLine(options: RecordGetLineCountOptions): void;
     /** Returns all the field names in a sublist. */
     getSublistFields(options: RecordGetLineCountOptions): string[];
+    /** Sets the value of the field by a text representation. */
+    setText(options: SetFieldTextOptions): void;
+    /** Sets the value of a field. */
+    setValue(options: ClientSetValueOptions): void;
     /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string | string[];
     //getText(fieldId: string): string | string[];
