@@ -581,7 +581,7 @@ export var transform: RecordTransformFunction;
  * N/record.Type enum
  *
  */
-export const enum Type {
+export declare enum Type {
 	ACCOUNT = 'account',
 	ACCOUNTING_BOOK = 'accountingbook',
 	ACCOUNTING_PERIOD = 'accountingperiod',
