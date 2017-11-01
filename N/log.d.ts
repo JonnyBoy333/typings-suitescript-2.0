@@ -1,5 +1,6 @@
 interface LogFunction {
     (title: string, details: any);
+    ({ title: string, details: any });
 }
 
 export var debug: LogFunction;
