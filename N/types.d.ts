@@ -238,7 +238,7 @@ export namespace EntryPoints {
         type reduce = (scriptContext?: reduceContext) => void;
 
         interface MapReduceIterator {
-            each(callback: (key: string, value: string) => void): void;
+            each(callback: (key: string, value: string) => boolean): void;
         }
         interface MapReduceIteratorContainer {
             iterator(): MapReduceIterator;
